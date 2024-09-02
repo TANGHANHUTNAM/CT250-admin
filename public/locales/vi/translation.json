@@ -1,0 +1,63 @@
+{
+  "PaymentPolicy": {
+    "title_page": "Chính sách thanh toán",
+    "content_1": "Khách hàng thanh toán trực tiếp tại cửa hàng",
+    "content_2": "+ Nhận quà tặng kèm",
+    "content_3": "+ Checkin tại cửa hàng Khách hàng thanh toán online",
+    "content_4": "+ Chuyển khoản trước khi nhận hàng",
+    "content_5": "+ Quà tặng kèm bất kỳ Khách hàng có nhu cầu khiếu nại, đổi trả sản phẩm do lỗi của Tonatra có thể liên hệ qua Hotline 0292 3831 530 để được hỗ trợ sớm nhất.",
+    "content_6": "Tư vấn viên sẽ hướng dẫn khách hàng các bước cần thiết để tiến hành trả thanh toán."
+  },
+  "Header": {
+    "Navbar": {
+      "close": "Đóng",
+      "home": "Trang chủ",
+      "introduce": "Giới thiệu",
+      "menu": "Menu",
+      "bestDish": "Món nổi bật",
+      "deliciousDish": "Món ngon mỗi ngày",
+      "news": "Tin tức",
+      "contact": "Liên hệ",
+      "booking": "Đặt bàn",
+      "login": "Đăng nhập",
+      "register": "Đăng ký",
+      "logout": "Đăng xuất",
+      "favoriteDish": "Món ăn yêu thích",
+      "search": "TÌM KIẾM MÓN ĂN CỦA BẠN:",
+      "inputSearch": "Nhập tên món ăn...",
+      "resultSearch": "KẾT QUẢ TÌM KIẾM"
+    }
+  },
+  "Footer": {
+    "introduce": "Nhà hàng chúng tôi luôn luôn đặt khách hàng lên hàng đầu, tận tâm phục vụ, mang lại cho khách hàng những trãi nghiệm tuyệt vời nhất. Các món ăn với công thức độc quyền sẽ mang lại hương vị mới mẻ cho thực khách. Tonatra xin chân thành cảm ơn.",
+    "branch": "Chi nhánh",
+    "address": "Địa chỉ",
+    "phone": "Điện thoại",
+    "email": "Email",
+    "title_instruct": "Hướng dẫn",
+    "instruct_1": "Hướng dẫn mua hàng",
+    "instruct_2": "Hướng dẫn thanh toán",
+    "instruct_3": "Đăng ký thành viên",
+    "instruct_4": "Hỗ trợ khách hàng",
+    "title_policy": "Chính sách",
+    "policy_1": "Chính sách thành viên",
+    "policy_2": "Chính sách thanh toán",
+    "policy_3": "Hướng dẫn mua hàng",
+    "policy_4": "Bảo mật thông tin",
+    "social": "Mạng xã hội",
+    "method_payment": "Hình thức thanh toán",
+    "copy_right": "Bản quyền | © 2024 Tonatra CTU Nhóm 4 CT250"
+  },
+  "Auth": {
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "username": "Tên người dùng",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "confirm_password": "Xác nhận mật khẩu",
+    "forgot_password": "Quên mật khẩu?",
+    "login_with": "Hoặc đăng nhập bằng",
+    "required": "{{label}} là bắt buộc",
+    "invalid": "{{label}} không hợp lệ"
+  }
+}
