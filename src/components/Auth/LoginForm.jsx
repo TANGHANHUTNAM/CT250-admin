@@ -1,18 +1,28 @@
 import * as yup from "yup";
+import logo from '../../assets/logo.png'
 import Input from "../inputs/Input";
 import PasswordInput from "../Inputs/PasswordInput";
 import { useAppForm } from "../../hooks";
 import { useTranslation } from "react-i18next";
-import logo from '../../assets/logo.png'
+import { login } from "../../services/authService";
+import StatusCodes from "../../utils/StatusCodes";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../redux/reducer/userSlice";
 
+// Error message là các key để translate đa ngôn ngữ và ở các component Input phải có props translation = true
 const loginFormSchema = yup
   .object({
-    email: yup.string().email("Invalid email").required("Email is required"),
+    email: yup
+      .string()
+      .email("Auth.invalid_email")
+      .required("Auth.required_email"),
     password: yup
       .string()
-      .min(6, "Password must be at least 6 characters")
-      .max(25, "Password must be at most 25 characters")
-      .required("Password is required."),
+      .min(6, "Auth.password_min")
+      .max(25, "Auth.password_max")
+      .required("Auth.required_password"),
   })
   .required();
 
@@ -24,20 +34,28 @@ const LoginForm = () => {
   } = useAppForm(loginFormSchema);
 
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleLogin = (data) => {
-    console.log(data);
+  const handleLogin = async (data) => {
+    const res = await login(data);
+
+    if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+      toast.success(res.EM);
+      dispatch(loginSuccess({ ...res.DT, avatar: res.DT?.avatar?.url }));
+      navigate("/");
+    }
+
+    if (res && res.EC === StatusCodes.ERROR_DEFAULT) {
+      toast.error(res.EM);
+    }
   };
 
   return (
     <div className="w-full">
       <div className="">
-        <img
-          src={logo}
-          className="mx-auto h-20 w-auto mb-5"
-          alt="logo"
-        />
-        <hr className="mb-5 "/>
+        <img src={logo} className="mx-auto h-20 w-auto mb-5" alt="logo" />
+        <hr className="mb-5 " />
       </div>
       <p className="text-center text-primary text-2xl font-semibold mb-6 uppercase">
         {t("Auth.login")}

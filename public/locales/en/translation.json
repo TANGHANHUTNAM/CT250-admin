@@ -60,15 +60,16 @@
     "required": "{{label}} is required",
     "invalid": "Invalid {{label}}"
   },
-  "Home": {
-    "accountInfo": "Account Information",
-    "employeeManagement": "Employee  Account Management",
-    "foodCategoryManagement": "Food Category Management",
-    "dishManagement": "Dish Management",
-    "orderManagement": "Order Management",
-    "reservationManagement": "Reservation Management",
-    "statistics": "Statistics",
-    "setting": "Setting",
-    "logout": "Logout"
+  "Home":{
+    "accountInfo":"Account Info",
+    "employeeManagement":"Employee  Account Management",
+    "foodCategoryManagement":"Food Category Management",
+    "dishManagement":"Dish Management",
+    "orderManagement":"Order Management",
+    "reservationManagement":"Reservation Management",
+    "statistics":"Statistics",
+    "setting":"Setting",
+    "logout":"Logout",
+    "position": "Position"
   }
 }
