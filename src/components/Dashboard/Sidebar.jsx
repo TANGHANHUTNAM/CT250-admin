@@ -25,10 +25,10 @@ const Sidebar = ({ setActiveTab }) => {
 
   return (
     <div
-      className={`bg-bgPrimary text-white !h-full ${isCollapsed ? "w-20" : "w-3/12"
+      className={`bg-bgPrimary text-white !h-full ${isCollapsed ? "w-16" : ""
         } transition-width duration-300`}
     >
-      <div className="p-3 flex items-center justify-between hover:bg-gray-500 transition duration-200" onClick={toggleSidebar}>
+      <div className={`flex items-center justify-between hover:bg-gray-500 transition duration-200 ${isCollapsed?"!py-2":"!p-3"}`}  onClick={toggleSidebar}>
         {!isCollapsed && (
           <h2 className="text-lg font-semibold">Admin Dashboard</h2>
         )}
@@ -39,7 +39,7 @@ const Sidebar = ({ setActiveTab }) => {
           <FaBars className="text-white" />
         </button>
       </div>
-      <div className="flex flex-col !justify-between">
+      <div className="flex flex-col !justify-between !content-between">
         <nav className="mt-5">
           <ul>
             <li
@@ -112,7 +112,7 @@ const Sidebar = ({ setActiveTab }) => {
             </li>
           </ul>
         </nav>
-        <div className="mt-16 p-4 hover:bg-gray-500 transition duration-200 flex items-center">
+        <div className="mt-auto py-2 hover:bg-gray-500 transition duration-200 flex items-center !mb-0">
           <Link className="m-auto" to={"/login"}>
             <button className="!bg-bgTertiary !text-white !p-4 rounded-md ">{isCollapsed ? <FaSignOutAlt /> : `${t("Home.logout")}`}</button>
           </Link>
