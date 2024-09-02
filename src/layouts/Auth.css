@@ -1,0 +1,4 @@
+.auth .active {
+    color: var(--color-tertiary);
+    border-bottom-color: var(--color-tertiary);
+  }

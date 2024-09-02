@@ -1,0 +1,74 @@
+{
+  "PaymentPolicy": {
+    "title_page": "Payment Policy",
+    "content_1": "Customers pay directly at the store",
+    "content_2": "+ Get a free gift",
+    "content_3": "+ Check in at the store Customers pay online",
+    "content_4": "+ Transfer before receiving goods",
+    "content_5": "+ Any free gift Customers who need to complain or return products due to Tonatra's fault can contact Hotline 0292 3831 530 for the earliest support.",
+    "content_6": "The consultant will guide the customer through the necessary steps to make the payment."
+  },
+  "Header": {
+    "Navbar": {
+      "close": "Close",
+      "home": "Home",
+      "introduce": "Introduce",
+      "menu": "Menu",
+      "bestDish": "Best Dish",
+      "deliciousDish": "Delicious Dish",
+      "news": "News",
+      "contact": "Contact",
+      "booking": "Booking",
+      "login": "Login",
+      "register": "Register",
+      "logout": "Logout",
+      "favoriteDish": "Favorite",
+      "search": "SEARCH YOUR DISH:",
+      "inputSearch": "Enter the name of the dish...",
+      "resultSearch": "SEARCH RESULT"
+    }
+  },
+  "Footer": {
+    "introduce": "Our restaurant always puts customers first, dedicated to serving, bringing customers the best experiences. Dishes with exclusive recipes will bring new flavors to diners. Tonatra sincerely thanks.",
+    "branch": "Branch",
+    "address": "Address",
+    "phone": "PhoneNumber",
+    "email": "Email",
+    "title_instruct": "Instructions",
+    "instruct_1": "Buying Guide",
+    "instruct_2": "Payment Instructions",
+    "instruct_3": "Register as a member",
+    "instruct_4": "Customer Support",
+    "title_policy": "Policy",
+    "policy_1": "Membership Policy",
+    "policy_2": "Payment Policy",
+    "policy_3": "Buying Guide",
+    "policy_4": "Information Security",
+    "social": "Social network",
+    "method_payment": "Payment method",
+    "copy_right": "Copyright | © 2024 Tonatra CTU Group 4 CT250"
+  },
+  "Auth": {
+    "login": "Login",
+    "register": "Register",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "forgot_password": "Forgot password?",
+    "login_with": "Or login with",
+    "required": "{{label}} is required",
+    "invalid": "Invalid {{label}}"
+  },
+  "Home":{
+    "accountInfo":"Account Info",
+    "employeeManagement":"Employee  Account Management",
+    "foodCategoryManagement":"Food Category Management",
+    "dishManagement":"Dish Management",
+    "orderManagement":"Order Management",
+    "reservationManagement":"Reservation Management",
+    "statistics":"Statistics",
+    "setting":"Setting",
+    "logout":"Logout"
+  }
+}
