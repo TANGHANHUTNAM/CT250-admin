@@ -5,13 +5,14 @@ import {
   FaChartLine,
   FaBars,
   FaSignOutAlt,
-  FaUsers, 
-} from "react-icons/fa"; 
+  FaUsers,
+} from "react-icons/fa";
 import { LiaFirstOrder } from "react-icons/lia";
 import { MdLocalShipping } from "react-icons/md";
-import { FaBowlFood } from "react-icons/fa6";// Import Font Awesome icons
-import {BiSolidFoodMenu} from "react-icons/bi"
+import { FaBowlFood } from "react-icons/fa6"; // Import Font Awesome icons
+import { BiSolidFoodMenu } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { Tooltip } from "antd";
 
 const Sidebar = ({ setActiveTab }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -22,16 +23,19 @@ const Sidebar = ({ setActiveTab }) => {
 
   return (
     <div
-      className={`bg-gray-800 text-white h-screen ${isCollapsed ? "w-20" : "w-68"
-        } transition-width duration-300`}
+      className={`bg-gray-800 text-white h-screen overflow-x-hidden overflow-y-auto ${
+        isCollapsed ? "w-24" : "w-80"
+      } transition-width duration-300`}
     >
-      <div className="p-3 flex items-center justify-between">
+      <div className="p-3 flex items-center justify-between bg-gray-800 sticky top-0 z-50">
         {!isCollapsed && (
           <h2 className="text-lg font-semibold">Admin Dashboard</h2>
         )}
         <button
           onClick={toggleSidebar}
-          className="!bg-gray-600 text-white !m-auto hover:bg-gray-500 hover:outline border-0 !p-4 rounded-md"
+          className={`!bg-gray-600 text-white hover:bg-gray-500 hover:outline border-0 !p-4 rounded-md${
+            isCollapsed ? " m-auto" : ""
+          }`}
         >
           <FaBars className="text-white" />
         </button>
@@ -39,81 +43,142 @@ const Sidebar = ({ setActiveTab }) => {
       <div className="flex flex-col">
         <nav className="mt-5">
           <ul>
-            <li
-              className="p-4 hover:bg-gray-700 transition duration-200 flex items-center"
-              onClick={() => setActiveTab("dashboard")}
+            <Tooltip
+              placement="right"
+              title={isCollapsed ? "Thông tin tài khoản" : ""}
             >
-              <FaUser
-                className={`m-auto ${!isCollapsed ? "!m-0 !mr-3" : ""}`}
-              />
-              {!isCollapsed && <a href="#">Thông tin tài khoản</a>}
-            </li>
-            <li
-              className="p-4 hover:bg-gray-700 transition duration-200 flex items-center"
-              onClick={() => setActiveTab("users")}
+              <li
+                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                onClick={() => setActiveTab("dashboard")}
+              >
+                <FaUser
+                  className={`w-5 h-5 m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  }`}
+                />
+
+                {!isCollapsed && <Link to="#">Thông tin tài khoản</Link>}
+              </li>
+            </Tooltip>
+            <Tooltip
+              placement="right"
+              title={isCollapsed ? "Quản lý tài khoản nhân viên" : ""}
             >
-              <FaUsers
-                className={`m-auto ${!isCollapsed ? "!m-0 !mr-3" : ""}`}
-              />
-              {!isCollapsed && <a href="#">Quản lý tài khoản nhân viên</a>}
-            </li>
-            <li
-              className="p-4 hover:bg-gray-700 transition duration-200 flex items-center"
-              onClick={() => setActiveTab("settings")}
+              <li
+                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                onClick={() => setActiveTab("users")}
+              >
+                <FaUsers
+                  className={`w-5 h-5 m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  }`}
+                />
+                {!isCollapsed && (
+                  <Link to="#">Quản lý tài khoản nhân viên</Link>
+                )}
+              </li>
+            </Tooltip>
+            <Tooltip
+              placement="right"
+              title={isCollapsed ? "Quản lý danh mục món ăn" : ""}
             >
-              <BiSolidFoodMenu className={`m-auto ${!isCollapsed ? "!m-0 !mr-3" : ""}`} />
-              {!isCollapsed && <a href="#">Quản lý danh mục món ăn</a>}
-            </li>
-            <li
-              className="p-4 hover:bg-gray-700 transition duration-200 flex items-center"
-              onClick={() => setActiveTab("reports")}
+              <li
+                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                onClick={() => setActiveTab("settings")}
+              >
+                <BiSolidFoodMenu
+                  className={`w-5 h-5 m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  }`}
+                />
+                {!isCollapsed && <Link to="#">Quản lý danh mục món ăn</Link>}
+              </li>
+            </Tooltip>
+            <Tooltip
+              placement="right"
+              title={isCollapsed ? "Quản lý món ăn" : ""}
             >
-              <FaBowlFood
-                className={`m-auto ${!isCollapsed ? "!m-0 !mr-3" : ""}`}
-              />
-              {!isCollapsed && <a href="#">Quản lý món ăn</a>}
-            </li>
-            <li
-              className="p-4 hover:bg-gray-700 transition duration-200 flex items-center"
-              onClick={() => setActiveTab("reports")}
+              <li
+                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                onClick={() => setActiveTab("reports")}
+              >
+                <FaBowlFood
+                  className={`w-5 h-5 m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  }`}
+                />
+                {!isCollapsed && <Link to="#">Quản lý món ăn</Link>}
+              </li>
+            </Tooltip>
+            <Tooltip
+              placement="right"
+              title={isCollapsed ? "Quản lý đơn hàng" : ""}
             >
-              <MdLocalShipping
-                className={`m-auto ${!isCollapsed ? "!m-0 !mr-3" : ""}`}
-              />
-              {!isCollapsed && <a href="#">Quản lý đơn hàng</a>}
-            </li>
-            <li
-              className="p-4 hover:bg-gray-700 transition duration-200 flex items-center"
-              onClick={() => setActiveTab("reports")}
+              <li
+                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                onClick={() => setActiveTab("reports")}
+              >
+                <MdLocalShipping
+                  className={`w-5 h-5 m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  }`}
+                />
+                {!isCollapsed && <Link to="#">Quản lý đơn hàng</Link>}
+              </li>
+            </Tooltip>
+            <Tooltip
+              placement="right"
+              title={isCollapsed ? "Quản lý đặt bàn" : ""}
             >
-              <LiaFirstOrder
-                className={`m-auto ${!isCollapsed ? "!m-0 !mr-3" : ""}`}
-              />
-              {!isCollapsed && <a href="#">Quản lý đặt bàn</a>}
-            </li>
-            <li
-              className="p-4 hover:bg-gray-700 transition duration-200 flex items-center"
-              onClick={() => setActiveTab("reports")}
-            >
-              <FaChartLine
-                className={`m-auto ${!isCollapsed ? "!m-0 !mr-3" : ""}`}
-              />
-              {!isCollapsed && <a href="#">Thống kê</a>}
-            </li>
-            <li
-              className="p-4 hover:bg-gray-700 transition duration-200 flex items-center"
-              onClick={() => setActiveTab("settings")}
-            >
-              <FaCog className={`m-auto ${!isCollapsed ? "!m-0 !mr-3" : ""}`} />
-              {!isCollapsed && <a href="#">Cài đặt</a>}
-            </li>
+              <li
+                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                onClick={() => setActiveTab("reports")}
+              >
+                <LiaFirstOrder
+                  className={`w-5 h-5 m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  }`}
+                />
+                {!isCollapsed && <Link to="#">Quản lý đặt bàn</Link>}
+              </li>
+            </Tooltip>
+            <Tooltip placement="right" title={isCollapsed ? "Thống kê" : ""}>
+              <li
+                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                onClick={() => setActiveTab("reports")}
+              >
+                <FaChartLine
+                  className={`w-5 h-5 m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  }`}
+                />
+                {!isCollapsed && <Link to="#">Thống kê</Link>}
+              </li>
+            </Tooltip>
+            <Tooltip placement="right" title={isCollapsed ? "Cài đặt" : ""}>
+              <li
+                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                onClick={() => setActiveTab("settings")}
+              >
+                <FaCog
+                  className={`w-5 h-5 m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  }`}
+                />
+                {!isCollapsed && <Link to="#">Cài đặt</Link>}
+              </li>
+            </Tooltip>
           </ul>
         </nav>
-        <div className="mt-24 p-4 hover:bg-gray-700 transition duration-200 flex items-center">
-          <Link className="m-auto" to={"/login"}>
-            <button className="!bg-gray-600 !text-white !p-4 rounded-md ">{isCollapsed ? <FaSignOutAlt /> : "Đăng Xuất"}</button>
-          </Link>
-        </div>
+        <Tooltip placement="right" title={isCollapsed ? "Đăng xuất" : ""}>
+          <div className="mt-24 p-4 hover:bg-gray-700 transition duration-200 flex items-center">
+            <Link className="m-auto" to={"/login"}>
+              <button className="!bg-gray-600 !text-white !px-4 !py-3 rounded-md ">
+                {isCollapsed ? <FaSignOutAlt /> : "Đăng Xuất"}
+              </button>
+            </Link>
+          </div>
+        </Tooltip>
       </div>
     </div>
   );

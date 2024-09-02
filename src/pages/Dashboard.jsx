@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import Sidebar from '../components/Dashboard/Sidebar';
-import DashboardContent from '../components/Dashboard/DashboardContent'
-import Users from '../components/Dashboard/Users';
-import Settings from '../components/Dashboard/Settings';
-import MyChart from '../components/Dashboard/Chart';
+import React, { useState } from "react";
+import Sidebar from "../components/Dashboard/Sidebar";
+import DashboardContent from "../components/Dashboard/DashboardContent";
+import Users from "../components/Dashboard/Users";
+import Settings from "../components/Dashboard/Settings";
+import MyChart from "../components/Dashboard/Chart";
 
 const Dashboard = () => {
-    const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState("dashboard");
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'dashboard':
+      case "dashboard":
         return <DashboardContent />;
-      case 'users':
+      case "users":
         return <Users />;
-      case 'settings':
+      case "settings":
         return <Settings />;
-      case 'reports':
+      case "reports":
         return <MyChart />;
       default:
         return <DashboardContent />;
     }
   };
-    return (
-        <div className="flex h-screen bg-gray-100 w-screen">
-            <Sidebar setActiveTab={setActiveTab} />
-            <div className="flex-1 p-4">{renderContent()}</div>
-        </div>
-    );
-}
+  return (
+    <div className="flex h-screen bg-gray-100 overflow-hidden">
+      <Sidebar setActiveTab={setActiveTab} />
+      <div className="flex-1 p-4 overflow-y-auto">{renderContent()}</div>
+    </div>
+  );
+};
 
 export default Dashboard;
