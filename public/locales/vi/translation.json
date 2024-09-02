@@ -59,5 +59,16 @@
     "login_with": "Hoặc đăng nhập bằng",
     "required": "{{label}} là bắt buộc",
     "invalid": "{{label}} không hợp lệ"
+  },
+  "Home":{
+    "accountInfo":"Thông tin tài khoản",
+    "employeeManagement":"Quản lý tài khoản nhân viên",
+    "foodCategoryManagement":"Quản lý danh mục món ăn",
+    "dishManagement":"Quản lý món ăn",
+    "orderManagement":"Quản lý đơn hàng",
+    "reservationManagement":"Quản lý đặt bàn",
+    "statistics":"Thống kê",
+    "setting":"Cài đặt",
+    "logout":"Đăng xuất"
   }
 }

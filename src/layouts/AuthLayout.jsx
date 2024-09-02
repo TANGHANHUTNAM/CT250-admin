@@ -1,10 +1,8 @@
 import "./Auth.css";
 import { NavLink } from "react-router-dom";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
-import { useTranslation } from "react-i18next";
 
 const AuthLayout = ({ children }) => {
-  const { t } = useTranslation();
 
   return (
     <div className="auth w-full bg-bgPrimary !h-screen">
