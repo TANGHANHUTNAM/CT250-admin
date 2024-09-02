@@ -26,12 +26,12 @@ const Sidebar = ({ setActiveTab }) => {
 
   return (
     <div
-      className={`bg-bgPrimary text-white !h-full ${
-        isCollapsed ? "w-16" : ""
+      className={`z-50 bg-bgPrimary text-white !h-full overflow-x-hidden overflow-y-auto scrollbar-w-thin ${
+        isCollapsed ? "w-20" : "w-[22rem]"
       } transition-width duration-300`}
     >
       <div
-        className={`flex items-center justify-between hover:bg-gray-500 transition duration-200 ${
+        className={`flex items-center justify-between hover:bg-bgTertiary group transition duration-200 sticky top-0 bg-bgPrimary z-10 ${
           isCollapsed ? "!py-2" : "!p-3"
         }`}
         onClick={toggleSidebar}
@@ -40,7 +40,7 @@ const Sidebar = ({ setActiveTab }) => {
           <h2 className="text-lg font-semibold">Admin Dashboard</h2>
         )}
         <button
-          className={`bg-bgTertiary text-white m-auto border-0 !p-4 rounded-md ${
+          className={`bg-bgTertiary text-white m-auto border-0 !p-4 rounded-md group-hover:bg-bgPrimary ${
             !isCollapsed ? "!m-0" : ""
           }`}
         >
@@ -52,10 +52,10 @@ const Sidebar = ({ setActiveTab }) => {
           <ul>
             <Tooltip
               placement="right"
-              title={isCollapsed ? "Thông tin tài khoản" : ""}
+              title={isCollapsed ? t("Home.accountInfo") : ""}
             >
               <li
-                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
+                className="p-4 hover:bg-bgTertiary transition duration-200 flex items-center cursor-pointer"
                 onClick={() => setActiveTab("dashboard")}
               >
                 <FaUser
@@ -68,10 +68,10 @@ const Sidebar = ({ setActiveTab }) => {
             </Tooltip>
             <Tooltip
               placement="right"
-              title={isCollapsed ? "Quản lý tài khoản nhân viên" : ""}
+              title={isCollapsed ? t("Home.employeeManagement") : ""}
             >
               <li
-                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
+                className="p-4 hover:bg-bgTertiary transition duration-200 flex items-center cursor-pointer"
                 onClick={() => setActiveTab("users")}
               >
                 <FaUsers
@@ -79,15 +79,17 @@ const Sidebar = ({ setActiveTab }) => {
                     !isCollapsed ? "!m-0 !mr-3" : "text-2xl"
                   }`}
                 />
-                {!isCollapsed && <a href="#">{t("Home.employeeManagement")}</a>}
+                {!isCollapsed && (
+                  <Link to="#">{t("Home.employeeManagement")}</Link>
+                )}
               </li>
             </Tooltip>
             <Tooltip
               placement="right"
-              title={isCollapsed ? "Quản lý danh mục món ăn" : ""}
+              title={isCollapsed ? t("Home.foodCategoryManagement") : ""}
             >
               <li
-                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
+                className="p-4 hover:bg-bgTertiary transition duration-200 flex items-center cursor-pointer"
                 onClick={() => setActiveTab("settings")}
               >
                 <BiSolidFoodMenu
@@ -96,16 +98,16 @@ const Sidebar = ({ setActiveTab }) => {
                   }`}
                 />
                 {!isCollapsed && (
-                  <a href="#">{t("Home.foodCategoryManagement")}</a>
+                  <Link to="#">{t("Home.foodCategoryManagement")}</Link>
                 )}
               </li>
             </Tooltip>
             <Tooltip
               placement="right"
-              title={isCollapsed ? "Quản lý món ăn" : ""}
+              title={isCollapsed ? t("Home.dishManagement") : ""}
             >
               <li
-                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
+                className="p-4 hover:bg-bgTertiary transition duration-200 flex items-center cursor-pointer"
                 onClick={() => setActiveTab("reports")}
               >
                 <FaBowlFood
@@ -113,15 +115,15 @@ const Sidebar = ({ setActiveTab }) => {
                     !isCollapsed ? "!m-0 !mr-3" : "text-2xl"
                   }`}
                 />
-                {!isCollapsed && <a href="#">{t("Home.dishManagement")}</a>}
+                {!isCollapsed && <Link to="#">{t("Home.dishManagement")}</Link>}
               </li>
             </Tooltip>
             <Tooltip
               placement="right"
-              title={isCollapsed ? "Quản lý đơn hàng" : ""}
+              title={isCollapsed ? t("Home.orderManagement") : ""}
             >
               <li
-                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
+                className="p-4 hover:bg-bgTertiary transition duration-200 flex items-center cursor-pointer"
                 onClick={() => setActiveTab("reports")}
               >
                 <MdLocalShipping
@@ -129,15 +131,17 @@ const Sidebar = ({ setActiveTab }) => {
                     !isCollapsed ? "!m-0 !mr-3" : "text-2xl"
                   }`}
                 />
-                {!isCollapsed && <a href="#">{t("Home.orderManagement")}</a>}
+                {!isCollapsed && (
+                  <Link to="#">{t("Home.orderManagement")}</Link>
+                )}
               </li>
             </Tooltip>
             <Tooltip
               placement="right"
-              title={isCollapsed ? "Quản lý đặt bàn" : ""}
+              title={isCollapsed ? t("Home.reservationManagement") : ""}
             >
               <li
-                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
+                className="p-4 hover:bg-bgTertiary transition duration-200 flex items-center cursor-pointer"
                 onClick={() => setActiveTab("reports")}
               >
                 <LiaFirstOrder
@@ -146,13 +150,16 @@ const Sidebar = ({ setActiveTab }) => {
                   }`}
                 />
                 {!isCollapsed && (
-                  <a href="#">{t("Home.reservationManagement")}</a>
+                  <Link to="#">{t("Home.reservationManagement")}</Link>
                 )}
               </li>
             </Tooltip>
-            <Tooltip placement="right" title={isCollapsed ? "Thống kê" : ""}>
+            <Tooltip
+              placement="right"
+              title={isCollapsed ? t("Home.statistics") : ""}
+            >
               <li
-                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
+                className="p-4 hover:bg-bgTertiary transition duration-200 flex items-center cursor-pointer"
                 onClick={() => setActiveTab("reports")}
               >
                 <FaChartLine
@@ -160,12 +167,15 @@ const Sidebar = ({ setActiveTab }) => {
                     !isCollapsed ? "!m-0 !mr-3" : "text-2xl"
                   }`}
                 />
-                {!isCollapsed && <a href="#">{t("Home.statistics")}</a>}
+                {!isCollapsed && <Link to="#">{t("Home.statistics")}</Link>}
               </li>
             </Tooltip>
-            <Tooltip placement="right" title={isCollapsed ? "Cài đặt" : ""}>
+            <Tooltip
+              placement="right"
+              title={isCollapsed ? t("Home.setting") : ""}
+            >
               <li
-                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
+                className="p-4 hover:bg-bgTertiary transition duration-200 flex items-center cursor-pointer"
                 onClick={() => setActiveTab("settings")}
               >
                 <FaCog
@@ -173,15 +183,15 @@ const Sidebar = ({ setActiveTab }) => {
                     !isCollapsed ? "!m-0 !mr-3" : "text-2xl"
                   }`}
                 />
-                {!isCollapsed && <a href="#">{t("Home.setting")}</a>}
+                {!isCollapsed && <Link to="#">{t("Home.setting")}</Link>}
               </li>
             </Tooltip>
           </ul>
         </nav>
-        <Tooltip placement="right" title={isCollapsed ? "Đăng xuất" : ""}>
-          <div className="mt-auto py-2 hover:bg-gray-500 transition duration-200 flex items-center !mb-0">
+        <Tooltip placement="right" title={isCollapsed ? t("Home.logout") : ""}>
+          <div className="mt-auto py-2 hover:bg-bgTertiary group transition duration-200 flex items-center !mb-0">
             <Link className="m-auto" to={"/login"}>
-              <button className="!bg-bgTertiary !text-white !p-4 rounded-md ">
+              <button className="!bg-bgTertiary !text-white !p-4 rounded-md group-hover:!bg-bgPrimary">
                 {isCollapsed ? <FaSignOutAlt /> : `${t("Home.logout")}`}
               </button>
             </Link>
