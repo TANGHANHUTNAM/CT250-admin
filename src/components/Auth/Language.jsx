@@ -5,13 +5,8 @@ import { useTranslation } from "react-i18next";
 
 const Language = () => {
   const { t, i18n } = useTranslation();
-
   const handleChangeLanguage = (language) => {
-    if (i18n.changeLanguage) {
-      i18n.changeLanguage(language);
-    } else {
-      console.error("changeLanguage function is not available on i18n instance");
-    }
+    i18n.changeLanguage(language);
   };
 
   return (

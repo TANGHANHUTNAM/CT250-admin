@@ -13,6 +13,7 @@ import { FaBowlFood } from "react-icons/fa6"; // Import Font Awesome icons
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { Tooltip } from "antd";
+import { useTranslation } from "react-i18next";
 
 const Sidebar = ({ setActiveTab }) => {
   const { t } = useTranslation();
@@ -25,16 +26,23 @@ const Sidebar = ({ setActiveTab }) => {
 
   return (
     <div
-      className={`bg-bgPrimary text-white !h-full ${isCollapsed ? "w-16" : ""
-        } transition-width duration-300`}
+      className={`bg-bgPrimary text-white !h-full ${
+        isCollapsed ? "w-16" : ""
+      } transition-width duration-300`}
     >
-      <div className={`flex items-center justify-between hover:bg-gray-500 transition duration-200 ${isCollapsed?"!py-2":"!p-3"}`}  onClick={toggleSidebar}>
+      <div
+        className={`flex items-center justify-between hover:bg-gray-500 transition duration-200 ${
+          isCollapsed ? "!py-2" : "!p-3"
+        }`}
+        onClick={toggleSidebar}
+      >
         {!isCollapsed && (
           <h2 className="text-lg font-semibold">Admin Dashboard</h2>
         )}
         <button
-          
-          className={`bg-bgTertiary text-white m-auto border-0 !p-4 rounded-md ${!isCollapsed?"!m-0":""}`}
+          className={`bg-bgTertiary text-white m-auto border-0 !p-4 rounded-md ${
+            !isCollapsed ? "!m-0" : ""
+          }`}
         >
           <FaBars className="text-white" />
         </button>
@@ -47,16 +55,15 @@ const Sidebar = ({ setActiveTab }) => {
               title={isCollapsed ? "Thông tin tài khoản" : ""}
             >
               <li
-                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
                 onClick={() => setActiveTab("dashboard")}
               >
                 <FaUser
-                  className={`w-5 h-5 m-auto ${
-                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  className={`m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : "text-2xl"
                   }`}
                 />
-
-                {!isCollapsed && <Link to="#">Thông tin tài khoản</Link>}
+                {!isCollapsed && <a>{t("Home.accountInfo")}</a>}
               </li>
             </Tooltip>
             <Tooltip
@@ -64,17 +71,15 @@ const Sidebar = ({ setActiveTab }) => {
               title={isCollapsed ? "Quản lý tài khoản nhân viên" : ""}
             >
               <li
-                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
                 onClick={() => setActiveTab("users")}
               >
                 <FaUsers
-                  className={`w-5 h-5 m-auto ${
-                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  className={`m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : "text-2xl"
                   }`}
                 />
-                {!isCollapsed && (
-                  <Link to="#">Quản lý tài khoản nhân viên</Link>
-                )}
+                {!isCollapsed && <a href="#">{t("Home.employeeManagement")}</a>}
               </li>
             </Tooltip>
             <Tooltip
@@ -82,15 +87,17 @@ const Sidebar = ({ setActiveTab }) => {
               title={isCollapsed ? "Quản lý danh mục món ăn" : ""}
             >
               <li
-                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
                 onClick={() => setActiveTab("settings")}
               >
                 <BiSolidFoodMenu
-                  className={`w-5 h-5 m-auto ${
-                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  className={`m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : "text-2xl"
                   }`}
                 />
-                {!isCollapsed && <Link to="#">Quản lý danh mục món ăn</Link>}
+                {!isCollapsed && (
+                  <a href="#">{t("Home.foodCategoryManagement")}</a>
+                )}
               </li>
             </Tooltip>
             <Tooltip
@@ -98,15 +105,15 @@ const Sidebar = ({ setActiveTab }) => {
               title={isCollapsed ? "Quản lý món ăn" : ""}
             >
               <li
-                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
                 onClick={() => setActiveTab("reports")}
               >
                 <FaBowlFood
-                  className={`w-5 h-5 m-auto ${
-                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  className={`m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : "text-2xl"
                   }`}
                 />
-                {!isCollapsed && <Link to="#">Quản lý món ăn</Link>}
+                {!isCollapsed && <a href="#">{t("Home.dishManagement")}</a>}
               </li>
             </Tooltip>
             <Tooltip
@@ -114,15 +121,15 @@ const Sidebar = ({ setActiveTab }) => {
               title={isCollapsed ? "Quản lý đơn hàng" : ""}
             >
               <li
-                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
                 onClick={() => setActiveTab("reports")}
               >
                 <MdLocalShipping
-                  className={`w-5 h-5 m-auto ${
-                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  className={`m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : "text-2xl"
                   }`}
                 />
-                {!isCollapsed && <Link to="#">Quản lý đơn hàng</Link>}
+                {!isCollapsed && <a href="#">{t("Home.orderManagement")}</a>}
               </li>
             </Tooltip>
             <Tooltip
@@ -130,50 +137,52 @@ const Sidebar = ({ setActiveTab }) => {
               title={isCollapsed ? "Quản lý đặt bàn" : ""}
             >
               <li
-                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
                 onClick={() => setActiveTab("reports")}
               >
                 <LiaFirstOrder
-                  className={`w-5 h-5 m-auto ${
-                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  className={`m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : "text-2xl"
                   }`}
                 />
-                {!isCollapsed && <Link to="#">Quản lý đặt bàn</Link>}
+                {!isCollapsed && (
+                  <a href="#">{t("Home.reservationManagement")}</a>
+                )}
               </li>
             </Tooltip>
             <Tooltip placement="right" title={isCollapsed ? "Thống kê" : ""}>
               <li
-                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
                 onClick={() => setActiveTab("reports")}
               >
                 <FaChartLine
-                  className={`w-5 h-5 m-auto ${
-                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  className={`m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : "text-2xl"
                   }`}
                 />
-                {!isCollapsed && <Link to="#">Thống kê</Link>}
+                {!isCollapsed && <a href="#">{t("Home.statistics")}</a>}
               </li>
             </Tooltip>
             <Tooltip placement="right" title={isCollapsed ? "Cài đặt" : ""}>
               <li
-                className="p-4 hover:bg-gray-700 transition duration-200 flex items-center cursor-pointer"
+                className="p-4 hover:bg-gray-500 transition duration-200 flex items-center"
                 onClick={() => setActiveTab("settings")}
               >
                 <FaCog
-                  className={`w-5 h-5 m-auto ${
-                    !isCollapsed ? "!m-0 !mr-3" : ""
+                  className={`m-auto ${
+                    !isCollapsed ? "!m-0 !mr-3" : "text-2xl"
                   }`}
                 />
-                {!isCollapsed && <Link to="#">Cài đặt</Link>}
+                {!isCollapsed && <a href="#">{t("Home.setting")}</a>}
               </li>
             </Tooltip>
           </ul>
         </nav>
         <Tooltip placement="right" title={isCollapsed ? "Đăng xuất" : ""}>
-          <div className="mt-24 p-4 hover:bg-gray-700 transition duration-200 flex items-center">
+          <div className="mt-auto py-2 hover:bg-gray-500 transition duration-200 flex items-center !mb-0">
             <Link className="m-auto" to={"/login"}>
-              <button className="!bg-gray-600 !text-white !px-4 !py-3 rounded-md ">
-                {isCollapsed ? <FaSignOutAlt /> : "Đăng Xuất"}
+              <button className="!bg-bgTertiary !text-white !p-4 rounded-md ">
+                {isCollapsed ? <FaSignOutAlt /> : `${t("Home.logout")}`}
               </button>
             </Link>
           </div>
