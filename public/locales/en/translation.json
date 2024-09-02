@@ -69,6 +69,7 @@
     "reservationManagement":"Reservation Management",
     "statistics":"Statistics",
     "setting":"Setting",
-    "logout":"Logout"
+    "logout":"Logout",
+    "position": "Position"
   }
 }

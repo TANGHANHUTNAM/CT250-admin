@@ -11,9 +11,16 @@ import { LiaFirstOrder } from "react-icons/lia";
 import { MdLocalShipping } from "react-icons/md";
 import { FaBowlFood } from "react-icons/fa6"; // Import Font Awesome icons
 import { BiSolidFoodMenu } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
+import { logoutSuccess } from "../../redux/reducer/userSlice";
+import { logout } from "../../services/authService";
+import Avatar from "../avatar/Avatar";
+import { useDispatch, useSelector } from "react-redux";
+
+import { toast } from "react-toastify";
+import StatusCodes from "../../utils/StatusCodes";
 
 const Sidebar = ({ setActiveTab }) => {
   const { t } = useTranslation();
@@ -23,6 +30,27 @@ const Sidebar = ({ setActiveTab }) => {
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
+  const {
+    isAuth,
+    account: { id, email, avatar, username, role },
+  } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    const res = await logout({ id: id, email: email });
+
+    if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+      toast.success(res.EM);
+      dispatch(logoutSuccess());
+      navigate("/login");
+    }
+
+    if (res && res.EC === StatusCodes.ERROR_DEFAULT) {
+      toast.error(res.EM);
+    }
+  };
 
   return (
     <div
@@ -31,21 +59,38 @@ const Sidebar = ({ setActiveTab }) => {
       } transition-width duration-300`}
     >
       <div
-        className={`flex items-center justify-between hover:bg-gray-500 transition duration-200 ${
+        className={`flex items-center justify-between transition duration-200 ${
           isCollapsed ? "!py-2" : "!p-3"
         }`}
-        onClick={toggleSidebar}
       >
-        {!isCollapsed && (
-          <h2 className="text-lg font-semibold">Admin Dashboard</h2>
+        {!isCollapsed ? (
+          <div className="grid w-full">
+            <div className="flex justify-between">
+              <Avatar size={42} src={avatar}/>
+              <button
+                className={`bg-bgTertiary text-white m-auto border-0 !p-4 rounded-md hover:bg-gray-500 ${
+                  !isCollapsed ? "!m-0" : ""
+                }`}
+                onClick={toggleSidebar}
+              >
+                <FaBars className="text-white" />
+              </button>
+            </div>
+            <div className="flex flex-col mt-2">
+              <p className="text-xl indent-1 italic font-medium">{username}</p>
+              <p className="mt-2 indent-1">{t("Home.position")}: {role}</p>
+            </div>
+          </div>
+        ) : (
+          <button
+            className={`bg-bgTertiary text-white m-auto border-0 !p-4 rounded-md hover:bg-gray-500${
+              !isCollapsed ? "!m-0" : ""
+            }`}
+            onClick={toggleSidebar}
+          >
+            <FaBars className="text-white" />
+          </button>
         )}
-        <button
-          className={`bg-bgTertiary text-white m-auto border-0 !p-4 rounded-md ${
-            !isCollapsed ? "!m-0" : ""
-          }`}
-        >
-          <FaBars className="text-white" />
-        </button>
       </div>
       <div className="flex flex-col !justify-between !content-between">
         <nav className="mt-5">
@@ -180,11 +225,14 @@ const Sidebar = ({ setActiveTab }) => {
         </nav>
         <Tooltip placement="right" title={isCollapsed ? "Đăng xuất" : ""}>
           <div className="mt-auto py-2 hover:bg-gray-500 transition duration-200 flex items-center !mb-0">
-            <Link className="m-auto" to={"/login"}>
-              <button className="!bg-bgTertiary !text-white !p-4 rounded-md ">
+            <div className="m-auto" to={"/login"}>
+              <button
+                className="!bg-bgTertiary !text-white !p-4 rounded-md "
+                onClick={() => handleLogout()}
+              >
                 {isCollapsed ? <FaSignOutAlt /> : `${t("Home.logout")}`}
               </button>
-            </Link>
+            </div>
           </div>
         </Tooltip>
       </div>
