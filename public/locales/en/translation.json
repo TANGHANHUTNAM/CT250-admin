@@ -62,14 +62,20 @@
   },
   "Home":{
     "accountInfo":"Account Info",
-    "employeeManagement":"Employee  Account Management",
-    "foodCategoryManagement":"Food Category Management",
-    "dishManagement":"Dish Management",
-    "orderManagement":"Order Management",
-    "reservationManagement":"Reservation Management",
+    "employeeManagement":"Employee",
+    "foodCategoryManagement":"Food Category",
+    "dishManagement":"Dish",
+    "orderManagement":"Order",
+    "reservationManagement":"Reservation",
     "statistics":"Statistics",
     "setting":"Setting",
     "logout":"Logout",
+    "position": "Position"
+  },
+  "Employee":{
+    "title": "Employees List",
+    "name": "Name",
+    "email": "Email",
     "position": "Position"
   }
 }
