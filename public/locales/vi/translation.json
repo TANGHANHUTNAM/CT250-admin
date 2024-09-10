@@ -62,14 +62,20 @@
   },
   "Home": {
     "accountInfo": "Thông tin tài khoản",
-    "employeeManagement": "Quản lý tài khoản nhân viên",
-    "foodCategoryManagement": "Quản lý danh mục món ăn",
-    "dishManagement": "Quản lý món ăn",
-    "orderManagement": "Quản lý đơn hàng",
-    "reservationManagement": "Quản lý đặt bàn",
+    "employeeManagement": "Nhân viên",
+    "foodCategoryManagement": "Danh mục món ăn",
+    "dishManagement": "Món ăn",
+    "orderManagement": "Đơn hàng",
+    "reservationManagement": "Đặt bàn",
     "statistics": "Thống kê",
     "setting": "Cài đặt",
     "logout": "Đăng xuất",
+    "position": "Chức vụ"
+  },
+  "Employee":{
+    "title": "Danh sách nhân viên",
+    "name": "Tên",
+    "email": "Email",
     "position": "Chức vụ"
   }
 }
