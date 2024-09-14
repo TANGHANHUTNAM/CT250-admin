@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "../pages/Dashboard"
 import LoginPage from "../pages/Login";
+
 const routes = [
     {
         path: "/",
