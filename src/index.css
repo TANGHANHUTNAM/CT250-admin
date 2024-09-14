@@ -3,6 +3,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.cdnfonts.com/css/mona-sans');
+@import url('https://fonts.cdnfonts.com/css/helvetica-neue-55');
+
 @layer base {
   :root {
     --color-primary: #ffffff;
@@ -15,5 +18,7 @@
 }
 
 body {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Lora", serif !important;
+  font-optical-sizing: auto;
+  font-style: normal;
 }

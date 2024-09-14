@@ -67,15 +67,40 @@
     "dishManagement": "Món ăn",
     "orderManagement": "Đơn hàng",
     "reservationManagement": "Đặt bàn",
+    "employeeManagement": "Nhân viên",
+    "foodCategoryManagement": "Danh mục món ăn",
+    "dishManagement": "Món ăn",
+    "orderManagement": "Đơn hàng",
+    "reservationManagement": "Đặt bàn",
     "statistics": "Thống kê",
     "setting": "Cài đặt",
     "logout": "Đăng xuất",
-    "position": "Chức vụ"
+    "position": "Chức vụ",
+    "search":"Tìm kiếm"
   },
-  "Employee":{
+  "Employee": {
     "title": "Danh sách nhân viên",
     "name": "Tên",
     "email": "Email",
-    "position": "Chức vụ"
+    "position": "Chức vụ",
+    "addaccount": "Tạo tài khoản"
+  },
+  "UserInfo": {
+    "edittab": "Chỉnh sửa",
+    "usertab": "Thông tin",
+    "title": "Thông tin cá nhân",
+    "username": "Tên người dùng",
+    "email": "Email",
+    "newpassword": "Mật khẩu mới",
+    "currentpassword": "Mật khẩu hiện tại",
+    "confirmpassword": "Nhập lại mật khẩu",
+    "gender": "Giới tính",
+    "language": "Ngôn ngữ",
+    "birthday": "Ngày sinh",
+    "country": "Quê quán",
+    "save": "Cập nhật thông tin",
+    "genderselection":[
+      "Nam","Nữ"
+    ]
   }
 }

@@ -60,22 +60,43 @@
     "required": "{{label}} is required",
     "invalid": "Invalid {{label}}"
   },
-  "Home":{
-    "accountInfo":"Account Info",
-    "employeeManagement":"Employee",
-    "foodCategoryManagement":"Food Category",
-    "dishManagement":"Dish",
-    "orderManagement":"Order",
-    "reservationManagement":"Reservation",
-    "statistics":"Statistics",
-    "setting":"Setting",
-    "logout":"Logout",
-    "position": "Position"
+  "Home": {
+    "accountInfo": "Account Info",
+    "employeeManagement": "Employee",
+    "foodCategoryManagement": "Food Category",
+    "dishManagement": "Dish",
+    "orderManagement": "Order",
+    "reservationManagement": "Reservation",
+    "statistics": "Statistics",
+    "setting": "Setting",
+    "logout": "Logout",
+    "position": "Position",
+    "search":"Search here"
+
   },
-  "Employee":{
+  "Employee": {
     "title": "Employees List",
     "name": "Name",
     "email": "Email",
-    "position": "Position"
+    "position": "Position",
+    "addaccount": "New account"
+  },
+  "UserInfo": {
+    "edittab": "Edit info",
+    "usertab": "User info",
+    "title": "User profile",
+    "username": "Username",
+    "email": "Email",
+    "newpassword": "New password",
+    "currentpassword": "Current password",
+    "confirmpassword": "Confirm password",
+    "gender": "Gender",
+    "language": "Language",
+    "birthday": "Birthday",
+    "country": "Country",
+    "save": "Update information",
+    "genderselection":[
+      "Male","Female"
+    ]
   }
 }

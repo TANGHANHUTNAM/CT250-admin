@@ -10,8 +10,8 @@ const Language = ({ isAuth }) => {
   };
 
   return (
-    <div className={`${!isAuth ? "fixed right-0 top-1/4" : "!self-center"}`}>
-      <div className="group relative bg-white w-[40px] h-[40px] rounded-full  items-center content-center">
+    <div className={`${!isAuth ? "fixed right-0 top-1/4" : "!self-center hover:!bg-gray-300 p-3"}`}>
+      <div className="group relative w-[40px] h-[40px] rounded-full  items-center content-center ">
         <span>
           <GrLanguage className="text-2xl text-black cursor-pointer m-auto" />
         </span>

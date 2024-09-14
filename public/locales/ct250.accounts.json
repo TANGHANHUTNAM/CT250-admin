@@ -1,101 +1,406 @@
-[{
-  "_id": {
-    "$oid": "66cf353a73abe7220a34ce7d"
+[
+  {
+    "_id": {
+      "$oid": "66cf353a73abe7220a34ce7d"
+    },
+    "username": "Thiên Vũ",
+    "email": "thienvu@gmail.com",
+    "password": "$2b$10$hZ4c8l8aZCiGjratOUMk1.j06Mg6qKI1NdRDYO2VpEhTI4Qwa6GEC",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDXTKrYn4byO0iiMJdG6PyF52qZNIIFglzVw&s"
+    },
+    "role": "customer",
+    "createdAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "__v": 0
   },
-  "username": "Thiên Vũ",
-  "email": "thienvu@gmail.com",
-  "password": "$2b$10$hZ4c8l8aZCiGjratOUMk1.j06Mg6qKI1NdRDYO2VpEhTI4Qwa6GEC",
-  "fullname": "",
-  "birthday": null,
-  "gender": "",
-  "phoneNumber": "",
-  "address": "",
-  "avatar": {
-    "public_id": "",
-    "url": ""
+  {
+    "_id": {
+      "$oid": "66cf3a8c76fc642a08b39b2d"
+    },
+    "username": "Nam",
+    "email": "namtanghanhut@gmail.com",
+    "password": "$2b$10$ovHDAO5OtMeYOLpeIp6OXOTLaHFLPUS.M9yu/uHvxYUIn.c4tPS.2",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDXTKrYn4byO0iiMJdG6PyF52qZNIIFglzVw&s"
+    },
+    "role": "customer",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Y2YzYThjNzZmYzY0MmEwOGIzOWIyZCIsImVtYWlsIjoibmFtdGFuZ2hhbmh1dEBnbWFpbC5jb20iLCJpYXQiOjE3MjQ4NTcwMDAsImV4cCI6MTcyNzQ0OTAwMH0.woIhxVt9VYM755YXgR3WWrbF-sdZCRtbZ7QeN5Sopr8",
+    "createdAt": {
+      "$date": "2024-08-28T14:56:12.223Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-28T14:56:40.118Z"
+    },
+    "__v": 0
   },
-  "role": "customer",
-  "createdAt": {
-    "$date": "2024-08-28T14:33:30.812Z"
+  {
+    "_id": {
+      "$oid": "66d5c80c0b24dcc4c40db27f"
+    },
+    "username": "Thiên Vũ",
+    "email": "user1@gmail.com",
+    "password": "$2b$10$OxjsvyiK3YXg00z5zR8KReHcqF6uRcDPPgEVZ0/G6/lISmnXBqVsa",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://media.istockphoto.com/id/873768508/vi/vec-to/cool-fat-nghi%C3%AAm-t%C3%BAc-khu%C3%B4n-m%E1%BA%B7t-avatar-anh-ch%C3%A0ng-m%E1%BA%ADp-m%E1%BA%A1p-h%C3%BAt-bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-c%E1%BA%A3m-x%C3%BAc-x%C3%AC-g%C3%A0-%C3%B4ng-l%E1%BB%9Bn.jpg?s=1024x1024&w=is&k=20&c=9JvihHyvjwM4pf7z9-6Z8nzwcluRNvi8sV_aGtRBlXQ="
+    },
+    "role": "admin",
+    "createdAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "__v": 0
   },
-  "updatedAt": {
-    "$date": "2024-08-28T14:33:30.812Z"
+  {
+    "_id": {
+      "$oid": "66dc36439f8b77adb2ff3aaa"
+    },
+    "username": "zzz",
+    "email": "anguyenvan@gmai.com",
+    "password": "$2b$10$uHZAFAfRObFc.5pwTUFCsOVi0UH0vySWtpZ8t4gUAlDyBlv6ICTIG",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDXTKrYn4byO0iiMJdG6PyF52qZNIIFglzVw&s"
+    },
+    "role": "customer",
+    "createdAt": {
+      "$date": "2024-09-07T11:17:23.083Z"
+    },
+    "updatedAt": {
+      "$date": "2024-09-07T11:17:23.083Z"
+    },
+    "__v": 0
   },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "66cf3a8c76fc642a08b39b2d"
+  {
+    "_id": {
+      "$oid": "66cf353a73abe7220a34ce7d"
+    },
+    "username": "Thiên Vũ",
+    "email": "thienvu@gmail.com",
+    "password": "$2b$10$hZ4c8l8aZCiGjratOUMk1.j06Mg6qKI1NdRDYO2VpEhTI4Qwa6GEC",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://cdn.tuoitre.vn/thumb_w/480/471584752817336320/2024/8/6/h1-1722954196299635514633.jpg"
+    },
+    "role": "customer",
+    "createdAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "__v": 0
   },
-  "username": "Nam",
-  "email": "namtanghanhut@gmail.com",
-  "password": "$2b$10$ovHDAO5OtMeYOLpeIp6OXOTLaHFLPUS.M9yu/uHvxYUIn.c4tPS.2",
-  "fullname": "",
-  "birthday": null,
-  "gender": "",
-  "phoneNumber": "",
-  "address": "",
-  "avatar": {
-    "public_id": "",
-    "url": ""
+  {
+    "_id": {
+      "$oid": "66cf3a8c76fc642a08b39b2d"
+    },
+    "username": "Nam",
+    "email": "namtanghanhut@gmail.com",
+    "password": "$2b$10$ovHDAO5OtMeYOLpeIp6OXOTLaHFLPUS.M9yu/uHvxYUIn.c4tPS.2",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://cdn.tuoitre.vn/thumb_w/480/471584752817336320/2024/8/6/h1-1722954196299635514633.jpg"
+    },
+    "role": "customer",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Y2YzYThjNzZmYzY0MmEwOGIzOWIyZCIsImVtYWlsIjoibmFtdGFuZ2hhbmh1dEBnbWFpbC5jb20iLCJpYXQiOjE3MjQ4NTcwMDAsImV4cCI6MTcyNzQ0OTAwMH0.woIhxVt9VYM755YXgR3WWrbF-sdZCRtbZ7QeN5Sopr8",
+    "createdAt": {
+      "$date": "2024-08-28T14:56:12.223Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-28T14:56:40.118Z"
+    },
+    "__v": 0
   },
-  "role": "customer",
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Y2YzYThjNzZmYzY0MmEwOGIzOWIyZCIsImVtYWlsIjoibmFtdGFuZ2hhbmh1dEBnbWFpbC5jb20iLCJpYXQiOjE3MjQ4NTcwMDAsImV4cCI6MTcyNzQ0OTAwMH0.woIhxVt9VYM755YXgR3WWrbF-sdZCRtbZ7QeN5Sopr8",
-  "createdAt": {
-    "$date": "2024-08-28T14:56:12.223Z"
+  {
+    "_id": {
+      "$oid": "66d5c80c0b24dcc4c40db27f"
+    },
+    "username": "Thiên Vũ",
+    "email": "user1@gmail.com",
+    "password": "$2b$10$OxjsvyiK3YXg00z5zR8KReHcqF6uRcDPPgEVZ0/G6/lISmnXBqVsa",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://cdn.tuoitre.vn/thumb_w/480/471584752817336320/2024/8/6/h1-1722954196299635514633.jpg"
+    },
+    "role": "admin",
+    "createdAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "__v": 0
   },
-  "updatedAt": {
-    "$date": "2024-08-28T14:56:40.118Z"
+  {
+    "_id": {
+      "$oid": "66dc36439f8b77adb2ff3aaa"
+    },
+    "username": "zzz",
+    "email": "anguyenvan@gmai.com",
+    "password": "$2b$10$uHZAFAfRObFc.5pwTUFCsOVi0UH0vySWtpZ8t4gUAlDyBlv6ICTIG",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://cdn.tuoitre.vn/thumb_w/480/471584752817336320/2024/8/6/h1-1722954196299635514633.jpg"
+    },
+    "role": "customer",
+    "createdAt": {
+      "$date": "2024-09-07T11:17:23.083Z"
+    },
+    "updatedAt": {
+      "$date": "2024-09-07T11:17:23.083Z"
+    },
+    "__v": 0
   },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "66d5c80c0b24dcc4c40db27f"
+  {
+    "_id": {
+      "$oid": "66cf353a73abe7220a34ce7d"
+    },
+    "username": "Thiên Vũ",
+    "email": "thienvu@gmail.com",
+    "password": "$2b$10$hZ4c8l8aZCiGjratOUMk1.j06Mg6qKI1NdRDYO2VpEhTI4Qwa6GEC",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDXTKrYn4byO0iiMJdG6PyF52qZNIIFglzVw&s"
+    },
+    "role": "customer",
+    "createdAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "__v": 0
   },
-  "username": "Thiên Vũ",
-  "email": "user1@gmail.com",
-  "password": "$2b$10$OxjsvyiK3YXg00z5zR8KReHcqF6uRcDPPgEVZ0/G6/lISmnXBqVsa",
-  "fullname": "",
-  "birthday": null,
-  "gender": "",
-  "phoneNumber": "",
-  "address": "",
-  "avatar": {
-    "public_id": "",
-    "url": ""
+  {
+    "_id": {
+      "$oid": "66cf3a8c76fc642a08b39b2d"
+    },
+    "username": "Nam",
+    "email": "namtanghanhut@gmail.com",
+    "password": "$2b$10$ovHDAO5OtMeYOLpeIp6OXOTLaHFLPUS.M9yu/uHvxYUIn.c4tPS.2",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDXTKrYn4byO0iiMJdG6PyF52qZNIIFglzVw&s"
+    },
+    "role": "customer",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Y2YzYThjNzZmYzY0MmEwOGIzOWIyZCIsImVtYWlsIjoibmFtdGFuZ2hhbmh1dEBnbWFpbC5jb20iLCJpYXQiOjE3MjQ4NTcwMDAsImV4cCI6MTcyNzQ0OTAwMH0.woIhxVt9VYM755YXgR3WWrbF-sdZCRtbZ7QeN5Sopr8",
+    "createdAt": {
+      "$date": "2024-08-28T14:56:12.223Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-28T14:56:40.118Z"
+    },
+    "__v": 0
   },
-  "role": "admin",
-  "createdAt": {
-    "$date": "2024-08-28T14:33:30.812Z"
+  {
+    "_id": {
+      "$oid": "66d5c80c0b24dcc4c40db27f"
+    },
+    "username": "Thiên Vũ",
+    "email": "user1@gmail.com",
+    "password": "$2b$10$OxjsvyiK3YXg00z5zR8KReHcqF6uRcDPPgEVZ0/G6/lISmnXBqVsa",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDXTKrYn4byO0iiMJdG6PyF52qZNIIFglzVw&s"
+    },
+    "role": "admin",
+    "createdAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "__v": 0
   },
-  "updatedAt": {
-    "$date": "2024-08-28T14:33:30.812Z"
+  {
+    "_id": {
+      "$oid": "66dc36439f8b77adb2ff3aaa"
+    },
+    "username": "zzz",
+    "email": "anguyenvan@gmai.com",
+    "password": "$2b$10$uHZAFAfRObFc.5pwTUFCsOVi0UH0vySWtpZ8t4gUAlDyBlv6ICTIG",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDXTKrYn4byO0iiMJdG6PyF52qZNIIFglzVw&s"
+    },
+    "role": "customer",
+    "createdAt": {
+      "$date": "2024-09-07T11:17:23.083Z"
+    },
+    "updatedAt": {
+      "$date": "2024-09-07T11:17:23.083Z"
+    },
+    "__v": 0
   },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "66dc36439f8b77adb2ff3aaa"
+  {
+    "_id": {
+      "$oid": "66cf353a73abe7220a34ce7d"
+    },
+    "username": "Thiên Vũ",
+    "email": "thienvu@gmail.com",
+    "password": "$2b$10$hZ4c8l8aZCiGjratOUMk1.j06Mg6qKI1NdRDYO2VpEhTI4Qwa6GEC",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://cdn.tuoitre.vn/thumb_w/480/471584752817336320/2024/8/6/h1-1722954196299635514633.jpg"
+    },
+    "role": "customer",
+    "createdAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "__v": 0
   },
-  "username": "zzz",
-  "email": "anguyenvan@gmai.com",
-  "password": "$2b$10$uHZAFAfRObFc.5pwTUFCsOVi0UH0vySWtpZ8t4gUAlDyBlv6ICTIG",
-  "fullname": "",
-  "birthday": null,
-  "gender": "",
-  "phoneNumber": "",
-  "address": "",
-  "avatar": {
-    "public_id": "",
-    "url": ""
+  {
+    "_id": {
+      "$oid": "66cf3a8c76fc642a08b39b2d"
+    },
+    "username": "Nam",
+    "email": "namtanghanhut@gmail.com",
+    "password": "$2b$10$ovHDAO5OtMeYOLpeIp6OXOTLaHFLPUS.M9yu/uHvxYUIn.c4tPS.2",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://cdn.tuoitre.vn/thumb_w/480/471584752817336320/2024/8/6/h1-1722954196299635514633.jpg"
+    },
+    "role": "customer",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Y2YzYThjNzZmYzY0MmEwOGIzOWIyZCIsImVtYWlsIjoibmFtdGFuZ2hhbmh1dEBnbWFpbC5jb20iLCJpYXQiOjE3MjQ4NTcwMDAsImV4cCI6MTcyNzQ0OTAwMH0.woIhxVt9VYM755YXgR3WWrbF-sdZCRtbZ7QeN5Sopr8",
+    "createdAt": {
+      "$date": "2024-08-28T14:56:12.223Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-28T14:56:40.118Z"
+    },
+    "__v": 0
   },
-  "role": "customer",
-  "createdAt": {
-    "$date": "2024-09-07T11:17:23.083Z"
+  {
+    "_id": {
+      "$oid": "66d5c80c0b24dcc4c40db27f"
+    },
+    "username": "Thiên Vũ",
+    "email": "user1@gmail.com",
+    "password": "$2b$10$OxjsvyiK3YXg00z5zR8KReHcqF6uRcDPPgEVZ0/G6/lISmnXBqVsa",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://cdn.tuoitre.vn/thumb_w/480/471584752817336320/2024/8/6/h1-1722954196299635514633.jpg"
+    },
+    "role": "admin",
+    "createdAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-28T14:33:30.812Z"
+    },
+    "__v": 0
   },
-  "updatedAt": {
-    "$date": "2024-09-07T11:17:23.083Z"
-  },
-  "__v": 0
-}]
+  {
+    "_id": {
+      "$oid": "66dc36439f8b77adb2ff3aaa"
+    },
+    "username": "zzz",
+    "email": "anguyenvan@gmai.com",
+    "password": "$2b$10$uHZAFAfRObFc.5pwTUFCsOVi0UH0vySWtpZ8t4gUAlDyBlv6ICTIG",
+    "fullname": "",
+    "birthday": null,
+    "gender": "",
+    "phoneNumber": "1234567890",
+    "address": "",
+    "avatar": {
+      "public_id": "",
+      "url": "https://cdn.tuoitre.vn/thumb_w/480/471584752817336320/2024/8/6/h1-1722954196299635514633.jpg"
+    },
+    "role": "customer",
+    "createdAt": {
+      "$date": "2024-09-07T11:17:23.083Z"
+    },
+    "updatedAt": {
+      "$date": "2024-09-07T11:17:23.083Z"
+    },
+    "__v": 0
+  }
+]
