@@ -1,27 +1,11 @@
 import React, { useEffect, useState } from "react";
-import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Dashboard/Sidebar";
 import HeaderBar from "../components/Header/HeaderBar";
-import HeaderBar from "../components/Header/HeaderBar";
 import DashboardContent from "../components/Dashboard/DashboardContent";
-import EmployeesList from "../components/Dashboard/Employee/EmployeesList";
 import EmployeesList from "../components/Dashboard/Employee/EmployeesList";
 import Settings from "../components/Dashboard/Settings";
 import MyChart from "../components/Dashboard/Chart";
 import { useTranslation } from "react-i18next";
-import Language from "../components/Language/Language";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import UserInfo from "../components/Dashboard/UserInfo/UserInfo";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Button, Layout, Menu, theme } from 'antd';
-const { Header, Sider, Content } = Layout;
 import Language from "../components/Language/Language";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -41,23 +25,14 @@ const Dashboard = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const [collapsed, setCollapsed] = useState(true);
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
   const [activeTab, setActiveTab] = useState("dashboard");
-
-  const navigate = useNavigate();
-
   const navigate = useNavigate();
 
   const renderContent = () => {
     switch (activeTab) {
       case "dashboard":
         return <UserInfo />;
-        return <UserInfo />;
       case "users":
-        return <EmployeesList />;
         return <EmployeesList />;
       case "settings":
         return <Settings />;
@@ -67,10 +42,6 @@ const Dashboard = () => {
         return <DashboardContent />;
     }
   };
-
-  const {
-    isAuth,
-  } = useSelector((state) => state.user);
 
   useEffect(() => {
 
