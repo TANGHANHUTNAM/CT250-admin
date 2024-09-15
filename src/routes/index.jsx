@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import Dashboard from "../pages/Dashboard"
+import Main from "../pages/Main"
 import LoginPage from "../pages/Login";
 
 const routes = [
     {
         path: "/",
-        element: <Dashboard />,
+        element: <Main />,
     },
     {
         path: "/login",

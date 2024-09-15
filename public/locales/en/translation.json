@@ -98,5 +98,17 @@
     "genderselection":[
       "Male","Female"
     ]
+  },
+  "Dish":{
+    "newdish":"New",
+    "sold":"Sold",
+    "category":{
+      "content_1":"Signature",
+      "content_2":"Appetizer",
+      "content_3":"Main dish",
+      "content_4":"Dessert",
+      "content_5":"Drink"
+    },
+  "add":"Add more"
   }
 }

@@ -67,11 +67,6 @@
     "dishManagement": "Món ăn",
     "orderManagement": "Đơn hàng",
     "reservationManagement": "Đặt bàn",
-    "employeeManagement": "Nhân viên",
-    "foodCategoryManagement": "Danh mục món ăn",
-    "dishManagement": "Món ăn",
-    "orderManagement": "Đơn hàng",
-    "reservationManagement": "Đặt bàn",
     "statistics": "Thống kê",
     "setting": "Cài đặt",
     "logout": "Đăng xuất",
@@ -102,5 +97,17 @@
     "genderselection":[
       "Nam","Nữ"
     ]
+  },
+  "Dish":{
+    "newdish":"Mới",
+    "sold":"Đã bán",
+    "category":{
+      "content_1":"Món nổi bật",
+      "content_2":"Món khai vị",
+      "content_3":"Món chính",
+      "content_4":"Món tráng miệng",
+      "content_5":"Đồ uống"
+    },
+  "add":"Thêm món"
   }
 }

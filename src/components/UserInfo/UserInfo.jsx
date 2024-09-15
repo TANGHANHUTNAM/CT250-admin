@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useTranslation } from "react-i18next";
-import Avatar from "../../avatar/Avatar";
+import Avatar from "../avatar/Avatar";
 import { FaCog, FaUserCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Tooltip } from 'antd';
