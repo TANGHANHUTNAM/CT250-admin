@@ -40,12 +40,12 @@ const HeaderBar = ({ collapsed, setCollapsed, setActiveTab }) => {
             height: 64,
           }}
         />
-        <div className='flex items-center ml-5'>
+        {/* <div className='flex items-center ml-5'>
           <div className='flex text-md !border-2 !border-gray-400 p-2 rounded-lg items-center mr-5 w-64 bg-neutral-100'>
             <FaSearch className='text-gray-400 text-lg' />
             <input type="text" placeholder={t("Home.search")} className='ml-3 bg-neutral-100 !h-6 !py-0 bg-w hover:outline-none active:outline-none focus:outline-none w-full' />
           </div>
-        </div>
+        </div> */}
       </div>
       <div className='flex items-stretch'>
         <Language isAuth={isAuth} className="!self-center " />
