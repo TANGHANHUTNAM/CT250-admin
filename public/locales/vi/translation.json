@@ -127,5 +127,21 @@
       "status3": "Đang giao",
       "status4": "Đã giao"
     }
+  },
+  "Reservation": {
+    "title": "Thông tin đặt bàn",
+    "info": "Thông tin người đặt",
+    "date": "Ngày đặt",
+    "qty": "Số lượng người",
+    "action":{
+      "action1":"Chấp nhận đặt bàn",
+      "action2":"Từ chối đặt bàn"
+    },
+    "note": "Ghi chú",
+    "status": {
+      "status1": "Chờ xác nhận",
+      "status2": "Đã chấp nhận",
+      "status3": "Đã từ chối"
+    }
   }
 }
