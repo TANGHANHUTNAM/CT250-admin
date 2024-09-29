@@ -1,78 +1,126 @@
-import { Avatar, Button, Layout, theme, Tooltip } from 'antd';
+import { Button, Dropdown, Layout, Tooltip } from "antd";
 const { Header } = Layout;
 import {
+  DownOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-} from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { FaCog } from 'react-icons/fa';
-import Language from '../Language/Language';
-import { FaSearch } from "react-icons/fa";
+} from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import Language from "../Language/Language";
+import Avatar from "../avatar/Avatar";
+import { FaUser } from "react-icons/fa";
+import { IoMdSettings } from "react-icons/io";
+import { TbLogout2 } from "react-icons/tb";
+import { Link, useNavigate } from "react-router-dom";
+import "./HeaderBar.css";
+import { logout } from "../../services/authService";
+import StatusCodes from "../../utils/StatusCodes";
+import { toast } from "react-toastify";
+import { logoutSuccess } from "../../redux/reducer/userSlice";
 
-const HeaderBar = ({ collapsed, setCollapsed, setActiveTab }) => {
+const HeaderBar = ({ collapsed, setCollapsed }) => {
   const { t } = useTranslation();
 
   const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-
-  const {
     isAuth,
-    account: { id, email, avatar, username, role },
+    account: { avatar, username, role, id, email },
   } = useSelector((state) => state.user);
+  // Handle Logout
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const handleLogout = async () => {
+    const res = await logout({ id: id, email: email });
+
+    if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+      toast.success(res.EM);
+      dispatch(logoutSuccess());
+      navigate("/login");
+    }
+
+    if (res && res.EC === StatusCodes.ERROR_DEFAULT) {
+      toast.error(res.EM);
+    }
+  };
+  const items = [
+    {
+      key: "1",
+      label: (
+        <div className="flex gap-3 items-center text-black">
+          <Avatar size={40} src={avatar} />
+          <span className="flex flex-col gap-1 justify-start">
+            <span className="font-semibold text-lg opacity-80">{username}</span>
+            <span className="text-sm font-medium opacity-40">{role}</span>
+          </span>
+        </div>
+      ),
+      disabled: true,
+    },
+    {
+      type: "divider",
+    },
+    {
+      key: "2",
+      label: (
+        <Link className="custom-menu-item" to="/profile">
+          Trang cá nhân
+        </Link>
+      ),
+      icon: <FaUser className="custom-menu-item custom-menu-item-icon" />,
+    },
+    {
+      key: "3",
+      label: (
+        <Link to="/settings" className="custom-menu-item">
+          Cài đặt
+        </Link>
+      ),
+      icon: <IoMdSettings className="custom-menu-item custom-menu-item-icon" />,
+    },
+    {
+      key: "4",
+      label: (
+        <span onClick={() => handleLogout()} className="custom-menu-item">
+          Đăng xuất
+        </span>
+      ),
+      icon: <TbLogout2 className="custom-menu-item custom-menu-item-icon" />,
+    },
+  ];
   return (
-    <Header
-      className='flex justify-between bg-white p-0 '
-    >
-      <div className='flex'>
+    <Header className="flex justify-between bg-white mx-5 p-0">
+      <div className="flex">
         <Button
           type="text"
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           onClick={() => setCollapsed(!collapsed)}
           style={{
-            fontSize: '16px',
+            fontSize: "16px",
             width: 64,
             height: 64,
           }}
         />
-        {/* <div className='flex items-center ml-5'>
-          <div className='flex text-md !border-2 !border-gray-400 p-2 rounded-lg items-center mr-5 w-64 bg-neutral-100'>
-            <FaSearch className='text-gray-400 text-lg' />
-            <input type="text" placeholder={t("Home.search")} className='ml-3 bg-neutral-100 !h-6 !py-0 bg-w hover:outline-none active:outline-none focus:outline-none w-full' />
-          </div>
-        </div> */}
       </div>
-      <div className='flex items-stretch'>
+      <div className="flex">
         <Language isAuth={isAuth} className="!self-center " />
-        <Tooltip
-          placement="bottom"
-          title={t("Home.setting")}
-        >
-          <li
-            className="p-5 hover:!bg-gray-300 transition duration-200 flex items-center cursor-pointer"
-            onClick={() => setActiveTab("settings")}
+        {/* Dropdown Avatar */}
+        <div className=" hover:!bg-gray-300">
+          <Dropdown
+            menu={{
+              items,
+            }}
+            trigger={["click"]}
           >
-            <FaCog
-              className={`m-auto text-2xl !my-1`}
-            />
-          </li>
-        </Tooltip>
-        <Tooltip
-          placement="bottom"
-          title={t("Home.accountInfo")}
-        >
-          <div className="flex items-stretch hover:!bg-gray-300 mr-4" onClick={() => setActiveTab("dashboard")} >
-            <Avatar size={40} src={avatar} className='self-center mx-3 ' />
-          </div>
-        </Tooltip>
+            <a onClick={(e) => e.preventDefault()}>
+              <Avatar size={40} src={avatar} className="self-center mx-3 " />
+            </a>
+          </Dropdown>
+        </div>
       </div>
     </Header>
-  )
-}
+  );
+};
 
-export default HeaderBar
+export default HeaderBar;

@@ -1,0 +1,4 @@
+.ant-menu-item.ant-menu-item-selected {
+  background-color: #c5c5c9 !important; /* Màu nền khi được chọn */
+  color: #fcb235 !important; /* Màu chữ khi được chọn */
+}
