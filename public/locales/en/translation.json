@@ -57,8 +57,14 @@
     "confirm_password": "Confirm password",
     "forgot_password": "Forgot password?",
     "login_with": "Or login with",
-    "required": "{{label}} is required",
-    "invalid": "Invalid {{label}}"
+    "required_email": "Email is required",
+    "invalid_email": "Invalid email",
+    "password_min": "Password must be at least 6 characters",
+    "password_max": "Password must be at most 25 characters",
+    "required_password": "Password is required",
+    "required_username": "Username is required",
+    "required_confirm_password": "Confirm password is required",
+    "confirm_password_not_match": "Confirm password does not match"
   },
   "Home": {
     "accountInfo": "Account Info",
@@ -113,9 +119,9 @@
     "delivery": "Delivery address",
     "time": "Estimation time",
     "payment": "Payment",
-    "action":{
-      "action1":"Accept order",
-      "action2":"Reject order"
+    "action": {
+      "action1": "Accept order",
+      "action2": "Reject order"
     },
     "menutitle": "Order menu",
     "total": "Total",
@@ -131,9 +137,9 @@
     "info": "Infomation",
     "date": "Date",
     "qty": "Quantity",
-    "action":{
-      "action1":"Accept reservation",
-      "action2":"Reject reservation"
+    "action": {
+      "action1": "Accept reservation",
+      "action2": "Reject reservation"
     },
     "note": "Note",
     "status": {

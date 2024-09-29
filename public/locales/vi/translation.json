@@ -54,11 +54,17 @@
     "username": "Tên người dùng",
     "email": "Email",
     "password": "Mật khẩu",
-    "confirm_password": "Xác nhận mật khẩu",
+    "confirm_password": "Mật khẩu xác nhận",
     "forgot_password": "Quên mật khẩu?",
     "login_with": "Hoặc đăng nhập bằng",
-    "required": "{{label}} là bắt buộc",
-    "invalid": "{{label}} không hợp lệ"
+    "required_email": "Email thì bắt buộc",
+    "invalid_email": "Email không hợp lệ",
+    "password_min": "Mật khẩu phải có tối thiểu là 6 kí tự",
+    "password_max": "Mật khẩu phải có tối đa là 25 kí tự",
+    "required_password": "Mật khẩu thì bắt buộc",
+    "required_username": "Tên người dùng thì bắt buộc",
+    "required_confirm_password": "Mật khẩu xác nhận thì bắt buộc",
+    "confirm_password_not_match": "Mật khẩu xác nhận không khớp"
   },
   "Home": {
     "accountInfo": "Thông tin tài khoản",

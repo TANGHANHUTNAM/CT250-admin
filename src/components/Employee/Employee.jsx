@@ -7,7 +7,7 @@ import { HiMail } from "react-icons/hi";
 const Employee = ({ user, editMode, t }) => {
     return (
         <a key={user.id} href={user.href} className="group">
-            <div className="bg-white mx-auto rounded-lg p-3 py-6 flex flex-col w-full relative hover:shadow-2xl	">
+            <div className="bg-neutral-100 mx-auto rounded-lg p-3 py-6 flex flex-col w-full relative hover:shadow-2xl	">
                 <FaBarsProgress className="absolute top-5 right-5 text-lg text-black" />
                 <Avatar size={100} src={user.avatar.url} className="!mx-auto !rounded-xl mt-5" />
                 <div className="flex flex-col justify-center items-center">
@@ -23,12 +23,12 @@ const Employee = ({ user, editMode, t }) => {
                             <p className="ml-2 font-medium text-black">{user.phoneNumber}</p>
                         </div>
                     </div>
-                    <div className="flex items-center mt-4">
+                    <div className="flex items-center mt-4 !truncate ">
                         <div className="bg-violet-100 p-3 rounded-xl group-hover:bg-violet-700 !transition !duration-250 ease-in-out">
                             <HiMail className="!text-violet-700 text-lg group-hover:!text-violet-100 transition !duration-250 ease-in-out" />
                         </div>
                         <div>
-                            <p className="ml-2 font-medium text-black">{user.email}</p>
+                            <p className="ml-2 font-medium text-black !text-ellipsis">{user.email}</p>
                         </div>
                     </div>
                 </div>

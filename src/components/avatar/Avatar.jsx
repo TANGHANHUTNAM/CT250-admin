@@ -11,7 +11,7 @@ const Avatar = ({ size = 32, src, ...props }) => {
     setFileList(newFileList);
   };
   return (
-    <div className="">
+    <div className="flex items-center">
       <Avt
         size={size}
         style={{

@@ -106,15 +106,16 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
       <div className="flex">
         <Language isAuth={isAuth} className="!self-center " />
         {/* Dropdown Avatar */}
-        <div className=" hover:!bg-gray-300">
+        <div className=" hover:!bg-gray-300 self-center py-2">
           <Dropdown
             menu={{
               items,
             }}
             trigger={["click"]}
+            
           >
             <a onClick={(e) => e.preventDefault()}>
-              <Avatar size={40} src={avatar} className="self-center mx-3 " />
+              <Avatar size={40} src={avatar} className="self-center mx-3" />
             </a>
           </Dropdown>
         </div>

@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 
-const Input = ({
+const Textarea = ({
   label,
   register = () => {},
   errors,
   errorStyle = {},
-  errorClass = "text-xs text-[#ff0000] pt-1.5 block",
+  errorClass = "text-xs text-[#ff0000] pt-1",
   translation = false,
   ...props
 }) => {
@@ -13,7 +13,7 @@ const Input = ({
 
   return (
     <div className="w-full">
-      <input
+      <textarea
         {...register(label)}
         {...props}
         style={errors?.[label] ? errorStyle : {}}
@@ -28,4 +28,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default Textarea;

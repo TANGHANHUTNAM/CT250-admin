@@ -53,12 +53,12 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <div className="">
         <img src={logo} className="mx-auto h-20 w-auto mb-5" alt="logo" />
         <hr className="mb-5 " />
       </div>
-      <p className="text-center text-primary text-2xl font-semibold mb-6 uppercase">
+      <p className="text-center text-primary text-2xl font-semibold mb-6 uppercase !text-black">
         {t("Auth.login")}
       </p>
       <form
@@ -70,32 +70,34 @@ const LoginForm = () => {
           type="email"
           placeholder={t("Auth.email")}
           autoComplete="email"
-          className="w-full bg-primary px-3 py-2.5 rounded border-b-2 border-tertiary outline-none text-gray-900 text-base"
+          className="w-full rounded border-b-2 border-neutral-300 bg-primary px-3 py-2.5 text-base text-gray-900 outline-none"
           label="email"
           register={register}
           errors={errors}
           errorStyle={{ borderBottomColor: "red" }}
+          translation={true}
         />
         <PasswordInput
           placeholder={t("Auth.password")}
-          className="w-full bg-primary px-3 py-2.5 rounded border-b-2 border-tertiary outline-none text-gray-900 text-base"
+          className="w-full rounded border-b-2 border-neutral-300 bg-primary px-3 py-2.5 text-base text-gray-900 outline-none"
           label="password"
           register={register}
           errors={errors}
           errorStyle={{ borderBottomColor: "red" }}
+          translation={true}
         />
       </form>
       <div className="mt-8 w-full">
         <button
           form="login"
-          className="w-full bg-tertiary px-4 py-2.5 rounded-md font-semibold hover:bg-[#d6861f]"
+          className="!text-black w-full bg-neutral-300 px-4 py-2.5 rounded-md font-semibold hover:bg-neutral-400"
         >
           {t("Auth.login")}
         </button>
       </div>
-      <div className="mt-3 w-full flex items-center justify-end">
+      <div className="!text-black mt-3 w-full flex items-center justify-center flex-col gap-y-4 mt-4">
         <Language />
-        <span className="text-sm ml-3 text-gray-200 cursor-pointer hover:text-tertiary">
+        <span className="!text-black text-sm text-gray-200 cursor-pointer hover:text-tertiary">
           {t("Auth.forgot_password")}
         </span>
       </div>
