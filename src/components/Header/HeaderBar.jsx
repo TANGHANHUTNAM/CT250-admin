@@ -52,7 +52,9 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
           <Avatar size={40} src={avatar} />
           <span className="flex flex-col gap-1 justify-start">
             <span className="font-semibold text-lg opacity-80">{username}</span>
-            <span className="text-sm font-medium opacity-40">{role}</span>
+            <span className="text-sm font-medium opacity-40 uppercase">
+              {role}
+            </span>
           </span>
         </div>
       ),

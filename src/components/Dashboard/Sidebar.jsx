@@ -25,8 +25,7 @@ const { Sider } = Layout;
 const Sidebar = ({ collapsed }) => {
   const { t } = useTranslation();
   const {
-    isAuth,
-    account: { id, email },
+    account: { id, email, role },
   } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -45,6 +44,7 @@ const Sidebar = ({ collapsed }) => {
       toast.error(res.EM);
     }
   };
+
   const menuItems = [
     {
       key: "/",
@@ -137,6 +137,16 @@ const Sidebar = ({ collapsed }) => {
       ),
     },
   ];
+
+  const filteredMenuItems = menuItems.filter((item) => {
+    if (
+      role === "staff" &&
+      (item.key === "/manage-statistical" || item.key === "/manage-emloyee")
+    ) {
+      return false;
+    }
+    return true;
+  });
   return (
     <Sider
       trigger={null}
@@ -165,7 +175,7 @@ const Sidebar = ({ collapsed }) => {
       <Menu
         className="font-medium"
         defaultSelectedKeys={["/"]}
-        items={menuItems}
+        items={filteredMenuItems}
         selectedKeys={window.location.pathname}
       />
     </Sider>
