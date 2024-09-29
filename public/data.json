@@ -1,0 +1,251 @@
+{
+    "dishes": [
+      {
+        "DISH_ID": 1,
+        "DISH_Name": "Pasta",
+        "DISH_TotalSold": 120,
+        "DISH_Price": 12.99
+      },
+      {
+        "DISH_ID": 2,
+        "DISH_Name": "Pizza",
+        "DISH_TotalSold": 200,
+        "DISH_Price": 15.99
+      },
+      {
+        "DISH_ID": 3,
+        "DISH_Name": "Salad",
+        "DISH_TotalSold": 80,
+        "DISH_Price": 8.99
+      },
+      {
+        "DISH_ID": 4,
+        "DISH_Name": "Burger",
+        "DISH_TotalSold": 150,
+        "DISH_Price": 10.99
+      },
+      {
+        "DISH_ID": 5,
+        "DISH_Name": "Sushi",
+        "DISH_TotalSold": 170,
+        "DISH_Price": 20.99
+      },
+      {
+        "DISH_ID": 6,
+        "DISH_Name": "Tacos",
+        "DISH_TotalSold": 130,
+        "DISH_Price": 9.99
+      },
+      {
+        "DISH_ID": 7,
+        "DISH_Name": "Steak",
+        "DISH_TotalSold": 90,
+        "DISH_Price": 25.99
+      },
+      {
+        "DISH_ID": 8,
+        "DISH_Name": "Fried Rice",
+        "DISH_TotalSold": 110,
+        "DISH_Price": 11.99
+      },
+      {
+        "DISH_ID": 9,
+        "DISH_Name": "Ice Cream",
+        "DISH_TotalSold": 250,
+        "DISH_Price": 5.99
+      },
+      {
+        "DISH_ID": 10,
+        "DISH_Name": "Cupcakes",
+        "DISH_TotalSold": 175,
+        "DISH_Price": 3.99
+      }
+    ],
+    "reservations": [
+      {
+        "id": 1,
+        "customer": "Alice",
+        "people": 2,
+        "reservationDate": "2024-09-28"
+      },
+      {
+        "id": 2,
+        "customer": "Bob",
+        "people": 5,
+        "reservationDate": "2024-09-29"
+      },
+      {
+        "id": 3,
+        "customer": "Charlie",
+        "people": 4,
+        "reservationDate": "2024-09-30"
+      },
+      {
+        "id": 4,
+        "customer": "David",
+        "people": 3,
+        "reservationDate": "2024-09-28"
+      },
+      {
+        "id": 5,
+        "customer": "Eva",
+        "people": 2,
+        "reservationDate": "2024-09-29"
+      },
+      {
+        "id": 6,
+        "customer": "Frank",
+        "people": 3,
+        "reservationDate": "2024-09-30"
+      },
+      {
+        "id": 7,
+        "customer": "Grace",
+        "people": 6,
+        "reservationDate": "2024-10-01"
+      },
+      {
+        "id": 8,
+        "customer": "Henry",
+        "people": 4,
+        "reservationDate": "2024-10-02"
+      },
+      {
+        "id": 9,
+        "customer": "Ivy",
+        "people": 2,
+        "reservationDate": "2024-10-03"
+      },
+      {
+        "id": 10,
+        "customer": "Jack",
+        "people": 5,
+        "reservationDate": "2024-10-04"
+      },
+      {
+        "id": 11,
+        "customer": "Laura",
+        "people": 2,
+        "reservationDate": "2024-10-05"
+      },
+      {
+        "id": 12,
+        "customer": "Mike",
+        "people": 4,
+        "reservationDate": "2024-10-06"
+      },
+      {
+        "id": 13,
+        "customer": "Nina",
+        "people": 3,
+        "reservationDate": "2024-10-07"
+      },
+      {
+        "id": 14,
+        "customer": "Oscar",
+        "people": 7,
+        "reservationDate": "2024-10-08"
+      }
+    ],
+    "orders": [
+      {
+        "orderId": 1,
+        "customer": "Alice",
+        "totalItems": 3,
+        "totalAmount": 45.0,
+        "orderDate": "2024-09-28"
+      },
+      {
+        "orderId": 2,
+        "customer": "Bob",
+        "totalItems": 2,
+        "totalAmount": 30.0,
+        "orderDate": "2024-09-29"
+      },
+      {
+        "orderId": 3,
+        "customer": "Charlie",
+        "totalItems": 5,
+        "totalAmount": 70.0,
+        "orderDate": "2024-09-30"
+      },
+      {
+        "orderId": 4,
+        "customer": "David",
+        "totalItems": 4,
+        "totalAmount": 60.0,
+        "orderDate": "2024-09-28"
+      },
+      {
+        "orderId": 5,
+        "customer": "Eva",
+        "totalItems": 1,
+        "totalAmount": 20.0,
+        "orderDate": "2024-09-29"
+      },
+      {
+        "orderId": 6,
+        "customer": "Frank",
+        "totalItems": 2,
+        "totalAmount": 40.0,
+        "orderDate": "2024-09-30"
+      },
+      {
+        "orderId": 7,
+        "customer": "Grace",
+        "totalItems": 3,
+        "totalAmount": 45.0,
+        "orderDate": "2024-10-01"
+      },
+      {
+        "orderId": 8,
+        "customer": "Henry",
+        "totalItems": 4,
+        "totalAmount": 60.0,
+        "orderDate": "2024-10-02"
+      },
+      {
+        "orderId": 9,
+        "customer": "Ivy",
+        "totalItems": 2,
+        "totalAmount": 30.0,
+        "orderDate": "2024-10-03"
+      },
+      {
+        "orderId": 10,
+        "customer": "Jack",
+        "totalItems": 5,
+        "totalAmount": 70.0,
+        "orderDate": "2024-10-04"
+      },
+      {
+        "orderId": 11,
+        "customer": "Laura",
+        "totalItems": 3,
+        "totalAmount": 40.0,
+        "orderDate": "2024-10-05"
+      },
+      {
+        "orderId": 12,
+        "customer": "Mike",
+        "totalItems": 4,
+        "totalAmount": 80.0,
+        "orderDate": "2024-10-06"
+      },
+      {
+        "orderId": 13,
+        "customer": "Nina",
+        "totalItems": 2,
+        "totalAmount": 30.0,
+        "orderDate": "2024-10-07"
+      },
+      {
+        "orderId": 14,
+        "customer": "Oscar",
+        "totalItems": 1,
+        "totalAmount": 25.0,
+        "orderDate": "2024-10-08"
+      }
+    ]
+  }
+  

@@ -21,6 +21,8 @@ import { MdPermContactCalendar } from "react-icons/md";
 import { IoNewspaper } from "react-icons/io5";
 import { TbLogout2 } from "react-icons/tb";
 import "./Sidebar.css";
+import { IoMdStats } from "react-icons/io";
+
 const { Sider } = Layout;
 const Sidebar = ({ collapsed }) => {
   const { t } = useTranslation();
@@ -57,7 +59,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-statistical",
-      icon: <FcStatistics className="w-4 h-4" />,
+      icon: <IoMdStats className="w-4 h-4" />,
       label: (
         <Link to="/manage-statistical" className="text-base">
           Thống kê
