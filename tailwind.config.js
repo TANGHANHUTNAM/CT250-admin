@@ -11,7 +11,7 @@ export default {
         // den
         secondary: "#000000",
         // vang
-        tertiary: "#d69c52 ",
+        tertiary: "#d69c52",
         // xanh nhat
         bgPrimary: "#143b36",
         // den nhat

@@ -12,7 +12,9 @@ import Statistical from "../components/Statistical/Statistical";
 import Discount from "../components/Discount/Discount";
 import Contact from "../components/Contact/Contact";
 import News from "../components/News/News";
-import PrivateRoute from "./privateRoute";
+import { PrivateRoute, RoleRoute } from "./privateRoute";
+import NotFound from "../components/NotFound/NotFound";
+import NotPermitted from "../components/Permission/NotPermitted";
 
 const routes = [
   {
@@ -37,7 +39,11 @@ const routes = [
       },
       {
         path: "manage-emloyee",
-        element: <EmployeesList />,
+        element: (
+          <RoleRoute>
+            <EmployeesList />
+          </RoleRoute>
+        ),
       },
       {
         path: "table-order",
@@ -53,7 +59,11 @@ const routes = [
       },
       {
         path: "manage-statistical",
-        element: <Statistical />,
+        element: (
+          <RoleRoute>
+            <Statistical />
+          </RoleRoute>
+        ),
       },
       {
         path: "manage-discount",
@@ -67,11 +77,19 @@ const routes = [
         path: "manage-news",
         element: <News />,
       },
+      {
+        path: "not-permitted",
+        element: <NotPermitted />,
+      },
     ],
   },
   {
     path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ];
 

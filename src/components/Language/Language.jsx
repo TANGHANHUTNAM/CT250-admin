@@ -9,23 +9,23 @@ const Language = () => {
   return (
     <div
       className={`${
-        isRouteLogin ? "bg-[#224642] text-primary" : "bg-white text-black/70"
+        isRouteLogin ? "bg-[#224642] text-primary" : "bg-white text-black/60"
       } flex w-fit items-center justify-center  text-xl px-3  font-semibold`}
     >
       <div
         onClick={() => handleChangeLanguage("vi")}
         className="vi cursor-pointer"
       >
-        <span className={`${i18n.language === "vi" ? "text-red-400" : ""}`}>
+        <span className={`${i18n.language === "vi" ? "text-tertiary" : ""}`}>
           VI
         </span>
       </div>
-      <div className="mx-2 ">|</div>
+      <div className="mx-1.5 text-tertiary">|</div>
       <div
         onClick={() => handleChangeLanguage("en")}
         className="en cursor-pointer"
       >
-        <span className={`${i18n.language === "en" ? "text-blue-400" : ""}`}>
+        <span className={`${i18n.language === "en" ? "text-tertiary" : ""}`}>
           EN
         </span>
       </div>
