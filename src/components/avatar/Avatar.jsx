@@ -1,8 +1,8 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar as Avt } from "antd";
 import { TiUpload } from "react-icons/ti";
-import { Upload } from 'antd';
-import ImgCrop from 'antd-img-crop';
+import { Upload } from "antd";
+import ImgCrop from "antd-img-crop";
 import { useState } from "react";
 
 const Avatar = ({ size = 32, src, ...props }) => {
@@ -11,7 +11,7 @@ const Avatar = ({ size = 32, src, ...props }) => {
     setFileList(newFileList);
   };
   return (
-    <div className="mx-auto relative">
+    <div className="">
       <Avt
         size={size}
         style={{
@@ -23,8 +23,11 @@ const Avatar = ({ size = 32, src, ...props }) => {
         src={src || undefined}
         {...props}
       />
-      {props.isActive == "editing" &&
-        <div rotationSlider className="absolute bottom-6 right-0 !bg-neutral-300 p-2 h-12 w-12 rounded-full text-center !text-black ">
+      {props.isActive == "editing" && (
+        <div
+          rotationSlider
+          className="absolute bottom-6 right-0 !bg-neutral-300 p-2 h-12 w-12 rounded-full text-center !text-black "
+        >
           <ImgCrop rotationSlider>
             <Upload
               action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
@@ -34,9 +37,8 @@ const Avatar = ({ size = 32, src, ...props }) => {
               <TiUpload className="text-2xl" />
             </Upload>
           </ImgCrop>
-        </div>}
-
-
+        </div>
+      )}
     </div>
   );
 };

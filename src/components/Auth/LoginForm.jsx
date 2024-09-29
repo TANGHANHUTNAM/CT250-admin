@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import logo from '../../assets/logo.png'
+import logo from "../../assets/logo.png";
 import Input from "../inputs/Input";
 import PasswordInput from "../Inputs/PasswordInput";
 import { useAppForm } from "../../hooks";
@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../redux/reducer/userSlice";
+import Language from "../Language/Language";
 
 // Error message là các key để translate đa ngôn ngữ và ở các component Input phải có props translation = true
 const loginFormSchema = yup
@@ -92,8 +93,9 @@ const LoginForm = () => {
           {t("Auth.login")}
         </button>
       </div>
-      <div className="mt-1.5 w-full text-right">
-        <span className="text-sm text-gray-200 cursor-pointer hover:text-tertiary">
+      <div className="mt-3 w-full flex items-center justify-end">
+        <Language />
+        <span className="text-sm ml-3 text-gray-200 cursor-pointer hover:text-tertiary">
           {t("Auth.forgot_password")}
         </span>
       </div>
