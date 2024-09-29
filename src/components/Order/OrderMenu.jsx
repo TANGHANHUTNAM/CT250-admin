@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import thucan from "../../assets/thucan.webp";
 
 const items = [
@@ -11,12 +12,14 @@ const items = [
 ];
 
 const OrderMenu = () => {
+    const { t } = useTranslation();
+
     // Tính tổng số tiền
     const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
     return (
         <div className="mt-3">
-            <div className="text-lg font-semibold mb-2">Order Menu</div>
+            <div className="text-lg font-semibold mb-2">{t("Order.menutitle")}</div>
             <div>
                 <div className="max-h-64 overflow-y-auto px-3">
                     {/* Hiển thị danh sách các mục */}
@@ -39,7 +42,7 @@ const OrderMenu = () => {
                 </div>
                 <div className="flex justify-between text-right text-lg mt-4 border-t-2 border-neutral-300 pr-6">
                     <div className="mt-3 text-lg font-semibold mb-2">
-                        Total
+                    {t("Order.total")}
                     </div>
                     <div className="mt-3 text-lg font-semibold text-violet-700">
                         ${total.toFixed(2)}
