@@ -5,14 +5,14 @@ const initialState = {
   account: {
     id: "",
     avatar: "",
-    username: "",
+    username: "admin",
     email: "",
     fullname: "",
     birthday: "",
     gender: "",
     phoneNumber: "",
     address: "",
-    role: "",
+    role: "ADMIN",
   },
 };
 
