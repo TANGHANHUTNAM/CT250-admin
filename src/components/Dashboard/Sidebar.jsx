@@ -89,22 +89,7 @@ const Sidebar = ({ collapsed, setCollapsed, setActiveTab }) => {
                   <Link to="#" className="hover:!text-black text-md">{t("Home.foodCategoryManagement")}</Link>
                 )}
               </li>
-            </Tooltip>
-            <Tooltip
-              placement="right"
-              title={collapsed ? t("Home.dishManagement") : ""}
-            >
-              <li
-                className="p-4 px-2 hover:!bg-gray-300 transition duration-200 flex items-center cursor-pointer"
-                onClick={() => setActiveTab("reports")}
-              >
-                <FaBowlFood
-                  className={`m-auto ${!collapsed ? "!m-0 !mr-3" : "text-lg !my-1"
-                    }`}
-                />
-                {!collapsed && <Link to="#" className="hover:!text-black text-md">{t("Home.dishManagement")}</Link>}
-              </li>
-            </Tooltip>
+            </Tooltip>          
             <Tooltip
               placement="right"
               title={collapsed ? t("Home.orderManagement") : ""}
@@ -128,7 +113,7 @@ const Sidebar = ({ collapsed, setCollapsed, setActiveTab }) => {
             >
               <li
                 className="p-4 px-2 hover:!bg-gray-300 transition duration-200 flex items-center cursor-pointer"
-                onClick={() => setActiveTab("reports")}
+                onClick={() => setActiveTab("reservation")}
               >
                 <LiaFirstOrder
                   className={`m-auto ${!collapsed ? "!m-0 !mr-3" : "text-lg !my-1"

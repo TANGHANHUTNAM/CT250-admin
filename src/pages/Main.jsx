@@ -4,7 +4,7 @@ import HeaderBar from "../components/Header/HeaderBar";
 import EmployeesList from "../components//Employee/EmployeesList";
 import Settings from "../components/Dashboard/Settings";
 import MyChart from "../components/Dashboard/Chart";
-import OderLayout from "../layouts/OderLayout";
+import OderLayout from "../layouts/OrderLayout";
 import { useTranslation } from "react-i18next";
 import Language from "../components/Language/Language";
 import { useNavigate } from "react-router-dom";
@@ -16,9 +16,10 @@ import {
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Button, Layout, Menu, theme } from 'antd';
+} from "@ant-design/icons";
+import { Button, Layout, Menu, theme } from "antd";
 import MenuLayout from "../layouts/MenuLayout";
+import ReservationLayout from "../layouts/ReservationLayout";
 const { Header, Sider, Content } = Layout;
 
 const Main = () => {
@@ -38,9 +39,11 @@ const Main = () => {
       case "settings":
         return <Settings />;
       case "menu":
-        return <MenuLayout />
+        return <MenuLayout />;
       case "oder":
         return <OderLayout />;
+      case "reservation":
+        return <ReservationLayout />;
       case "reports":
         return <MyChart />;
       default:
@@ -49,37 +52,36 @@ const Main = () => {
   };
 
   useEffect(() => {
-
     if (isAuth == false) {
       navigate("/login");
     }
+  });
 
-  })
-
-  const {
-    isAuth,
-  } = useSelector((state) => state.user);
+  const { isAuth } = useSelector((state) => state.user);
 
   useEffect(() => {
-
     if (isAuth == false) {
       navigate("/login");
     }
-
-  })
+  });
   return (
     <Layout className="!w-full !h-full box-content">
-      <Sidebar setCollapsed={setCollapsed} collapsed={collapsed} setActiveTab={setActiveTab} />
+      <Sidebar
+        setCollapsed={setCollapsed}
+        collapsed={collapsed}
+        setActiveTab={setActiveTab}
+      />
       <Layout className="!h-full box-content">
-        <HeaderBar collapsed={collapsed} setCollapsed={setCollapsed} setActiveTab={setActiveTab} />
-        <Content
-          className="mx-12 mt-12 !rounded-lg box-content"
-        >
+        <HeaderBar
+          collapsed={collapsed}
+          setCollapsed={setCollapsed}
+          setActiveTab={setActiveTab}
+        />
+        <Content className="mx-12 mt-12 !rounded-lg box-content">
           {renderContent()}
         </Content>
       </Layout>
     </Layout>
-
   );
 };
 

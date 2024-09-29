@@ -13,8 +13,8 @@ const EmployeesList = () => {
 
     return (
         <div>
-            <div className='flex justify-between'>
-                <h2 className="text-2xl font-bold">{t("Employee.title")}</h2>
+            <div className='flex justify-between '>
+                <h2 className="text-2xl font-bold" >{t("Employee.title")}</h2>
                 <div className='flex'>
                     <div className='flex text-md !border-2 !border-gray-400 p-2 rounded-md items-center mr-5 w-64'>
                         <FaSearch className='text-gray-400 text-lg' />
