@@ -8,9 +8,10 @@ import { login } from "../../services/authService";
 import StatusCodes from "../../utils/StatusCodes";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess } from "../../redux/reducer/userSlice";
 import Language from "../Language/Language";
+import { useEffect } from "react";
 
 // Error message là các key để translate đa ngôn ngữ và ở các component Input phải có props translation = true
 const loginFormSchema = yup
@@ -51,7 +52,12 @@ const LoginForm = () => {
       toast.error(res.EM);
     }
   };
-
+  const { isAuth } = useSelector((state) => state.user);
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/");
+    }
+  }, [isAuth, navigate]);
   return (
     <div className="w-full">
       <div className="">
