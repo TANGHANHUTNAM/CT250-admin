@@ -109,5 +109,23 @@
       "content_5":"Đồ uống"
     },
   "add":"Thêm món"
+  },
+  "Order": {
+    "title": "Chi tiết đơn hàng",
+    "delivery":"Địa chỉ giao hàng",
+    "time":"Thời gian dự kiến",
+    "payment":"Phương thức thanh toán",
+    "action":{
+      "action1":"Chấp nhận đơn hàng",
+      "action2":"Từ chối đơn hàng"
+    },
+    "menutitle":"Tóm tắt đơn hàng",
+    "total":"Tổng cộng",
+    "status": {
+      "status1": "Xác nhận",
+      "status2": "Chuẩn bị",
+      "status3": "Đang giao",
+      "status4": "Đã giao"
+    }
   }
 }
