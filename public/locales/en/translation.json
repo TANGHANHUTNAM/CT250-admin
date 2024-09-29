@@ -71,8 +71,7 @@
     "setting": "Setting",
     "logout": "Logout",
     "position": "Position",
-    "search":"Search here"
-
+    "search": "Search here"
   },
   "Employee": {
     "title": "Employees List",
@@ -95,20 +94,36 @@
     "birthday": "Birthday",
     "country": "Country",
     "save": "Update information",
-    "genderselection":[
-      "Male","Female"
-    ]
+    "genderselection": ["Male", "Female"]
   },
-  "Dish":{
-    "newdish":"New",
-    "sold":"Sold",
-    "category":{
-      "content_1":"Signature",
-      "content_2":"Appetizer",
-      "content_3":"Main dish",
-      "content_4":"Dessert",
-      "content_5":"Drink"
+  "Dish": {
+    "newdish": "New",
+    "sold": "Sold",
+    "category": {
+      "content_1": "Signature",
+      "content_2": "Appetizer",
+      "content_3": "Main dish",
+      "content_4": "Dessert",
+      "content_5": "Drink"
     },
-  "add":"Add more"
+    "add": "Add more"
+  },
+  "Order": {
+    "title": "Order details",
+    "delivery": "Delivery address",
+    "time": "Estimation time",
+    "payment": "Payment",
+    "action":{
+      "action1":"Accept order",
+      "action2":"Reject order"
+    },
+    "menutitle": "Order menu",
+    "total": "Total",
+    "status": {
+      "status1": "Oder in",
+      "status2": "Preparing",
+      "status3": "Delivering",
+      "status4": "Delivered"
+    }
   }
 }

@@ -4,8 +4,8 @@ import LoginPage from "../pages/Login";
 import DashboardContent from "../components/Dashboard/DashboardContent";
 import UserInfo from "../components/UserInfo/UserInfo";
 import Settings from "../components/Dashboard/Settings";
-import TableOrder from "../components/TableOrder/TableOrder";
-import OderLayout from "../layouts/OderLayout";
+import ReservationLayout from "../layouts/ReservationLayout";
+import OderLayout from "../layouts/OrderLayout";
 import EmployeesList from "../components/Employee/EmployeesList";
 import MenuLayout from "../layouts/MenuLayout";
 import Statistical from "../components/Statistical/Statistical";
@@ -41,7 +41,7 @@ const routes = [
       },
       {
         path: "table-order",
-        element: <TableOrder />,
+        element: <ReservationLayout />,
       },
       {
         path: "dishes-order",

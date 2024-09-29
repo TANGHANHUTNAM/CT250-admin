@@ -11,18 +11,12 @@ const Main = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuth == true) {
+    if (isAuth == false) {
       navigate("/login");
     }
   });
 
   const { isAuth } = useSelector((state) => state.user);
-
-  useEffect(() => {
-    if (isAuth == true) {
-      navigate("/login");
-    }
-  });
   return (
     <Layout className="!w-full !h-full box-content">
       <Sidebar setCollapsed={setCollapsed} collapsed={collapsed} />
