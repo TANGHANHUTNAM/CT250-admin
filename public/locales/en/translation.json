@@ -125,5 +125,21 @@
       "status3": "Delivering",
       "status4": "Delivered"
     }
+  },
+  "Reservation": {
+    "title": "Reservation details",
+    "info": "Infomation",
+    "date": "Date",
+    "qty": "Quantity",
+    "action":{
+      "action1":"Accept reservation",
+      "action2":"Reject reservation"
+    },
+    "note": "Note",
+    "status": {
+      "status1": "Pending",
+      "status2": "Accepted",
+      "status3": "Denied"
+    }
   }
 }
