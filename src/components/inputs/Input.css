@@ -1,0 +1,21 @@
+.ant-radio-group,
+.ant-radio-wrapper,
+.ant-radio-wrapper .ant-radio {
+  font-family: inherit;
+  color: white;
+}
+
+.ant-radio-wrapper .ant-radio-inner {
+  background-color: transparent;
+  border: 1.5px solid white;
+}
+
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+  border-color: rgb(202 138 4);
+  background-color: var(--color-tertiary);
+}
+
+.ant-radio-wrapper,
+.ant-radio-wrapper:hover .ant-radio-inner {
+  border-color: var(--color-tertiary);
+}

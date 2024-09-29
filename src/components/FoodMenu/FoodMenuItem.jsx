@@ -9,7 +9,7 @@ const FoodMenuItem = ({ dish }) => {
     return (
         <div className="!w-full">
             {/* image */}
-            <div className="group relative flex cursor-pointer flex-col overflow-hidden border-b-2 border-solid border-neutral-200/40 bg-primary p-2 !rounded-t-md w-full h-56">
+            <div className="group relative flex cursor-pointer flex-col overflow-hidden border-b-2 border-solid border-neutral-200/40 bg-primary p-0 !rounded-t-md w-full h-56">
                 <img src={thucan} alt="thucan" className="!w-full !h-full"/>
                 {/* label */}
                 {dish?.discount && (
@@ -24,7 +24,7 @@ const FoodMenuItem = ({ dish }) => {
                 )}
             </div>
             {/* content */}
-            <div className="flex flex-col gap-1 bg-primary p-2 pt-1 text-left sm:p-3 !rounded-b-md !pb-6 ">
+            <div className="flex flex-col gap-1 !bg-neutral-100 p-2 pt-1 text-left sm:p-3 !rounded-b-md !pb-6 ">
                 <div className="name cursor-pointer truncate text-lg font-bold duration-200 hover:text-yellow-600 sm:text-xl !text-black">
                     {dish?.name}
                 </div>

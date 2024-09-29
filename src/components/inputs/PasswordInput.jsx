@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const showPwdDefault = {
@@ -16,6 +17,7 @@ const PasswordInput = ({
   errorStyle = {},
   errorClass = "text-xs text-[#ff0000] pt-1.5 block",
   showPwd = { ...showPwdDefault },
+  translation = false,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -25,9 +27,11 @@ const PasswordInput = ({
     ...showPwd,
   };
 
+  const { t } = useTranslation();
+
   return (
     <div className="w-full">
-      <div className="w-full relative">
+      <div className="relative w-full">
         <input
           type={showPassword ? "text" : "password"}
           autoComplete="new-password"
@@ -47,7 +51,9 @@ const PasswordInput = ({
       </div>
 
       {errors?.[label] && (
-        <span className={errorClass}>{errors?.[label]?.message}</span>
+        <span className={errorClass}>
+          {translation ? t(errors?.[label]?.message) : errors?.[label]?.message}
+        </span>
       )}
     </div>
   );

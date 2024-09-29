@@ -1,24 +1,33 @@
+import { Input } from "antd";
+import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-const Input = ({
+const OPTInput = ({
   label,
-  register = () => {},
+  control,
   errors,
-  errorStyle = {},
   errorClass = "text-xs text-[#ff0000] pt-1.5 block",
   translation = false,
+  inputMode = "numeric",
+  length = 4,
   ...props
 }) => {
   const { t } = useTranslation();
 
   return (
     <div className="w-full">
-      <input
-        {...register(label)}
-        {...props}
-        style={errors?.[label] ? errorStyle : {}}
+      <Controller
+        name={label}
+        control={control}
+        render={({ field }) => (
+          <Input.OTP
+            inputMode={inputMode}
+            length={length}
+            {...field}
+            {...props}
+          />
+        )}
       />
-
       {errors?.[label] && (
         <span className={errorClass}>
           {translation ? t(errors?.[label]?.message) : errors?.[label]?.message}
@@ -28,4 +37,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default OPTInput;

@@ -56,7 +56,7 @@ const FoodMenu = () => {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {List.map((dish) => {
-                return <FoodMenuItem key={dish.id} dish={dish} />;
+                return <FoodMenuItem key={dish.id} dish={dish}/>;
             })}
         </div>
     );
