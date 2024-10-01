@@ -1,7 +1,9 @@
 import { Result } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useDynamicTitle } from "../../hooks";
 
 const NotFound = () => {
+  useDynamicTitle("404 Not Found");
   const navigate = useNavigate();
   const handleBackPage = () => {
     navigate(-1);

@@ -1,7 +1,9 @@
 import { Result } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useDynamicTitle } from "../../hooks";
 
 const NotPermitted = () => {
+  useDynamicTitle("403 Not Permitted");
   const navigate = useNavigate();
   const handleBackPage = () => {
     navigate(-1);
