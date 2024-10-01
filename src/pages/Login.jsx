@@ -4,7 +4,6 @@ import LoginForm from "../components/Auth/LoginForm";
 
 const LoginPage = () => {
   useDynamicTitle("Đăng nhập");
-
   return (
     <AuthLayout>
       <LoginForm />

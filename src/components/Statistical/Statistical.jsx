@@ -3,8 +3,10 @@ import { Table, Spin } from "antd";
 import { Line, Doughnut, Bar } from "react-chartjs-2";
 import Chart from "chart.js/auto"; // Ensure to import Chart.js
 import data from "../../../public/data.json"; // Import the JSON data
+import { useDynamicTitle } from "../../hooks";
 
 const Statistics = () => {
+  useDynamicTitle("Thống kê");
   const [loading, setLoading] = useState(true);
   const [dishes, setDishes] = useState([]);
   const [reservations, setReservations] = useState([]);
@@ -127,7 +129,8 @@ const Statistics = () => {
     const reservationCounts = {};
     reservations.forEach((reservation) => {
       const date = reservation.reservationDate;
-      reservationCounts[date] = (reservationCounts[date] || 0) + reservation.people;
+      reservationCounts[date] =
+        (reservationCounts[date] || 0) + reservation.people;
     });
 
     return {
@@ -176,7 +179,9 @@ const Statistics = () => {
             />
           </div>
 
-          <h2 className="text-xl font-semibold mb-4">Dish Sales Doughnut Chart</h2>
+          <h2 className="text-xl font-semibold mb-4">
+            Dish Sales Doughnut Chart
+          </h2>
           <div style={{ height: "300px", width: "100%" }}>
             <Doughnut
               data={createPieData()}
@@ -184,7 +189,9 @@ const Statistics = () => {
             />
           </div>
 
-          <h2 className="text-xl font-semibold mb-4">Orders Over Days Line Chart</h2>
+          <h2 className="text-xl font-semibold mb-4">
+            Orders Over Days Line Chart
+          </h2>
           <div style={{ height: "300px", width: "100%" }}>
             <Line
               data={createLineData()}
@@ -192,7 +199,9 @@ const Statistics = () => {
             />
           </div>
 
-          <h2 className="text-xl font-semibold mb-4">Reservations Over Days Bar Chart</h2>
+          <h2 className="text-xl font-semibold mb-4">
+            Reservations Over Days Bar Chart
+          </h2>
           <div style={{ height: "300px", width: "100%" }}>
             <Bar
               data={createReservationBarData()}
