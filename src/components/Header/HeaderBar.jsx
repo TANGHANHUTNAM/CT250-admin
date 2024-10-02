@@ -1,12 +1,7 @@
-import { Button, Dropdown, Layout, Tooltip } from "antd";
+import { Button, Dropdown, Layout } from "antd";
 const { Header } = Layout;
-import {
-  DownOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-} from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
 import Language from "../Language/Language";
 import Avatar from "../avatar/Avatar";
 import { FaUser } from "react-icons/fa";
@@ -18,10 +13,9 @@ import { logout } from "../../services/authService";
 import StatusCodes from "../../utils/StatusCodes";
 import { toast } from "react-toastify";
 import { logoutSuccess } from "../../redux/reducer/userSlice";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 const HeaderBar = ({ collapsed, setCollapsed }) => {
-  const { t } = useTranslation();
-
   const {
     isAuth,
     account: { avatar, username, role, id, email },
@@ -51,7 +45,7 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
         <div className="flex gap-3 items-center text-black">
           <Avatar size={40} src={avatar} />
           <span className="flex flex-col gap-1 justify-start">
-            <span className="font-semibold text-lg opacity-80">{username}</span>
+            <span className="font-semibold text-md opacity-80">{username}</span>
             <span className="text-sm font-medium opacity-40 uppercase">
               {role}
             </span>
@@ -108,16 +102,20 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
       <div className="flex">
         <Language isAuth={isAuth} className="!self-center " />
         {/* Dropdown Avatar */}
-        <div className=" hover:!bg-gray-300 self-center py-2">
+        <div className=" hover:!bg-gray-300 self-center">
           <Dropdown
             menu={{
               items,
             }}
-            trigger={["click"]}
-            
+            trigger={["hover"]}
           >
             <a onClick={(e) => e.preventDefault()}>
-              <Avatar size={40} src={avatar} className="self-center mx-3" />
+              <div className="flex px-2 items-center justify-center">
+                <Avatar size={40} src={avatar} className="self-center" />
+                <span className="ml-2 font-semibold text-black/60 group-hover:text-black/80">
+                  {username}
+                </span>
+              </div>
             </a>
           </Dropdown>
         </div>

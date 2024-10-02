@@ -15,7 +15,6 @@ import { Layout } from "antd";
 import { RxDashboard } from "react-icons/rx";
 import { MdTableRestaurant } from "react-icons/md";
 import { TiShoppingCart } from "react-icons/ti";
-import { FcStatistics } from "react-icons/fc";
 import { MdDiscount } from "react-icons/md";
 import { MdPermContactCalendar } from "react-icons/md";
 import { IoNewspaper } from "react-icons/io5";
@@ -149,15 +148,26 @@ const Sidebar = ({ collapsed }) => {
     }
     return true;
   });
+
+  const siderStyle = {
+    overflow: "auto",
+    height: "100vh",
+    position: "fixed",
+    insetInlineStart: 0,
+    top: 0,
+    bottom: 0,
+    scrollbarWidth: "thin",
+    scrollbarColor: "unset",
+  };
   return (
     <Sider
       trigger={null}
-      style={{ minWidth: 150 }}
+      style={siderStyle}
       collapsible
       collapsed={collapsed}
       className={`!bg-white  !flex-none ${
         !collapsed ? "!max-w-auto" : "!max-w-fit"
-      } !min-w-14`}
+      } !min-w-14 duration-300 transition-all`}
     >
       {collapsed ? (
         <div className="p-3">
