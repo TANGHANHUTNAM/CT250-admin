@@ -1,7 +1,7 @@
 import { useDynamicTitle } from "../../hooks";
 import ListCard from "./ListCard";
-import OrderPending from "./OrderPending";
-import OrderTablePending from "./OrderTablePending";
+import OrderPending from "./OrderCurrent";
+import OrderTablePending from "./OrderTableCurrent";
 
 const DashboardContent = () => {
   useDynamicTitle("Dashboard");

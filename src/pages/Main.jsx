@@ -10,9 +10,14 @@ const Main = () => {
   const [collapsed, setCollapsed] = useState(true);
 
   return (
-    <Layout className="!w-full !h-full box-content">
+    <Layout hasSider className="!w-full !h-full box-content">
       <Sidebar setCollapsed={setCollapsed} collapsed={collapsed} />
-      <Layout className="!h-full box-content">
+      <Layout
+        style={{
+          marginInlineStart: collapsed ? 80 : 200,
+        }}
+        className="!h-full box-content duration-300 transition-all"
+      >
         <HeaderBar collapsed={collapsed} setCollapsed={setCollapsed} />
         <Content className="m-5 !rounded-lg box-content min-h-screen bg-white">
           <div className="p-3">

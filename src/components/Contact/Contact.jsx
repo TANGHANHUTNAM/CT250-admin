@@ -1,11 +1,11 @@
 import { useDynamicTitle } from "../../hooks";
-import TableContact from "./TableContact";
+import TabContact from "./TabContact";
 
 const Contact = () => {
   useDynamicTitle("Quản lý liên hệ");
   return (
     <>
-      <TableContact />
+      <TabContact />
     </>
   );
 };

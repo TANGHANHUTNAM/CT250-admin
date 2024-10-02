@@ -68,6 +68,11 @@ const OrderPending = () => {
       dataIndex: "order_date",
       key: "order_date",
     },
+    {
+      title: "Trạng thái",
+      dataIndex: "status_order",
+      key: "status_order",
+    },
   ];
   const data = [
     {
@@ -77,6 +82,7 @@ const OrderPending = () => {
       FinalPrice: 1000000,
       idPayment_method: "1",
       order_date: "2021-09-01",
+      status_order: "Đang chờ xử lý",
     },
     {
       avatar: "avatar",
@@ -85,6 +91,7 @@ const OrderPending = () => {
       FinalPrice: 1000000,
       idPayment_method: "2",
       order_date: "2021-09-01",
+      status_order: "Đang chờ xử lý",
     },
     {
       avatar: "avatar",
@@ -93,6 +100,7 @@ const OrderPending = () => {
       FinalPrice: 1000000,
       idPayment_method: "1",
       order_date: "2021-09-01",
+      status_order: "Đã xác nhận",
     },
     {
       avatar: "avatar",
@@ -101,6 +109,7 @@ const OrderPending = () => {
       FinalPrice: 1000000,
       idPayment_method: "1",
       order_date: "2021-09-01",
+      status_order: "Đã xác nhận",
     },
     {
       avatar: "avatar",
@@ -109,6 +118,7 @@ const OrderPending = () => {
       FinalPrice: 1000000,
       idPayment_method: "1",
       order_date: "2021-09-01",
+      status_order: "Đã xác nhận",
     },
     {
       avatar: "avatar",
@@ -117,12 +127,13 @@ const OrderPending = () => {
       FinalPrice: 1000000,
       idPayment_method: "2",
       order_date: "2021-09-01",
+      status_order: "Đã xác nhận",
     },
   ];
   return (
     <div className="p-2">
       <div className="text-xl font-semibold mb-5 ml-3 text-black/85">
-        Đơn hàng đang chờ xử lý
+        Đơn hàng gần đây
       </div>
       <Table
         className={styles.customTable}
