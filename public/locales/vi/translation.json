@@ -150,19 +150,15 @@
       "canceled": "Đã hủy"
     },
     "noSelected": "Chọn một đơn đặt bàn để xem thông tin chi tiết."
-      "status1": "Chờ xác nhận",
-      "status2": "Đã chấp nhận",
-      "status3": "Đã từ chối"
-    }
   },
   "OrderPending": {
     "title": "Khách hàng",
     "id": "ID Đơn hàng",
     "finalPrice": "Tổng giá trị",
     "paymentMethod": "Phương thức thanh toán",
-    "paymentMethodCate":{
-      "paymentMethod1":"Chuyển khoản VNPay",
-      "paymentMethod2":"Thanh toán khi nhận hàng"
+    "paymentMethodCate": {
+      "paymentMethod1": "Chuyển khoản VNPay",
+      "paymentMethod2": "Thanh toán khi nhận hàng"
     },
     "orderDate": "Thời gian đặt hàng",
     "status": "Trạng thái",
@@ -177,12 +173,12 @@
     "id": "ID Đơn hàng",
     "finalPrice": "Tổng giá trị",
     "paymentMethod": "Phương thức thanh toán",
-    "paymentMethodCate":{
-      "paymentMethod1":"Chuyển khoản VNPay",
-      "paymentMethod2":"Thanh toán khi nhận hàng"
+    "paymentMethodCate": {
+      "paymentMethod1": "Chuyển khoản VNPay",
+      "paymentMethod2": "Thanh toán khi nhận hàng"
     },
     "orderDate": "Thời gian đặt hàng",
-    "orderTableCurrent": "Đơn đặt bàn chờ xác nhận"
+    "currentOrder": "Đơn đặt bàn chờ xác nhận"
   },
   "ListCard": {
     "orderToday": "Đơn hàng hôm nay",
