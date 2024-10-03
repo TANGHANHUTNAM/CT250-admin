@@ -135,17 +135,20 @@
   "Reservation": {
     "title": "Reservation details",
     "info": "Infomation",
-    "date": "Date",
+    "date": "Check in at",
     "qty": "Quantity",
+    "table": "Table",
     "action": {
       "action1": "Accept reservation",
       "action2": "Reject reservation"
     },
     "note": "Note",
     "status": {
-      "status1": "Pending",
-      "status2": "Accepted",
-      "status3": "Denied"
-    }
+      "pending": "To Confirm",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "canceled": "Canceled"
+    },
+    "noSelected": "Select a table reservation to view detailed information."
   }
 }

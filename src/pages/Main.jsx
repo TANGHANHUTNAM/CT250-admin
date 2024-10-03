@@ -16,11 +16,11 @@ const Main = () => {
         style={{
           marginInlineStart: collapsed ? 80 : 200,
         }}
-        className="!h-full box-content duration-300 transition-all"
+        className="!h-full !min-h-screen box-content duration-300 transition-all"
       >
         <HeaderBar collapsed={collapsed} setCollapsed={setCollapsed} />
-        <Content className="m-5 !rounded-lg box-content min-h-screen bg-white">
-          <div className="p-3">
+        <Content className="m-5 box-content min-h-[80vh] flex bg-white">
+          <div className="flex-1">
             <Outlet />
           </div>
         </Content>
