@@ -49,7 +49,7 @@ const UserInfo = () => {
   };
 
   return (
-    <div className="flex flex-row bg-white !h-screen !overflow-hidden">
+    <div className="flex flex-row bg-white !h-screen !overflow-hidden p-3">
       <div className="basis-1/4 flex flex-col justify-start border-r-2 border-gray-200 pt-24">
         <Avatar
           size={150}

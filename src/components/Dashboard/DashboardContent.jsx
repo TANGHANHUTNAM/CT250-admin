@@ -6,11 +6,11 @@ import OrderTablePending from "./OrderTableCurrent";
 const DashboardContent = () => {
   useDynamicTitle("Dashboard");
   return (
-    <>
+    <div className="p-3">
       <ListCard />
       <OrderPending />
       <OrderTablePending />
-    </>
+    </div>
   );
 };
 
