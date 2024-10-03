@@ -1,6 +1,7 @@
 import { Space, Table } from "antd";
 import { createStyles } from "antd-style";
 import useFormatPrice from "../../hooks/useFormatPrice";
+import { useTranslation } from "react-i18next";
 const useStyle = createStyles(({ css, token }) => {
   const { antCls } = token;
   return {
@@ -25,9 +26,10 @@ const FormattedPrice = ({ price }) => {
 
 const OrderPending = () => {
   const { styles } = useStyle();
+  const { t } = useTranslation();
   const columns = [
     {
-      title: "Khách hàng",
+      title: t("OrderPending.title"),
       dataIndex: "username",
       key: "username",
       render: (_, user) => (
@@ -38,7 +40,7 @@ const OrderPending = () => {
       ),
     },
     {
-      title: "ID Đơn hàng",
+      title: t("OrderPending.id"),
       dataIndex: "order_id",
       key: "order_id",
       render: (order_id) => {
@@ -46,7 +48,7 @@ const OrderPending = () => {
       },
     },
     {
-      title: "Tổng giá trị",
+      title: t("OrderPending.finalPrice"),
       dataIndex: "FinalPrice",
       key: "FinalPrice",
       render: (FinalPrice) => {
@@ -54,22 +56,22 @@ const OrderPending = () => {
       },
     },
     {
-      title: "Phương thức thanh toán",
+      title: t("OrderPending.paymentMethod"),
       dataIndex: "idPayment_method",
       key: "idPayment_method",
       render: (idPayment_method) => {
         return idPayment_method === "1"
-          ? "Chuyển khoản VNPay"
-          : "Thanh toán khi nhận hàng";
+          ? t("OrderPending.paymentMethodCate.paymentMethod1")
+          : t("OrderPending.paymentMethodCate.paymentMethod2");
       },
     },
     {
-      title: "Thời gian đặt hàng",
+      title: t("OrderPending.orderDate"),
       dataIndex: "order_date",
       key: "order_date",
     },
     {
-      title: "Trạng thái",
+      title: t("OrderPending.status"),
       dataIndex: "status_order",
       key: "status_order",
     },
@@ -133,7 +135,7 @@ const OrderPending = () => {
   return (
     <div className="p-2">
       <div className="text-xl font-semibold mb-5 ml-3 text-black/85">
-        Đơn hàng gần đây
+      {t("OrderPending.currentOrder")}
       </div>
       <Table
         className={styles.customTable}

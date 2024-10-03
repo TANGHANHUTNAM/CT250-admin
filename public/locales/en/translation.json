@@ -179,20 +179,20 @@
   },
   "ListCard": {
     "orderToday": "Total Orders Today",
-    "orderTableToday": "Total Reservation Today",
+    "orderTableToday": "Total Reservations Today",
     "incomeToday": "Income Today",
     "newCustomer": "New Customer Today"
   },
   "Statistical": {
     "title": "Statistical",
     "dishColumns": {
-      "title1": "Dish Name",
-      "title2": "Total Sold",
-      "title3": "Price"
+      "dishName": "Dish Name",
+      "totalSold": "Total Sold",
+      "price": "Price"
     },
     "revenueColumns": {
-      "title1": "Date",
-      "title2": "Total Revenue"
+      "date": "Date",
+      "totalRevenue": "Total Revenue"
     },
     "chart1": "Top Selling Dishes",
     "chart2": "Daily Revenue Table",

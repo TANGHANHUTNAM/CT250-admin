@@ -188,13 +188,13 @@
   "Statistical": {
     "title": "Thống kê",
     "dishColumns": {
-      "title1": "Món ăn",
-      "title2": "Tổng lượt bán",
-      "title3": "Giá"
+      "dishName": "Món ăn",
+      "totalSold": "Tổng lượt bán",
+      "price": "Giá"
     },
     "revenueColumns": {
-      "title1": "Ngày",
-      "title2": "Doanh thu"
+      "date": "Ngày",
+      "totalRevenue": "Doanh thu"
     },
     "chart1": "Món bán chạy",
     "chart2": "Doanh thu hàng ngày",
