@@ -146,7 +146,7 @@ const Statistics = () => {
   };
 
   return (
-    <div className="container mx-auto my-8">
+    <div className="container mx-auto my-8 p-3">
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <Spin size="large" />
