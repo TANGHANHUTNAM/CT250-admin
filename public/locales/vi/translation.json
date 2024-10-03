@@ -149,5 +149,57 @@
       "status2": "Đã chấp nhận",
       "status3": "Đã từ chối"
     }
+  },
+  "OrderPending": {
+    "title": "Khách hàng",
+    "id": "ID Đơn hàng",
+    "finalPrice": "Tổng giá trị",
+    "paymentMethod": "Phương thức thanh toán",
+    "paymentMethodCate":{
+      "paymentMethod1":"Chuyển khoản VNPay",
+      "paymentMethod2":"Thanh toán khi nhận hàng"
+    },
+    "orderDate": "Thời gian đặt hàng",
+    "status": "Trạng thái",
+    "statusCate": {
+      "status1": "Đang chờ xử lý",
+      "status2": "Đã xác nhận"
+    },
+    "currentOrder": "Đơn hàng gần đây"
+  },
+  "OrderTableCurrent": {
+    "title": "Khách hàng",
+    "id": "ID Đơn hàng",
+    "finalPrice": "Tổng giá trị",
+    "paymentMethod": "Phương thức thanh toán",
+    "paymentMethodCate":{
+      "paymentMethod1":"Chuyển khoản VNPay",
+      "paymentMethod2":"Thanh toán khi nhận hàng"
+    },
+    "orderDate": "Thời gian đặt hàng",
+    "orderTableCurrent": "Đơn đặt bàn chờ xác nhận"
+  },
+  "ListCard": {
+    "orderToday": "Đơn hàng hôm nay",
+    "orderTableToday": "Đơn đặt bàn hôm nay",
+    "incomeToday": "Thu nhập hôm nay",
+    "newCustomer": "Khách hàng mới hôm nay"
+  },
+  "Statistical": {
+    "title": "Thống kê",
+    "dishColumns": {
+      "title1": "Món ăn",
+      "title2": "Tổng lượt bán",
+      "title3": "Giá"
+    },
+    "revenueColumns": {
+      "title1": "Ngày",
+      "title2": "Doanh thu"
+    },
+    "chart1": "Món bán chạy",
+    "chart2": "Doanh thu hàng ngày",
+    "chart3": "Tổng số lượt bán theo từng món",
+    "chart4": "Số đơn hàng được đặt theo ngày",
+    "chart5": "Đơn đặt bàn theo ngày"
   }
 }

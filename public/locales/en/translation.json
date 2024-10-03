@@ -147,5 +147,57 @@
       "status2": "Accepted",
       "status3": "Denied"
     }
+  },
+  "OrderPending": {
+    "title": "Customer",
+    "id": "Order ID",
+    "finalPrice": "Total price",
+    "paymentMethod": "Payment method",
+    "paymentMethodCate":{
+      "paymentMethod1":"VNPay Transfer",
+      "paymentMethod2":"Cash on Delivery"
+    },
+    "orderDate": "Order date",
+    "status": "Status",
+    "statusCate": {
+      "status1": "Pending",
+      "status2": "Confirmed"
+    },
+    "currentOrder": "Current Order"
+  },
+  "OrderTableCurrent": {
+    "title": "Customer",
+    "id": "Order ID",
+    "finalPrice": "Total price",
+    "paymentMethod": "Payment method",
+    "paymentMethodCate":{
+      "paymentMethod1":"VNPay Transfer",
+      "paymentMethod2":"Cash on Delivery"
+    },
+    "orderDate": "Order date",
+    "currentOrder": "Table reservation pending confirmation"
+  },
+  "ListCard": {
+    "orderToday": "Total Orders Today",
+    "orderTableToday": "Total Reservation Today",
+    "incomeToday": "Income Today",
+    "newCustomer": "New Customer Today"
+  },
+  "Statistical": {
+    "title": "Statistical",
+    "dishColumns": {
+      "title1": "Dish Name",
+      "title2": "Total Sold",
+      "title3": "Price"
+    },
+    "revenueColumns": {
+      "title1": "Date",
+      "title2": "Total Revenue"
+    },
+    "chart1": "Top Selling Dishes",
+    "chart2": "Daily Revenue Table",
+    "chart3": "Total Sales by Item",
+    "chart4": "Orders Placed by Day",
+    "chart5": "Reservation Orders Placed by Day"
   }
 }
