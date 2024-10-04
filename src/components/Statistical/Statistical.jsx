@@ -17,9 +17,8 @@ const Statistics = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       // Simulate data fetching with a timeout
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       setDishes(data.dishes);
       setReservations(data.reservations);
       setOrders(data.orders);
@@ -43,7 +42,7 @@ const Statistics = () => {
     };
 
     fetchData();
-  }, []);
+  }, [dailyRevenue]);
 
   const dishColumns = [
     {
