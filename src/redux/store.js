@@ -11,15 +11,17 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import userReducer from "./reducer/userSlice";
-
+import contactReducer from "./reducer/contactSlice";
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  whitelist: ["user"],
 };
 
 const rootReducer = combineReducers({
   user: userReducer,
+  contact: contactReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

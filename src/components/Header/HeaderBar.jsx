@@ -102,7 +102,7 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
       <div className="flex">
         <Language isAuth={isAuth} className="!self-center " />
         {/* Dropdown Avatar */}
-        <div className=" hover:!bg-gray-300 self-center">
+        <div className="">
           <Dropdown
             menu={{
               items,

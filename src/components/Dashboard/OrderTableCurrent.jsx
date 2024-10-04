@@ -122,7 +122,7 @@ const OrderTablePending = () => {
   return (
     <div className="p-2">
       <div className="text-xl font-semibold mb-5 ml-3 text-black/85">
-        Đơn đặt bàn chờ xác nhận
+        Đơn đặt bàn gần đây
       </div>
       <Table
         className={styles.customTable}
@@ -133,7 +133,6 @@ const OrderTablePending = () => {
         }}
         pagination={false}
       />
-      ;
     </div>
   );
 };
