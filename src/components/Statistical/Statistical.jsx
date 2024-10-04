@@ -4,9 +4,11 @@ import { Line, Doughnut, Bar } from "react-chartjs-2";
 import Chart from "chart.js/auto"; // Ensure to import Chart.js
 import data from "../../../public/data.json"; // Import the JSON data
 import { useDynamicTitle } from "../../hooks";
+import { useTranslation } from "react-i18next";
 
 const Statistics = () => {
   useDynamicTitle("Thống kê");
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [dishes, setDishes] = useState([]);
   const [reservations, setReservations] = useState([]);
@@ -45,19 +47,19 @@ const Statistics = () => {
 
   const dishColumns = [
     {
-      title: "Dish Name",
+      title: t("Statistical.dishColumns.dishName"),
       dataIndex: "DISH_Name",
       key: "DISH_Name",
       sorter: (a, b) => a.DISH_Name.localeCompare(b.DISH_Name),
     },
     {
-      title: "Total Sold",
+      title: t("Statistical.dishColumns.totalSold"),
       dataIndex: "DISH_TotalSold",
       key: "DISH_TotalSold",
       sorter: (a, b) => b.DISH_TotalSold - a.DISH_TotalSold,
     },
     {
-      title: "Price",
+      title: t("Statistical.dishColumns.price"),
       dataIndex: "DISH_Price",
       key: "DISH_Price",
       render: (price) => `$${price.toFixed(2)}`,
@@ -66,12 +68,12 @@ const Statistics = () => {
 
   const revenueColumns = [
     {
-      title: "Date",
+      title: t("Statistical.revenueColumns.date"),
       dataIndex: "date",
       key: "date",
     },
     {
-      title: "Total Revenue",
+      title: t("Statistical.revenueColumns.totalRevenue"),
       dataIndex: "totalRevenue",
       key: "totalRevenue",
       render: (total) => `$${total.toFixed(2)}`,
@@ -146,15 +148,15 @@ const Statistics = () => {
   };
 
   return (
-    <div className="container mx-auto my-8">
+    <div className="container mx-auto my-8 p-3">
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <Spin size="large" />
         </div>
       ) : (
         <>
-          <h1 className="text-2xl font-bold mb-4 text-center">
-            Top Selling Dishes
+          <h1 className="text-2xl font-bold mb-4 text-center mt-2">
+            {t("Statistical.chart1")}
           </h1>
           <div style={tableStyle}>
             <Table
@@ -167,7 +169,9 @@ const Statistics = () => {
             />
           </div>
 
-          <h2 className="text-xl font-semibold mb-4">Daily Revenue Table</h2>
+          <h2 className="text-xl font-semibold mb-4">
+            {t("Statistical.chart2")}
+          </h2>
           <div style={tableStyle}>
             <Table
               columns={revenueColumns}
@@ -180,7 +184,7 @@ const Statistics = () => {
           </div>
 
           <h2 className="text-xl font-semibold mb-4">
-            Dish Sales Doughnut Chart
+            {t("Statistical.chart3")}
           </h2>
           <div style={{ height: "300px", width: "100%" }}>
             <Doughnut
@@ -189,8 +193,8 @@ const Statistics = () => {
             />
           </div>
 
-          <h2 className="text-xl font-semibold mb-4">
-            Orders Over Days Line Chart
+          <h2 className="text-xl font-semibold mb-4 mt-4">
+            {t("Statistical.chart4")}
           </h2>
           <div style={{ height: "300px", width: "100%" }}>
             <Line
@@ -199,8 +203,8 @@ const Statistics = () => {
             />
           </div>
 
-          <h2 className="text-xl font-semibold mb-4">
-            Reservations Over Days Bar Chart
+          <h2 className="text-xl font-semibold mb-4 mt-4">
+            {t("Statistical.chart5")}
           </h2>
           <div style={{ height: "300px", width: "100%" }}>
             <Bar

@@ -1,6 +1,7 @@
 import { Space, Table } from "antd";
 import { createStyles } from "antd-style";
 import useFormatPrice from "../../hooks/useFormatPrice";
+import { useTranslation } from "react-i18next";
 const useStyle = createStyles(({ css, token }) => {
   const { antCls } = token;
   return {
@@ -25,9 +26,10 @@ const FormattedPrice = ({ price }) => {
 
 const OrderTablePending = () => {
   const { styles } = useStyle();
+  const { t } = useTranslation();
   const columns = [
     {
-      title: "Khách hàng",
+      title: t("OrderTableCurrent.title"),
       dataIndex: "username",
       key: "username",
       render: (_, user) => (
@@ -38,7 +40,7 @@ const OrderTablePending = () => {
       ),
     },
     {
-      title: "ID Đơn hàng",
+      title: t("OrderTableCurrent.id"),
       dataIndex: "order_id",
       key: "order_id",
       render: (order_id) => {
@@ -46,7 +48,7 @@ const OrderTablePending = () => {
       },
     },
     {
-      title: "Tổng giá trị",
+      title: t("OrderTableCurrent.finalPrice"),
       dataIndex: "FinalPrice",
       key: "FinalPrice",
       render: (FinalPrice) => {
@@ -54,17 +56,17 @@ const OrderTablePending = () => {
       },
     },
     {
-      title: "Phương thức thanh toán",
+      title: t("OrderTableCurrent.paymentMethod"),
       dataIndex: "idPayment_method",
       key: "idPayment_method",
       render: (idPayment_method) => {
         return idPayment_method === "1"
-          ? "Chuyển khoản VNPay"
-          : "Thanh toán khi nhận hàng";
+          ? t("OrderTableCurrent.paymentMethodCate.paymentMethod1")
+          : t("OrderTableCurrent.paymentMethodCate.paymentMethod2");
       },
     },
     {
-      title: "Thời gian đặt hàng",
+      title: t("OrderTableCurrent.orderDate"),
       dataIndex: "order_date",
       key: "order_date",
     },
@@ -122,7 +124,7 @@ const OrderTablePending = () => {
   return (
     <div className="p-2">
       <div className="text-xl font-semibold mb-5 ml-3 text-black/85">
-        Đơn đặt bàn gần đây
+        {t("OrderTableCurrent.currentOrder")}
       </div>
       <Table
         className={styles.customTable}

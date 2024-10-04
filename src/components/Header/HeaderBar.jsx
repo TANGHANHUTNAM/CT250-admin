@@ -1,7 +1,18 @@
-import { Button, Dropdown, Layout } from "antd";
+import { Button, Dropdown, Layout, Tooltip } from "antd";
+import { MdTableRestaurant } from "react-icons/md";
+import { MdPermContactCalendar } from "react-icons/md";
+import { TiShoppingCart } from "react-icons/ti";
 const { Header } = Layout;
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import {
+  DownOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  ShoppingCartOutlined, // Ant Design icon for cart
+  TableOutlined, // Ant Design icon for order table
+  ContactsOutlined, // Ant Design icon for contact
+} from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import Language from "../Language/Language";
 import Avatar from "../avatar/Avatar";
 import { FaUser } from "react-icons/fa";
@@ -13,15 +24,14 @@ import { logout } from "../../services/authService";
 import StatusCodes from "../../utils/StatusCodes";
 import { toast } from "react-toastify";
 import { logoutSuccess } from "../../redux/reducer/userSlice";
-import { IoMdArrowDropdown } from "react-icons/io";
 
 const HeaderBar = ({ collapsed, setCollapsed }) => {
+  const { t } = useTranslation();
+
   const {
     isAuth,
     account: { avatar, username, role, id, email },
   } = useSelector((state) => state.user);
-  // Handle Logout
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,6 +48,7 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
       toast.error(res.EM);
     }
   };
+
   const items = [
     {
       key: "1",
@@ -45,10 +56,8 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
         <div className="flex gap-3 items-center text-black">
           <Avatar size={40} src={avatar} />
           <span className="flex flex-col gap-1 justify-start">
-            <span className="font-semibold text-md opacity-80">{username}</span>
-            <span className="text-sm font-medium opacity-40 uppercase">
-              {role}
-            </span>
+            <span className="font-semibold text-lg opacity-80">{username}</span>
+            <span className="text-sm font-medium opacity-40">{role}</span>
           </span>
         </div>
       ),
@@ -85,6 +94,7 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
       icon: <TbLogout2 className="custom-menu-item custom-menu-item-icon" />,
     },
   ];
+
   return (
     <Header className="flex justify-between bg-white mx-5 p-0">
       <div className="flex">
@@ -99,7 +109,39 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
           }}
         />
       </div>
-      <div className="flex">
+      <div className="flex items-center">
+        {/* New Icons for Cart, Order Table, and Contact */}
+        <Tooltip title={t("Cart")}>
+          <Link
+            to={"/dishes-order"}
+            type="text"
+            style={{
+              fontSize: "16px",
+              marginRight: "16px",
+            }}
+          ><TiShoppingCart /></Link>
+        </Tooltip>
+        <Tooltip title={t("Order Table")}>
+          <Link
+            to={"/table-order"}
+            type="text"
+            style={{
+              fontSize: "16px",
+              marginRight: "16px",
+            }}
+          ><MdTableRestaurant/></Link>
+        </Tooltip>
+        <Tooltip title={t("Contact")}>
+          <Link
+            to={"/manage-contact"}
+            type="text"
+            style={{
+              fontSize: "16px",
+              marginRight: "16px",
+            }}
+          ><MdPermContactCalendar /></Link>
+        </Tooltip>
+
         <Language isAuth={isAuth} className="!self-center " />
         {/* Dropdown Avatar */}
         <div className="">
@@ -107,15 +149,10 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
             menu={{
               items,
             }}
-            trigger={["hover"]}
+            trigger={["click"]}
           >
             <a onClick={(e) => e.preventDefault()}>
-              <div className="flex px-2 items-center justify-center">
-                <Avatar size={40} src={avatar} className="self-center" />
-                <span className="ml-2 font-semibold text-black/60 group-hover:text-black/80">
-                  {username}
-                </span>
-              </div>
+              <Avatar size={40} src={avatar} className="self-center mx-3" />
             </a>
           </Dropdown>
         </div>

@@ -14,7 +14,7 @@ const EmployeesList = () => {
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div className="p-3">
       <div className="flex justify-between ">
         <h2 className="text-2xl font-bold">{t("Employee.title")}</h2>
         <div className="flex">

@@ -1,11 +1,13 @@
 import { useCountup } from "../../hooks/useCountup";
 import { useVNDCountup } from "../../hooks/useCountup";
+import { useTranslation } from "react-i18next";
 import { LineChart1, LineChart2, LineChart3, BarChart1 } from "./Chart";
 const ListCard = () => {
   const ordersCountRef = useCountup(40);
   const tableOrdersCountRef = useCountup(10);
   const incomeCountRef = useVNDCountup(1500000);
   const newCustomersCountRef = useCountup(8);
+  const { t } = useTranslation();
   return (
     <div className="flex flex-wrap mb-4 text-white">
       {/* Card item */}
@@ -16,7 +18,7 @@ const ListCard = () => {
               ref={ordersCountRef}
               className="total text-2xl font-semibold"
             ></span>
-            <span className="des text-lg w-full">Đơn hàng hôm nay</span>
+            <span className="des text-lg w-full">{t("ListCard.orderToday")}</span>
           </div>
           <div className="p-4 h-28 flex justify-center">
             <LineChart1 />
@@ -31,7 +33,7 @@ const ListCard = () => {
               ref={tableOrdersCountRef}
               className="total text-2xl font-semibold"
             ></span>
-            <span className="des text-lg">Đơn đặt bàn hôm nay</span>
+            <span className="des text-lg">{t("ListCard.orderTableToday")}</span>
           </div>
           <div className="p-4 h-28 flex justify-center">
             <LineChart2 />
@@ -46,7 +48,7 @@ const ListCard = () => {
               ref={incomeCountRef}
               className="total text-2xl font-semibold"
             ></span>
-            <span className="des text-lg">Thu nhập hôm nay</span>
+            <span className="des text-lg">{t("ListCard.incomeToday")}</span>
           </div>
           <div className="p-4 h-28 flex justify-center">
             <LineChart3 />
@@ -61,7 +63,7 @@ const ListCard = () => {
               ref={newCustomersCountRef}
               className="total text-2xl font-semibold"
             ></span>
-            <span className="des text-lg">Khách hàng mới hôm nay</span>
+            <span className="des text-lg">{t("ListCard.newCustomer")}</span>
           </div>
           <div className="p-4 h-28 flex justify-center">
             <BarChart1 />
