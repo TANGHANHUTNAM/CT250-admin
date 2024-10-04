@@ -144,7 +144,7 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
 
         <Language isAuth={isAuth} className="!self-center " />
         {/* Dropdown Avatar */}
-        <div className=" hover:!bg-gray-300 self-center py-2">
+        <div className="">
           <Dropdown
             menu={{
               items,

@@ -133,7 +133,7 @@ const OrderPending = () => {
     },
   ];
   return (
-    <div className="p-2">
+    <div className="p-2 mb-6">
       <div className="text-xl font-semibold mb-5 ml-3 text-black/85">
       {t("OrderPending.currentOrder")}
       </div>
@@ -146,7 +146,6 @@ const OrderPending = () => {
         }}
         pagination={false}
       />
-      ;
     </div>
   );
 };

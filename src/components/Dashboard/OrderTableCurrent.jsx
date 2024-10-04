@@ -135,7 +135,6 @@ const OrderTablePending = () => {
         }}
         pagination={false}
       />
-      ;
     </div>
   );
 };
