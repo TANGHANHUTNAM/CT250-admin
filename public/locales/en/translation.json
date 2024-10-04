@@ -135,18 +135,21 @@
   "Reservation": {
     "title": "Reservation details",
     "info": "Infomation",
-    "date": "Date",
+    "date": "Check in at",
     "qty": "Quantity",
+    "table": "Table",
     "action": {
       "action1": "Accept reservation",
       "action2": "Reject reservation"
     },
     "note": "Note",
     "status": {
-      "status1": "Pending",
-      "status2": "Accepted",
-      "status3": "Denied"
-    }
+      "pending": "To Confirm",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "canceled": "Canceled"
+    },
+    "noSelected": "Select a table reservation to view detailed information."
   },
   "OrderPending": {
     "title": "Customer",
@@ -199,5 +202,42 @@
     "chart3": "Total Sales by Item",
     "chart4": "Orders Placed by Day",
     "chart5": "Reservation Orders Placed by Day"
+  },
+  "Contact": {
+    "title": "Contact management"
+  },
+  "ModalContact": {
+    "title": "Customer",
+    "okText": "Send feedback",
+    "cancelText": "Close",
+    "customerName": "Name:",
+    "customerEmail": "Email:",
+    "customerPhone": "Phone:",
+    "customerContent": "Content:",
+    "customerDate": "Sending Time:",
+    "feedbackContent": "Feedback content",
+    "enterFb": "Enter nội dung phản hồi..."
+  },
+  "TabContact": {
+    "STT": "No.",
+    "customerName": "Name:",
+    "customerEmail": "Email:",
+    "customerPhone": "Phone:",
+    "customerContent": "Content:",
+    "customerDate": "Sending Time:",
+    "action": "Action",
+    "see": "See more",
+    "newContact": "New contact",
+    "quantity": "Quantity:",
+    "processedContact": "Processed contact"
+  },
+  "HeaderBarDropdown": {
+    "personalPage": "Personal page",
+    "setting": "Setting",
+    "signout": "Signout",
+    "position": {
+      "position1": "Employee",      
+      "position2": "Admin"
+    }
   }
 }

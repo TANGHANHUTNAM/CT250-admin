@@ -1,8 +1,13 @@
 import { useDynamicTitle } from "../../hooks";
+import TableNews from "./TableNews";
 
 const News = () => {
   useDynamicTitle("Quản lý tin tức");
-  return <>News</>;
+  return (
+    <>
+      <TableNews />
+    </>
+  );
 };
 
 export default News;

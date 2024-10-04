@@ -5,7 +5,7 @@ import { useDynamicTitle } from "../hooks";
 const OrderLayout = () => {
   useDynamicTitle("Quản lý đơn hàng");
   return (
-    <div className="flex flex-col lg:flex-row">
+    <div className="flex flex-col lg:flex-row p-3">
       <Progress />
       <Detail />
     </div>

@@ -3,14 +3,7 @@ import { MdTableRestaurant } from "react-icons/md";
 import { MdPermContactCalendar } from "react-icons/md";
 import { TiShoppingCart } from "react-icons/ti";
 const { Header } = Layout;
-import {
-  DownOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  ShoppingCartOutlined, // Ant Design icon for cart
-  TableOutlined, // Ant Design icon for order table
-  ContactsOutlined, // Ant Design icon for contact
-} from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import Language from "../Language/Language";
@@ -56,8 +49,12 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
         <div className="flex gap-3 items-center text-black">
           <Avatar size={40} src={avatar} />
           <span className="flex flex-col gap-1 justify-start">
-            <span className="font-semibold text-lg opacity-80">{username}</span>
-            <span className="text-sm font-medium opacity-40">{role}</span>
+            <span className="font-semibold text-base opacity-80">
+              {username}
+            </span>
+            <span className="text-sm font-medium opacity-40 uppercase">
+              {role}
+            </span>
           </span>
         </div>
       ),
@@ -119,7 +116,9 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
               fontSize: "16px",
               marginRight: "16px",
             }}
-          ><TiShoppingCart /></Link>
+          >
+            <TiShoppingCart />
+          </Link>
         </Tooltip>
         <Tooltip title={t("Order Table")}>
           <Link
@@ -129,7 +128,9 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
               fontSize: "16px",
               marginRight: "16px",
             }}
-          ><MdTableRestaurant/></Link>
+          >
+            <MdTableRestaurant />
+          </Link>
         </Tooltip>
         <Tooltip title={t("Contact")}>
           <Link
@@ -139,20 +140,25 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
               fontSize: "16px",
               marginRight: "16px",
             }}
-          ><MdPermContactCalendar /></Link>
+          >
+            <MdPermContactCalendar />
+          </Link>
         </Tooltip>
 
         <Language isAuth={isAuth} className="!self-center " />
         {/* Dropdown Avatar */}
-        <div className=" hover:!bg-gray-300 self-center py-2">
+        <div className="group ">
           <Dropdown
             menu={{
               items,
             }}
-            trigger={["click"]}
+            trigger={["hover"]}
           >
-            <a onClick={(e) => e.preventDefault()}>
-              <Avatar size={40} src={avatar} className="self-center mx-3" />
+            <a className="flex pr-2.5" onClick={(e) => e.preventDefault()}>
+              <Avatar size={40} src={avatar} className="self-center mx-2" />
+              <span className="group-hover:text-black opacity-80 font-semibold text-black/80">
+                {username}
+              </span>
             </a>
           </Dropdown>
         </div>
