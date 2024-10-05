@@ -6,6 +6,7 @@ import { useDynamicTitle } from "../hooks";
 import { getReservationsByStatus } from "../services/reservationService";
 import StatusCodes from "../utils/StatusCodes";
 import { toast } from "react-toastify";
+import HandleReservationModal from "../components/Reservation/HandleReservationModal";
 
 const status = {
   pending: { key: "pending", trans: "Reservation.status.pending" },
@@ -20,25 +21,40 @@ const ReservationLayout = () => {
   const [activeStatus, setActiveStatus] = useState(status.pending.key);
   const [reservations, setReservations] = useState([]);
   const [selectedReservation, setSelectedReservation] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const getReservations = async () => {
+    const res = await getReservationsByStatus(activeStatus);
+
+    if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+      setReservations(res.DT);
+    }
+
+    if (res && res.EC === StatusCodes.ERROR_DEFAULT) {
+      setReservations([]);
+      toast.error(res.EM);
+    }
+  };
 
   useEffect(() => {
     setSelectedReservation(null);
-
-    const getReservations = async () => {
-      const res = await getReservationsByStatus(activeStatus);
-
-      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-        setReservations(res.DT);
-      }
-
-      if (res && res.EC === StatusCodes.ERROR_DEFAULT) {
-        setReservations([]);
-        toast.error(res.EM);
-      }
-    };
-
     getReservations();
   }, [activeStatus]);
+
+  const handleComplete = async (completeFunc = async () => {}) => {
+    const res = await completeFunc(selectedReservation?._id);
+    console.log(res);
+
+    if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+      toast.success(res.EM);
+      getReservations();
+      setSelectedReservation(null);
+    }
+
+    if (res && res.EC === StatusCodes.ERROR_DEFAULT) {
+      toast.error(res.EM);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-5 lg:flex-row bg-[#f5f5f5] h-full">
@@ -54,7 +70,18 @@ const ReservationLayout = () => {
           setSelected={(item) => setSelectedReservation(item)}
         />
       </div>
-      <Detail reservation={selectedReservation} />
+      <Detail
+        reservation={selectedReservation}
+        setOpen={setOpen}
+        handleComplete={handleComplete}
+      />
+      <HandleReservationModal
+        open={open}
+        setOpen={setOpen}
+        data={selectedReservation}
+        getReservations={getReservations}
+        setSelectedReservation={setSelectedReservation}
+      />
     </div>
   );
 };

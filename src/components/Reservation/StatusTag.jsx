@@ -1,4 +1,4 @@
-const validStatus = {
+export const validStatus = {
   pending: "Chờ xác nhận",
   confirmed: "Đã xác nhận",
   completed: "Hoàn thành",
@@ -20,7 +20,7 @@ const StatusTag = ({ status = validStatus.pending }) => {
         </div>
       )}
 
-      {status === validStatus.confirmed && (
+      {status === validStatus.completed && (
         <div className="px-6 py-1.5 bg-green-50 rounded border-2 border-green-100 text-green-400 font-medium">
           {status}
         </div>
