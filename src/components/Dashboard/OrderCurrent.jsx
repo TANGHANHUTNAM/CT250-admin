@@ -1,23 +1,6 @@
 import { Space, Table } from "antd";
-import { createStyles } from "antd-style";
 import useFormatPrice from "../../hooks/useFormatPrice";
 import { useTranslation } from "react-i18next";
-const useStyle = createStyles(({ css, token }) => {
-  const { antCls } = token;
-  return {
-    customTable: css`
-      ${antCls}-table {
-        ${antCls}-table-container {
-          ${antCls}-table-body,
-          ${antCls}-table-content {
-            scrollbar-width: thin;
-            scrollbar-color: unset;
-          }
-        }
-      }
-    `,
-  };
-});
 
 const FormattedPrice = ({ price }) => {
   const formattedPrice = useFormatPrice(price);
@@ -25,7 +8,6 @@ const FormattedPrice = ({ price }) => {
 };
 
 const OrderPending = () => {
-  const { styles } = useStyle();
   const { t } = useTranslation();
   const columns = [
     {
@@ -135,15 +117,12 @@ const OrderPending = () => {
   return (
     <div className="p-2 mb-6">
       <div className="text-xl font-semibold mb-5 ml-3 text-black/85">
-      {t("OrderPending.currentOrder")}
+        {t("OrderPending.currentOrder")}
       </div>
       <Table
-        className={styles.customTable}
         columns={columns}
         dataSource={data}
-        scroll={{
-          y: 5 * 50,
-        }}
+        rowKey={(record) => record.order_id}
         pagination={false}
       />
     </div>
