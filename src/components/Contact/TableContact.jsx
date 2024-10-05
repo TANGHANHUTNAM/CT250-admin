@@ -1,5 +1,12 @@
 import { Table } from "antd";
-const TableContact = ({ columns, data, onChange, pagination }) => {
+const TableContact = ({
+  columns,
+  data,
+  onChange,
+  pagination,
+  rowKey,
+  loading,
+}) => {
   return (
     <Table
       size="small"
@@ -8,6 +15,8 @@ const TableContact = ({ columns, data, onChange, pagination }) => {
       onChange={onChange}
       pagination={pagination}
       bordered={true}
+      rowKey={rowKey}
+      loading={loading}
     />
   );
 };
