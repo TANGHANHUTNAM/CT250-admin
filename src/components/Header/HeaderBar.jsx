@@ -393,6 +393,7 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
           </Link>
         </Dropdown>
 
+
         <Language isAuth={isAuth} className="!self-center " />
         {/* Dropdown Avatar */}
         <div className="group ">
