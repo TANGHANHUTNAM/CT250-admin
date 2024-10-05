@@ -139,8 +139,11 @@
     "qty": "Số lượng người",
     "table": "Bàn",
     "action": {
-      "action1": "Chấp nhận đặt bàn",
-      "action2": "Từ chối đặt bàn"
+      "handle": "Xử lý đơn",
+      "accept": "Chấp nhận đơn",
+      "reject": "Từ chối đơn",
+      "cancel": "Thoát",
+      "complete": "Hoàn thành"
     },
     "note": "Ghi chú",
     "status": {
@@ -149,7 +152,15 @@
       "completed": "Hoàn thành",
       "canceled": "Đã hủy"
     },
-    "noSelected": "Chọn một đơn đặt bàn để xem thông tin chi tiết."
+    "noSelected": "Chọn một đơn đặt bàn để xem thông tin chi tiết.",
+    "handleReservation": {
+      "title": "Xử lý đơn đặt bàn",
+      "peopleNumber": "Số người",
+      "isNotAssigned": "Số người chưa được phân bàn",
+      "note": "Ghi chú",
+      "capacity": "Sức chứa",
+      "emptyTables": "Đã hết bàn trống."
+    }
   },
   "OrderPending": {
     "title": "Khách hàng",
