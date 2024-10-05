@@ -2,7 +2,7 @@ import { FaChevronRight } from "react-icons/fa";
 
 const OrderItem = () => {
     return (
-        <div className="mt-6 w-full max-h-screen overflow-y-auto">
+        <div className="p-3 w-full max-h-screen overflow-y-auto bg-white">
             <div className="border-2 border-black p-3 my-2 !w-full rounded-md flex items-center justify-between">
                 <div>
                     <div className="text-xl font-bold">Oder #1</div>

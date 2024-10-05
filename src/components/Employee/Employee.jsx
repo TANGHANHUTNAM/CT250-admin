@@ -1,40 +1,58 @@
-import Avatar from "../avatar/Avatar";
-import { FaBarsProgress } from "react-icons/fa6";
-import { FaPhoneAlt } from "react-icons/fa";
-import { HiMail } from "react-icons/hi";
+// import React from "react";
+// import { FaEdit, FaTrash } from "react-icons/fa";
+// import Avatar from "../avatar/Avatar";
+// import { FaPhoneAlt } from "react-icons/fa";
+// import { HiMail } from "react-icons/hi";
 
+// const Employee = ({ employee, onEdit, onDelete }) => {
+//   return (
+//     <tr className="bg-white border-b hover:bg-gray-100 transition !items-center">
+//       {/* Avatar */}
+//       <td className="px-4 py-3">
+//         <Avatar size={48} src={employee.avatar.url} className="rounded-full" />
+//       </td>
 
-const Employee = ({ user, editMode, t }) => {
-    return (
-        <a key={user.id} href={user.href} className="group">
-            <div className="bg-neutral-100 mx-auto rounded-lg p-3 py-6 flex flex-col w-full relative hover:shadow-2xl	">
-                <FaBarsProgress className="absolute top-5 right-5 text-lg text-black" />
-                <Avatar size={100} src={user.avatar.url} className="!mx-auto !rounded-xl mt-5" />
-                <div className="flex flex-col justify-center items-center">
-                    <h3 className="mt-4 text-lg text-gray-700 font-semibold">{user.username}</h3>
-                    <p className="mt-1 text-md font-medium text-gray-900 text-violet-700">{user.role}</p>
-                </div>
-                <div>
-                    <div className="flex items-center">
-                        <div className="bg-violet-100 p-3 rounded-xl group-hover:bg-violet-700 !transition !duration-250 ease-in-out">
-                            <FaPhoneAlt className="!text-violet-700 text-lg group-hover:!text-violet-100 transition !duration-250 ease-in-out" />
-                        </div>
-                        <div>
-                            <p className="ml-2 font-medium text-black">{user.phoneNumber}</p>
-                        </div>
-                    </div>
-                    <div className="flex items-center mt-4 !truncate ">
-                        <div className="bg-violet-100 p-3 rounded-xl group-hover:bg-violet-700 !transition !duration-250 ease-in-out">
-                            <HiMail className="!text-violet-700 text-lg group-hover:!text-violet-100 transition !duration-250 ease-in-out" />
-                        </div>
-                        <div>
-                            <p className="ml-2 font-medium text-black !text-ellipsis">{user.email}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    )
-}
+//       {/* Employee Info */}
+//       <td className="px-4 py-3 !align-middle">
+//         <p className="text-lg font-semibold">{employee.username}</p>
+//       </td>
 
-export default Employee
+//       {/* Role */}
+//       <td className="px-4 py-3 !align-middle">
+//         <span className="truncate">{employee.role}</span>
+//       </td>
+
+//       {/* Email */}
+//       <td className="px-4 py-3 !align-middle">
+//         <div className="flex items-center">
+//           <span className="truncate">{employee.email}</span>
+//         </div>
+//       </td>
+
+//       {/* Phone */}
+//       <td className="px-4 py-3 !align-middle">
+//         <div className="flex items-center">          
+//           <span>{employee.phoneNumber}</span>
+//         </div>
+//       </td>
+
+//       {/* Action Buttons */}
+//       <td className="px-4 py-3 !align-middle">
+//         <div className="flex gap-4">
+//           <button
+//             className="flex items-center bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition"
+//             onClick={() => onEdit(employee._id.$oid)}
+//           >Edit
+//           </button>
+//           <button
+//             className="flex items-center bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition"
+//             onClick={() => onDelete(employee._id.$oid)}
+//           >Delete
+//           </button>
+//         </div>
+//       </td>
+//     </tr>
+//   );
+// };
+
+// export default Employee;
