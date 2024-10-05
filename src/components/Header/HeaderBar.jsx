@@ -49,9 +49,7 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
         <div className="flex gap-3 items-center text-black">
           <Avatar size={40} src={avatar} />
           <span className="flex flex-col gap-1 justify-start">
-            <span className="font-semibold text-base opacity-80">
-              {username}
-            </span>
+            <span className="font-semibold text-sm opacity-80">{username}</span>
             <span className="text-sm font-medium opacity-40 uppercase">
               {role}
             </span>
@@ -392,7 +390,6 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
             </div>
           </Link>
         </Dropdown>
-
 
         <Language isAuth={isAuth} className="!self-center " />
         {/* Dropdown Avatar */}
