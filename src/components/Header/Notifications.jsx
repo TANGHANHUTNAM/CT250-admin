@@ -189,64 +189,6 @@ const Notifications = () => {
       </div>
     </div>
   );
-  const contactMenu = (
-    <div className="dropdown-menu show bg-white shadow-lg rounded-lg p-0">
-      <h6 className="dropdown-header bg-gray-100 text-gray-600 font-semibold rounded-t-lg p-2">
-        You have 4 messages
-      </h6>
-      <ul className="divide-y divide-gray-200">
-        <li className="py-2 px-4 flex">
-          <div className="avatar mr-3">
-            <img
-              src="https://coreui.io/demos/react/5.1/light/assets/1-Bxx5tbqp.jpg"
-              alt="Jessica Williams"
-              className="w-10 h-10 rounded-full"
-            />
-          </div>
-          <div>
-            <div className="text-xs text-gray-500 flex justify-between">
-              <span>Jessica Williams</span>
-              <span>Just now</span>
-            </div>
-            <div className="font-semibold text-red-600">
-              Urgent: System Maintenance Tonight
-            </div>
-            <div className="text-xs text-gray-500">
-              Attention team, we'll be conducting critical system maintenance
-              tonight from 10 PM to 2 AM. Plan accordingly...
-            </div>
-          </div>
-        </li>
-        <li className="py-2 px-4 flex">
-          <div className="avatar mr-3">
-            <img
-              src="https://coreui.io/demos/react/5.1/light/assets/2-DU4eQes8.jpg"
-              alt="Richard Johnson"
-              className="w-10 h-10 rounded-full"
-            />
-          </div>
-          <div>
-            <div className="text-xs text-gray-500 flex justify-between">
-              <span>Richard Johnson</span>
-              <span>5 minutes ago</span>
-            </div>
-            <div className="font-semibold text-red-600">
-              Project Update: Milestone Achieved
-            </div>
-            <div className="text-xs text-gray-500">
-              Kudos on hitting sales targets last quarter! Let's keep the
-              momentum. New goals, new victories ahead...
-            </div>
-          </div>
-        </li>
-      </ul>
-      <div className="py-2 text-center border-t border-gray-200">
-        <a href="#" className="text-blue-600 font-semibold">
-          View all messages
-        </a>
-      </div>
-    </div>
-  );
   const dipatch = useDispatch();
   useEffect(() => {
     dipatch(
@@ -256,7 +198,50 @@ const Notifications = () => {
       })
     );
   }, [dipatch]);
-  const { totalContactPending } = useSelector((state) => state.contact);
+  const { totalContactPending, contactPending } = useSelector(
+    (state) => state.contact
+  );
+  const contactMenu = (
+    <div className="dropdown-menu show bg-white shadow-lg rounded-lg p-0">
+      <h6 className="dropdown-header bg-blue-500 text-white font-semibold rounded-t-lg p-2 pl-4">
+        Bạn có {totalContactPending} liên hệ mới
+      </h6>
+      <ul className="divide-y divide-gray-200">
+        {contactPending.slice(0, 3).map((contact) => {
+          return (
+            <li key={contact._id} className="py-2 px-4 flex">
+              <div>
+                <div className="text-sm font-medium text-gray-500 flex justify-between">
+                  <span>{contact.customerName}</span>
+                  <span className="text-xs">
+                    {new Date(contact?.createdAt).toLocaleString("vi-VN", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                    })}
+                  </span>
+                </div>
+                <div className="font-xs text-blue-400">
+                  {contact.customerEmail}
+                </div>
+                <div className="text-xs font-medium text-gray-500 w-80 overflow-hidden truncate">
+                  {contact.content}
+                </div>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <div className="py-2 text-center border-t border-gray-200">
+        <Link to={"/manage-contact"} className="text-blue-600 font-semibold">
+          Xem tất cả liên hệ
+        </Link>
+      </div>
+    </div>
+  );
   return (
     <>
       <Dropdown overlay={notificationsMenu} placement="bottomRight" arrow>
@@ -267,7 +252,7 @@ const Notifications = () => {
         >
           <TiShoppingCart className="opacity-75" />
           <div className="absolute bg-yellow-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs -top-3 -right-3">
-            1
+            0
           </div>
         </Link>
       </Dropdown>
@@ -285,7 +270,7 @@ const Notifications = () => {
           <MdTableRestaurant className="opacity-75" />
           {/* Notification Badge */}
           <div className="absolute bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs -top-3 -right-3">
-            5
+            0
           </div>
         </Link>
       </Dropdown>
