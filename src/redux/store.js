@@ -12,6 +12,8 @@ import {
 import storage from "redux-persist/lib/storage";
 import userReducer from "./reducer/userSlice";
 import contactReducer from "./reducer/contactSlice";
+import reservationReducer from "./reducer/reservationSlice";
+
 const persistConfig = {
   key: "root",
   version: 1,
@@ -22,6 +24,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userReducer,
   contact: contactReducer,
+  reservation: reservationReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -6,6 +6,7 @@ import { TiShoppingCart } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchContactPending } from "../../redux/reducer/contactSlice";
+
 const Notifications = () => {
   const notificationsMenu = (
     <div className="w-64 bg-white shadow-lg rounded-lg p-3">
@@ -115,80 +116,51 @@ const Notifications = () => {
       </ul>
     </div>
   );
+
+  const reservation = useSelector((state) => state.reservation);
   const orderTableMenu = (
-    <div className="dropdown-menu show bg-white shadow-lg rounded-lg p-0">
-      <h6 className="dropdown-header bg-gray-100 text-gray-600 font-semibold rounded-t-lg p-2">
-        You have 5 pending tasks
+    <div className="dropdown-menu show bg-white shadow-lg rounded-lg p-0 w-80">
+      <h6 className="dropdown-header bg-red-500 text-white font-semibold rounded-t-lg p-2 pl-4">
+        Bạn có {reservation?.total} đơn đặt bàn mới
       </h6>
-      <ul className="divide-y divide-gray-200">
-        <li className="py-2 px-4">
-          <div className="flex justify-between text-sm">
-            <span>Upgrade NPM</span>
-            <span className="font-semibold">0%</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
-            <div
-              className="bg-blue-500 h-2 rounded-full"
-              style={{ width: "0%" }}
-            ></div>
-          </div>
-        </li>
-        <li className="py-2 px-4">
-          <div className="flex justify-between text-sm">
-            <span>ReactJS Version</span>
-            <span className="font-semibold">25%</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
-            <div
-              className="bg-red-500 h-2 rounded-full"
-              style={{ width: "25%" }}
-            ></div>
-          </div>
-        </li>
-        <li className="py-2 px-4">
-          <div className="flex justify-between text-sm">
-            <span>VueJS Version</span>
-            <span className="font-semibold">50%</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
-            <div
-              className="bg-yellow-500 h-2 rounded-full"
-              style={{ width: "50%" }}
-            ></div>
-          </div>
-        </li>
-        <li className="py-2 px-4">
-          <div className="flex justify-between text-sm">
-            <span>Add new layouts</span>
-            <span className="font-semibold">75%</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
-            <div
-              className="bg-blue-500 h-2 rounded-full"
-              style={{ width: "75%" }}
-            ></div>
-          </div>
-        </li>
-        <li className="py-2 px-4">
-          <div className="flex justify-between text-sm">
-            <span>Angular Version</span>
-            <span className="font-semibold">100%</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
-            <div
-              className="bg-green-500 h-2 rounded-full"
-              style={{ width: "100%" }}
-            ></div>
-          </div>
-        </li>
+      <ul className="divide-y divide-gray-200 w-full">
+        {reservation?.data?.map((item) => {
+          return (
+            <li key={item?._id} className="py-2 px-4 flex w-full">
+              <div className="w-full">
+                <div className="text-sm font-medium text-gray-500 flex justify-between items-center">
+                  <span className="truncate">{item?.customerPhone}</span>
+                  <span className="text-xs">
+                    {new Date(item?.createdAt).toLocaleString("vi-VN", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                    })}
+                  </span>
+                </div>
+                <div className="text-gray-500">{item?.customerName}</div>
+                <div className="font-xs text-red-400">
+                  {item?.customerEmail}
+                </div>
+              </div>
+            </li>
+          );
+        })}
       </ul>
       <div className="py-2 text-center border-t border-gray-200">
-        <a href="#" className="text-blue-600 font-semibold">
-          View all tasks
-        </a>
+        <Link
+          to={"/table-order"}
+          className="text-red-500 font-semibold hover:text-red-600"
+        >
+          Xem tất cả đơn
+        </Link>
       </div>
     </div>
   );
+
   const dipatch = useDispatch();
   useEffect(() => {
     dipatch(
@@ -201,6 +173,7 @@ const Notifications = () => {
   const { totalContactPending, contactPending } = useSelector(
     (state) => state.contact
   );
+
   const contactMenu = (
     <div className="dropdown-menu show bg-white shadow-lg rounded-lg p-0">
       <h6 className="dropdown-header bg-blue-500 text-white font-semibold rounded-t-lg p-2 pl-4">
@@ -242,6 +215,7 @@ const Notifications = () => {
       </div>
     </div>
   );
+
   return (
     <>
       <Dropdown overlay={notificationsMenu} placement="bottomRight" arrow>
@@ -270,7 +244,7 @@ const Notifications = () => {
           <MdTableRestaurant className="opacity-75" />
           {/* Notification Badge */}
           <div className="absolute bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs -top-3 -right-3">
-            0
+            {reservation?.total}
           </div>
         </Link>
       </Dropdown>
