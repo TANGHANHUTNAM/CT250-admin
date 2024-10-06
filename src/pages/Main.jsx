@@ -2,12 +2,14 @@ import { useState } from "react";
 import Sidebar from "../components/Dashboard/Sidebar";
 import HeaderBar from "../components/Header/HeaderBar";
 import { Outlet } from "react-router-dom";
-
 import { Layout } from "antd";
+import { useNotifications } from "../hooks";
 const { Content } = Layout;
 
 const Main = () => {
   const [collapsed, setCollapsed] = useState(true);
+
+  useNotifications();
 
   return (
     <Layout hasSider className="!w-full !h-full box-content">

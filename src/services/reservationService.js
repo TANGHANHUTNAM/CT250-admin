@@ -20,10 +20,15 @@ const completeReservation = (id) => {
   return axios.put(`/api/v1/reservation/complete/${id}`);
 };
 
+const getPendingReservationsWithPagination = (page = 1, limit = 10) => {
+  return axios.get(`/api/v1/reservation/pending?page=${page}&limit=${limit}`);
+};
+
 export {
   getReservationsByStatus,
   getAvailableTables,
   acceptReservation,
   rejectReservation,
   completeReservation,
+  getPendingReservationsWithPagination,
 };
