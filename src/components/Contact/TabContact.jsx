@@ -330,6 +330,7 @@ const TabContact = () => {
         limitPending={limitPending}
         totalContactPending={totalContactPending}
         onChangeTablePending={onChangeTablePending}
+        isLoading={isLoading}
         setIsLoading={setIsLoading}
         fetchContactCompleted={fetchContactCompleted}
         pageCompleted={pageCompleted}

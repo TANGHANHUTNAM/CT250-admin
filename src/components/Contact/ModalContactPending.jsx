@@ -17,6 +17,7 @@ const ModalContactPending = ({
   fetchContactCompleted,
   limitCompleted,
   onChangeTableCompleted,
+  isLoading,
 }) => {
   const dispatch = useDispatch();
   const [contentReply, setContentReply] = useState("");
@@ -101,6 +102,7 @@ const ModalContactPending = ({
         afterClose={handleResetForm}
         cancelText="Đóng"
         cancelButtonProps={{ danger: true }}
+        okButtonProps={{ loading: isLoading }}
       >
         <div className="Modal">
           <div className="grid grid-cols-2 text-base">
@@ -124,7 +126,16 @@ const ModalContactPending = ({
               </div>
               <div className="">
                 <span className="font-semibold opacity-85">Thời gian gửi:</span>
-                <div className="">{contact?.contactDate}</div>
+                <div className="">
+                  {new Date(contact?.createdAt).toLocaleString("vi-VN", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                  })}
+                </div>
               </div>
             </div>
             {/* Nội dung phản hồi */}
@@ -133,6 +144,7 @@ const ModalContactPending = ({
               <div className="form mt-3">
                 <form onSubmit={handleOk} action="w-full">
                   <textarea
+                    disabled={isLoading}
                     value={contentReply}
                     onChange={(e) => setContentReply(e.target.value)}
                     className="w-full h-48 p-3 border border-black/50 rounded-lg"
