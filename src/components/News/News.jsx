@@ -3,11 +3,7 @@ import TableNews from "./TableNews";
 
 const News = () => {
   useDynamicTitle("Quản lý tin tức");
-  return (
-    <>
-      <TableNews />
-    </>
-  );
+  return <>{/* <TableNews /> */}</>;
 };
 
 export default News;

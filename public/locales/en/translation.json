@@ -139,8 +139,11 @@
     "qty": "Quantity",
     "table": "Table",
     "action": {
-      "action1": "Accept reservation",
-      "action2": "Reject reservation"
+      "handle": "Handle reservation",
+      "accept": "Accept reservation",
+      "reject": "Reject reservation",
+      "cancel": "Cancel",
+      "complete": "Complete"
     },
     "note": "Note",
     "status": {
@@ -149,16 +152,24 @@
       "completed": "Completed",
       "canceled": "Canceled"
     },
-    "noSelected": "Select a table reservation to view detailed information."
+    "noSelected": "Select a table reservation to view detailed information.",
+    "handleReservation": {
+      "title": "Handle reservation",
+      "peopleNumber": "People number",
+      "isNotAssigned": "People number isn't yet assigned",
+      "note": "Note",
+      "capacity": "Capacity",
+      "emptyTables": "There are no available tables."
+    }
   },
   "OrderPending": {
     "title": "Customer",
     "id": "Order ID",
     "finalPrice": "Total price",
     "paymentMethod": "Payment method",
-    "paymentMethodCate":{
-      "paymentMethod1":"VNPay Transfer",
-      "paymentMethod2":"Cash on Delivery"
+    "paymentMethodCate": {
+      "paymentMethod1": "VNPay Transfer",
+      "paymentMethod2": "Cash on Delivery"
     },
     "orderDate": "Order date",
     "status": "Status",
@@ -173,9 +184,9 @@
     "id": "Order ID",
     "finalPrice": "Total price",
     "paymentMethod": "Payment method",
-    "paymentMethodCate":{
-      "paymentMethod1":"VNPay Transfer",
-      "paymentMethod2":"Cash on Delivery"
+    "paymentMethodCate": {
+      "paymentMethod1": "VNPay Transfer",
+      "paymentMethod2": "Cash on Delivery"
     },
     "orderDate": "Order date",
     "currentOrder": "Table reservation pending confirmation"

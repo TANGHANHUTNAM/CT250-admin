@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { loadingBarRef } from "./utils/axiosCustomize.js";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  <>
     <Provider store={store}>
       <App />
     </Provider>
@@ -30,5 +30,5 @@ createRoot(document.getElementById("root")).render(
       transition={Bounce}
     />
     <LoadingBar color="#d69c52" ref={loadingBarRef} />
-  </StrictMode>
+  </>
 );

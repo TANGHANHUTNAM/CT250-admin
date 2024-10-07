@@ -13,7 +13,7 @@ const Progress = ({ status = [], active, setActive = (key) => {} }) => {
               i === 0 ? "rounded-l-sm" : ""
             } ${i === status.length - 1 ? "rounded-r-sm" : ""} ${
               item.key === active
-                ? "bg-violet-700 font-medium text-white hover:text-violet-50"
+                ? "bg-violet-700 font-medium text-white hover:!text-violet-50"
                 : ""
             }`}
             onClick={() => setActive(item?.key)}

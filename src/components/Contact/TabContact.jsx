@@ -1,24 +1,29 @@
 import { ConfigProvider, Tabs } from "antd";
 import TableContact from "./TableContact";
-import ModalContact from "./ModalContact";
+import ModalContactPending from "./ModalContactPending";
 import { useEffect, useState } from "react";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { FaRegTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchContactCompleted,
   fetchContactPending,
 } from "../../redux/reducer/contactSlice";
-import { deleteContactService } from "../../services/contactService";
-import { toast } from "react-toastify";
-import StatusCodes from "../../utils/StatusCodes";
+import ModalConfirm from "./ModalConfirm";
+import Avatar from "../avatar/Avatar";
+import ModalContactCompleted from "./ModalContactCompleted";
 const TabContact = () => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [contact, setContact] = useState(null);
+  const [contactPendingDetails, setContactPendingDetails] = useState(null);
+  const [isModalOpenCompleted, setIsModalOpenCompleted] = useState(false);
+  const [contactCompletedDetails, setContactCompletedDetails] = useState(null);
   const showModal = (contact) => {
-    setContact(contact);
+    setContactPendingDetails(contact);
     setIsModalOpen(true);
+  };
+  const ShowModalCompleted = (contact) => {
+    setContactCompletedDetails(contact);
+    setIsModalOpenCompleted(true);
   };
   const contactPending = useSelector((state) => state.contact.contactPending);
   const contactCompleted = useSelector(
@@ -28,10 +33,10 @@ const TabContact = () => {
     (state) => state.contact
   );
   const [pagePending, setPagePending] = useState(1);
-  const [limitPending, setLimitPending] = useState(2);
+  const [limitPending, setLimitPending] = useState(7);
   const [pageCompleted, setPageCompleted] = useState(1);
-  const [limitCompleted, setLimitCompleted] = useState(2);
-
+  const [limitCompleted, setLimitCompleted] = useState(7);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     dispatch(
       fetchContactCompleted({ page: pageCompleted, limit: limitCompleted })
@@ -47,8 +52,8 @@ const TabContact = () => {
     {
       align: "center",
       title: "STT",
-      className: "w-[50px] text-center ",
-      render: (_, __, index) => index + 1,
+      className: "w-[50px] text-center font-semibold",
+      render: (_, __, index) => (pagePending - 1) * limitPending + index + 1,
     },
     {
       align: "center",
@@ -92,8 +97,18 @@ const TabContact = () => {
     {
       align: "center",
       title: "Thời gian gửi",
-      dataIndex: "contactDate",
+      dataIndex: "createdAt",
       className: "w-[200px]",
+      render: (date) => {
+        return new Date(date).toLocaleString("vi-VN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+      },
     },
     {
       align: "center",
@@ -109,13 +124,14 @@ const TabContact = () => {
               <MdOutlineRemoveRedEye />
               <span>Xem</span>
             </button>
-            <button
-              className="text-white bg-red-400 hover:bg-red-500 flex items-center justify-center rounded-md p-2 gap-1"
-              onClick={() => handleDeleteContact(contact._id)}
-            >
-              <FaRegTrashAlt />
-              <span>Xóa</span>
-            </button>
+            <ModalConfirm
+              pagePending={pagePending}
+              limitPending={limitPending}
+              totalContactPending={totalContactPending}
+              contact={contact}
+              onChangeTablePending={onChangeTablePending}
+              setIsLoading={setIsLoading}
+            />
           </div>
         );
       },
@@ -125,20 +141,55 @@ const TabContact = () => {
     {
       align: "center",
       title: "STT",
-      className: "w-[50px] text-center ",
-      render: (_, __, index) => index + 1,
+      className: "w-[50px] text-center font-semibold",
+      render: (_, __, index) =>
+        (pageCompleted - 1) * limitCompleted + index + 1,
     },
     {
       align: "center",
-      title: "Họ tên",
+      title: "Avatar",
+      dataIndex: "staff",
+      className: "font-semibold text-black/75",
+      width: "100px",
+      render: (record) => {
+        return <Avatar size={40} src={record.avatar} />;
+      },
+    },
+    {
+      align: "center",
+      title: "Người phản hồi",
+      dataIndex: "staff",
+      className: "font-semibold text-black/75 w-[150px]",
+      render: (record) => {
+        return record?.username;
+      },
+    },
+    {
+      align: "center",
+      title: "Nội dung phản hồi",
+      dataIndex: "replyContent",
+      render: (content) => {
+        return (
+          <div
+            style={{
+              wordWrap: "break-word",
+              wordBreak: "break-word",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            {content}
+          </div>
+        );
+      },
+    },
+    {
+      align: "center",
+      title: "Khách hàng",
       dataIndex: "customerName",
       className: "font-semibold text-black/75 w-[200px]",
-    },
-    {
-      align: "center",
-      title: "Email",
-      dataIndex: "customerEmail",
-      className: "w-[200px]",
     },
     {
       align: "center",
@@ -164,8 +215,18 @@ const TabContact = () => {
     {
       align: "center",
       title: "Thời gian phản hồi",
-      dataIndex: "contactDate",
+      dataIndex: "updatedAt",
       className: "w-[200px]",
+      render: (date) => {
+        return new Date(date).toLocaleString("vi-VN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+      },
     },
     {
       align: "center",
@@ -176,7 +237,7 @@ const TabContact = () => {
           <div className="flex items-center justify-center space-x-1.5">
             <button
               className="text-white bg-blue-400 hover:bg-blue-500 flex items-center justify-center rounded-md p-2 gap-1"
-              onClick={() => showModal(contact)}
+              onClick={() => ShowModalCompleted(contact)}
             >
               <MdOutlineRemoveRedEye />
               <span>Xem</span>
@@ -213,7 +274,9 @@ const TabContact = () => {
         <TableContact
           columns={columns_tab1}
           data={contactPending}
+          rowKey={(record) => record._id}
           onChange={onChangeTablePending}
+          loading={isLoading}
           pagination={{
             current: pagePending,
             pageSize: limitPending,
@@ -230,6 +293,7 @@ const TabContact = () => {
         <TableContact
           columns={columns_tab2}
           data={contactCompleted}
+          rowKey={(record) => record._id}
           onChange={onChangeTableCompleted}
           pagination={{
             current: pageCompleted,
@@ -241,23 +305,6 @@ const TabContact = () => {
       ),
     },
   ];
-
-  const handleDeleteContact = async (_id) => {
-    const res = await deleteContactService(_id);
-    try {
-      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-        dispatch(
-          fetchContactPending({ page: pagePending, limit: limitPending })
-        );
-        toast.success(res.EM);
-      }
-      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
-        toast.error(res.EM);
-      }
-    } catch (error) {
-      toast.error(error);
-    }
-  };
   return (
     <div className="px-3">
       <ConfigProvider
@@ -274,13 +321,27 @@ const TabContact = () => {
       >
         <Tabs size="large" defaultActiveKey="1" items={items} />
       </ConfigProvider>
-      <ModalContact
+      <ModalContactPending
         isModalOpen={isModalOpen}
         showModal={showModal}
         setIsModalOpen={setIsModalOpen}
-        contact={contact}
-        page={pagePending}
-        limit={limitPending}
+        contact={contactPendingDetails}
+        pagePending={pagePending}
+        limitPending={limitPending}
+        totalContactPending={totalContactPending}
+        onChangeTablePending={onChangeTablePending}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        fetchContactCompleted={fetchContactCompleted}
+        pageCompleted={pageCompleted}
+        limitCompleted={limitCompleted}
+        onChangeTableCompleted={onChangeTableCompleted}
+      />
+      <ModalContactCompleted
+        isModalOpen={isModalOpenCompleted}
+        showModal={ShowModalCompleted}
+        setIsModalOpen={setIsModalOpenCompleted}
+        contact={contactCompletedDetails}
       />
     </div>
   );

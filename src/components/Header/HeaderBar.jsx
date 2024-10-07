@@ -1,4 +1,4 @@
-import { Button, Dropdown, Layout, Tooltip, Menu } from "antd";
+import { Button, Dropdown, Layout, Tooltip } from "antd";
 import { MdTableRestaurant } from "react-icons/md";
 import { MdPermContactCalendar } from "react-icons/md";
 import { TiShoppingCart } from "react-icons/ti";
@@ -17,6 +17,7 @@ import { logout } from "../../services/authService";
 import StatusCodes from "../../utils/StatusCodes";
 import { toast } from "react-toastify";
 import { logoutSuccess } from "../../redux/reducer/userSlice";
+import Notifications from "./Notifications";
 
 const HeaderBar = ({ collapsed, setCollapsed }) => {
   const { t } = useTranslation();
@@ -49,9 +50,7 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
         <div className="flex gap-3 items-center text-black">
           <Avatar size={40} src={avatar} />
           <span className="flex flex-col gap-1 justify-start">
-            <span className="font-semibold text-base opacity-80">
-              {username}
-            </span>
+            <span className="font-semibold text-sm opacity-80">{username}</span>
             <span className="text-sm font-medium opacity-40 uppercase">
               {role}
             </span>
@@ -334,7 +333,7 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
   );
 
   return (
-    <Header className="flex justify-between bg-white mx-5 p-0">
+    <Header className="flex justify-between bg-white mx-5 p-0 sticky">
       <div className="flex">
         <Button
           type="text"
@@ -349,49 +348,42 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
       </div>
       <div className="flex items-center">
         {/* New Icons for Cart, Order Table, and Contact */}
-        <Dropdown overlay={notificationsMenu} placement="bottomRight" arrow>
+        <Tooltip title={t("Cart")}>
           <Link
             to={"/dishes-order"}
             type="text"
-            className="relative text-2xl mr-4"
+            style={{
+              fontSize: "16px",
+              marginRight: "16px",
+            }}
           >
-            <TiShoppingCart className="opacity-75" />
-            <div className="absolute bg-yellow-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs -top-3 -right-3">
-              1
-            </div>
+            <TiShoppingCart />
           </Link>
-        </Dropdown>
-        <Dropdown
-          overlay={orderTableMenu}
-          placement="bottomRight"
-          arrow
-          className="relative"
-        >
+        </Tooltip>
+        <Tooltip title={t("Order Table")}>
           <Link
             to={"/table-order"}
             type="text"
-            className="relative text-2xl mr-4"
+            style={{
+              fontSize: "16px",
+              marginRight: "16px",
+            }}
           >
-            <MdTableRestaurant className="opacity-75" />
-            {/* Notification Badge */}
-            <div className="absolute bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs -top-3 -right-3">
-              5
-            </div>
+            <MdTableRestaurant />
           </Link>
-        </Dropdown>
-
-        <Dropdown overlay={contactMenu} placement="bottomRight" arrow>
+        </Tooltip>
+        <Tooltip title={t("Contact")}>
           <Link
             to={"/manage-contact"}
             type="text"
-            className="relative text-2xl mr-4"
+            style={{
+              fontSize: "16px",
+              marginRight: "16px",
+            }}
           >
-            <MdPermContactCalendar className="opacity-75" />
-            <div className="absolute bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs -top-3 -right-3">
-              2
-            </div>
+            <MdPermContactCalendar />
           </Link>
-        </Dropdown>
+        </Tooltip>
 
         <Language isAuth={isAuth} className="!self-center " />
         {/* Dropdown Avatar */}

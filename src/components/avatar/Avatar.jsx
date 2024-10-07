@@ -11,13 +11,12 @@ const Avatar = ({ size = 32, src, ...props }) => {
     setFileList(newFileList);
   };
   return (
-    <div className="flex items-center">
+    <div className="flex items-center justify-center">
       <Avt
         size={size}
         style={{
           backgroundColor: "#ffe5d1d4",
           color: "#ff882c",
-          cursor: "pointer",
         }}
         icon={<UserOutlined />}
         src={src || undefined}
