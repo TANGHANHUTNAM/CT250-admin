@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { newOrConfirmedReservation } from "../redux/reducer/reservationSlice";
+import { changedPendingReservation } from "../redux/reducer/reservationSlice";
 import { toast } from "react-toastify";
 import { getPendingReservationsWithPagination } from "../services/reservationService";
 import StatusCodes from "../utils/StatusCodes";
@@ -15,7 +15,7 @@ const useNotifications = () => {
 
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
         dispatch(
-          newOrConfirmedReservation({
+          changedPendingReservation({
             total: res.DT.totalItems,
             data: res.DT.data,
           })
@@ -33,11 +33,11 @@ const useNotifications = () => {
       { withCredentials: true }
     );
 
-    eventSource.addEventListener("new-or-confirmed-reservation", (event) => {
+    eventSource.addEventListener("changed-pending-reservation", (event) => {
       const payload = JSON.parse(event.data);
       const { isNew, totalItems, data } = payload;
 
-      dispatch(newOrConfirmedReservation({ total: totalItems, data }));
+      dispatch(changedPendingReservation({ total: totalItems, data }));
       if (isNew === true) {
         toast.info("New reservation");
       }
