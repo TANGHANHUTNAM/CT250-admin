@@ -1,11 +1,11 @@
 import { Dropdown } from "antd";
 import { useEffect } from "react";
-import { MdTableRestaurant } from "react-icons/md";
 import { MdPermContactCalendar } from "react-icons/md";
 import { TiShoppingCart } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchContactPending } from "../../redux/reducer/contactSlice";
+import { PiDeviceTabletSpeakerFill } from "react-icons/pi";
 
 const Notifications = () => {
   const notificationsMenu = (
@@ -166,7 +166,7 @@ const Notifications = () => {
     dipatch(
       fetchContactPending({
         page: 1,
-        limit: 7,
+        limit: 5,
       })
     );
   }, [dipatch]);
@@ -241,7 +241,7 @@ const Notifications = () => {
           type="text"
           className="relative text-2xl mr-4"
         >
-          <MdTableRestaurant className="opacity-75" />
+          <PiDeviceTabletSpeakerFill className="opacity-75" />
           {/* Notification Badge */}
           <div className="absolute bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs -top-3 -right-3">
             {reservation?.total}
