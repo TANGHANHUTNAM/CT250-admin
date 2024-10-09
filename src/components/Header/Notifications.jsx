@@ -161,15 +161,15 @@ const Notifications = () => {
     </div>
   );
 
-  const dipatch = useDispatch();
-  useEffect(() => {
-    dipatch(
-      fetchContactPending({
-        page: 1,
-        limit: 5,
-      })
-    );
-  }, [dipatch]);
+  // const dipatch = useDispatch();
+  // useEffect(() => {
+  //   dipatch(
+  //     fetchContactPending({
+  //       page: 1,
+  //       limit: 5,
+  //     })
+  //   );
+  // }, [dipatch]);
   const { totalContactPending, contactPending } = useSelector(
     (state) => state.contact
   );
@@ -180,7 +180,7 @@ const Notifications = () => {
         Bạn có {totalContactPending} liên hệ mới
       </h6>
       <ul className="divide-y divide-gray-200">
-        {contactPending.slice(0, 3).map((contact) => {
+        {contactPending.map((contact) => {
           return (
             <li key={contact._id} className="py-2 px-4 flex">
               <div>
