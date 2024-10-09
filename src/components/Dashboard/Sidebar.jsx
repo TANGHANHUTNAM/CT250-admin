@@ -50,7 +50,7 @@ const Sidebar = ({ collapsed }) => {
   const menuItems = [
     {
       key: "/",
-      icon: <RxDashboard className="w-4 h-4" />,
+      icon: <RxDashboard className="h-4 w-4" />,
       label: (
         <Link to="/" className="text-sm">
           Dashboard
@@ -59,7 +59,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-statistical",
-      icon: <IoMdStats className="w-4 h-4" />,
+      icon: <IoMdStats className="h-4 w-4" />,
       label: (
         <Link to="/manage-statistical" className="text-sm">
           Thống kê
@@ -68,7 +68,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-emloyee",
-      icon: <FaUsersGear className="w-4 h-4" />,
+      icon: <FaUsersGear className="h-4 w-4" />,
       label: (
         <Link to="/manage-emloyee" className="text-sm">
           Nhân viên
@@ -77,7 +77,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-customer",
-      icon: <FaUserTie className="w-4 h-4" />,
+      icon: <FaUserTie className="h-4 w-4" />,
       label: (
         <Link to="/manage-customer" className="text-sm">
           Khách hàng
@@ -86,7 +86,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/table-order",
-      icon: <PiDeviceTabletSpeakerFill className="w-4 h-4" />,
+      icon: <PiDeviceTabletSpeakerFill className="h-4 w-4" />,
       label: (
         <Link to="/table-order" className="text-sm">
           Đơn đặt bàn
@@ -95,7 +95,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-table",
-      icon: <MdTableRestaurant className="w-4 h-4" />,
+      icon: <MdTableRestaurant className="h-4 w-4" />,
       label: (
         <Link to="/manage-table" className="text-sm">
           Quản lý bàn
@@ -104,7 +104,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/dishes-order",
-      icon: <TiShoppingCart className="w-4 h-4" />,
+      icon: <TiShoppingCart className="h-4 w-4" />,
       label: (
         <Link to="/dishes-order" className="text-sm">
           Đơn hàng
@@ -113,7 +113,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-dishes",
-      icon: <FaBowlFood className="w-4 h-4" />,
+      icon: <FaBowlFood className="h-4 w-4" />,
       label: (
         <Link to="/manage-dishes" className="text-sm">
           Quản lý món ăn
@@ -122,7 +122,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-category",
-      icon: <BiSolidFoodMenu className="w-4 h-4" />,
+      icon: <BiSolidFoodMenu className="h-4 w-4" />,
       label: (
         <Link to="/manage-category" className="text-sm">
           Quản lý danh mục
@@ -131,7 +131,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-discount",
-      icon: <MdDiscount className="w-4 h-4" />,
+      icon: <MdDiscount className="h-4 w-4" />,
       label: (
         <Link to="/manage-discount" className="text-sm">
           Giảm giá
@@ -140,7 +140,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-contact",
-      icon: <MdPermContactCalendar className="w-4 h-4" />,
+      icon: <MdPermContactCalendar className="h-4 w-4" />,
       label: (
         <Link to="/manage-contact" className="text-sm">
           Liên hệ
@@ -149,7 +149,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-news",
-      icon: <IoNewspaper className="w-4 h-4" />,
+      icon: <IoNewspaper className="h-4 w-4" />,
       label: (
         <Link to="/manage-news" className="text-sm">
           Tin tức
@@ -158,7 +158,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/logout",
-      icon: <TbLogout2 onClick={() => handleLogout()} className="w-4 h-4" />,
+      icon: <TbLogout2 onClick={() => handleLogout()} className="h-4 w-4" />,
       label: (
         <span onClick={() => handleLogout()} className="text-sm">
           Đăng xuất
@@ -195,16 +195,16 @@ const Sidebar = ({ collapsed }) => {
       style={siderStyle}
       collapsible
       collapsed={collapsed}
-      className={`!bg-white  !flex-none ${
+      className={`!flex-none !bg-white ${
         !collapsed ? "!max-w-auto" : "!max-w-fit"
-      } !min-w-14 duration-300 transition-all`}
+      } !min-w-14 transition-all duration-300`}
     >
       {collapsed ? (
         <div className="my-3">
           <Link to="/">
             <img
               src={favicon}
-              className=" m-auto mt-3"
+              className="m-auto mt-3"
               alt=""
               width={45}
               height={45}
@@ -214,7 +214,7 @@ const Sidebar = ({ collapsed }) => {
       ) : (
         <div className="">
           <Link to="/">
-            <img src={logo} className=" m-auto w-full p-3" alt="" />
+            <img src={logo} className="m-auto w-full p-3" alt="" />
           </Link>
         </div>
       )}
