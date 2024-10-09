@@ -29,7 +29,13 @@ const initialState = {
 export const contactSlice = createSlice({
   name: "contact",
   initialState,
-  reducers: {},
+  reducers: {
+    changedPendingContact: (state, action) => ({
+      ...state,
+      totalContactPending: action?.payload?.total ?? 0,
+      contactPending: action?.payload?.data ?? [],
+    }),
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchContactPending.fulfilled, (state, { payload }) => {
       state.contactPending = payload.DT.data;
@@ -42,6 +48,6 @@ export const contactSlice = createSlice({
   },
 });
 
-export const {} = contactSlice.actions;
+export const { changedPendingContact } = contactSlice.actions;
 
 export default contactSlice.reducer;
