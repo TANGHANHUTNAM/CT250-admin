@@ -20,20 +20,20 @@ const useNotifications = () => {
           changedPendingReservation({
             total: res.DT.totalItems,
             data: res.DT.data,
-          })
+          }),
         );
       }
     };
 
     const getInitialContact = async () => {
-      const res = await getAllContactsPending(1, 6);
+      const res = await getAllContactsPending(1, 5);
 
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
         dispatch(
           changedPendingContact({
             total: res.DT.totalContacts,
             data: res.DT.data,
-          })
+          }),
         );
       }
     };
@@ -46,7 +46,7 @@ const useNotifications = () => {
   useEffect(() => {
     const eventSource = new EventSource(
       `${import.meta.env.VITE_BACKEND_URL}/api/v1/SSE-Events`,
-      { withCredentials: true }
+      { withCredentials: true },
     );
 
     eventSource.addEventListener("changed-pending-reservation", (event) => {
