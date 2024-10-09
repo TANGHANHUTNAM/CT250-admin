@@ -17,7 +17,7 @@ import { MdDiscount } from "react-icons/md";
 import { MdPermContactCalendar } from "react-icons/md";
 import { IoNewspaper } from "react-icons/io5";
 import { TbLogout2 } from "react-icons/tb";
-import "./Sidebar.css";
+// import "./Sidebar.css";
 import { IoMdStats } from "react-icons/io";
 import { FaUsersGear } from "react-icons/fa6";
 import { FaUserTie } from "react-icons/fa6";
