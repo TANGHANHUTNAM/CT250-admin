@@ -322,5 +322,21 @@
   "action": "Action",
   "editButt": "Edit",
   "deleteButt": "Delete"
-}
+},
+"Notifications": {
+    "content1": "You have 5 notifications",
+    "content2": "New user registered",
+    "content3": "User deleted",
+    "content4": "Sales report is ready",
+    "content5": "New client",
+    "content6": "Server overloaded",
+    "reservation": {
+      "new": "You have {{total}} new reservations",
+      "seeAllOrder": "See all orders"
+    },
+    "contacts": {
+      "new": "You have {{totalContactPending}} new contacts",
+      "seeAllContact": "See all contacts"
+    }
+  }
 }

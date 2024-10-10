@@ -117,11 +117,7 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
             className="w-fit"
             trigger={["hover"]}
           >
-<<<<<<< HEAD
-            <a className="flex pr-2.5" onClick={(e) => e.preventDefault()}>
-=======
             <a className="flex pr-2" onClick={(e) => e.preventDefault()}>
->>>>>>> 148d236f0dc42199426b76bc953469509e7c8318
               <Avatar size={40} src={avatar} className="mx-2 self-center" />
               <span className="font-semibold text-black/80 opacity-80 group-hover:text-black">
                 {username}
