@@ -1,45 +1,90 @@
-import React, { useState } from "react";
-import Employee from "./Employee";
-import data from "../../../public/locales/ct250.accounts.json";
-import { useTranslation } from "react-i18next";
-import { IoPersonAddSharp } from "react-icons/io5";
-import { FaSearch } from "react-icons/fa";
-import Pagination from "../Pagination/Pagination";
-import { useDynamicTitle } from "../../hooks";
+import React from 'react';
+import { Table, Avatar, Button } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import data from '../../../public/locales/ct250.accounts.json';
+import { useTranslation } from 'react-i18next';
 
 const EmployeesList = () => {
-  useDynamicTitle("Quản lý nhân viên");
-  const users = data;
-  const [editMode, setEditMode] = useState(false);
+  const employees = data;
   const { t } = useTranslation();
+  const columns = [
+    {
+      title: 'Photo',
+      dataIndex: 'avatar',
+      key: 'avatar',
+      render: (avatar) => <Avatar size={48} src={avatar.url} />,
+    },
+    {
+      title: t("EmployeeList.employeeName"),
+      dataIndex: 'username',
+      key: 'username',
+      width: "350px",
+      render: (text) => <span className="font-semibold">{text}</span>,
+    },
+    {
+      title: t("EmployeeList.employeeRole"),
+      dataIndex: 'role',
+      key: 'role',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+      width: "300px",
+      render: (email) => <span>{email}</span>,
+    },
+    {
+      title: t("EmployeeList.employeePhone"),
+      dataIndex: 'phoneNumber',
+      key: 'phoneNumber',
+      render: (phoneNumber) => <span>{phoneNumber}</span>,
+    },
+    {
+      title: t("EmployeeList.action"),
+      key: 'action',
+      width: "200px",
+      render: (_, record) => (
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <Button
+            type="primary"
+            icon={<EditOutlined />}
+            onClick={() => handleEdit(record._id.$oid)}
+          >
+            {t("EmployeeList.editButt")}
+          </Button>
+          <Button
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => handleDelete(record._id.$oid)}
+          >
+            {t("EmployeeList.deleteButt")}
+          </Button>
+        </div>
+      ),
+    },
+  ];
+
+  const handleEdit = (id) => {
+    // Logic để xử lý khi bấm nút Edit
+    console.log('Edit employee with ID:', id);
+  };
+
+  const handleDelete = (id) => {
+    // Logic để xử lý khi bấm nút Delete
+    console.log('Delete employee with ID:', id);
+  };
 
   return (
-    <div className="p-3">
-      <div className="flex justify-between ">
-        <h2 className="text-2xl font-bold">{t("Employee.title")}</h2>
-        <div className="flex">
-          <div className="flex text-md !border-2 !border-gray-400 p-2 rounded-md items-center mr-5 w-64">
-            <FaSearch className="text-gray-400 text-lg" />
-            <input
-              type="text"
-              placeholder={t("Home.search")}
-              className="ml-3 bg-neutral-100 hover:outline-none active:outline-none focus:outline-none w-full"
-            />
-          </div>
-          <button className="bg-violet-700 rounded-md px-4 py-2 text-md font-semibold flex items-center text-white">
-            <IoPersonAddSharp className="!mr-2" />
-            {t("Employee.addaccount")}
-          </button>
-        </div>
-      </div>
-      <div className="mt-10">
-        <div className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-x-4 w-full">
-          {users.map((user) => (
-            <Employee user={user} editMode={editMode} t={t} />
-          ))}
-        </div>
-      </div>
-      <Pagination />
+    <div>
+      <Table
+        columns={columns}
+        size='small'
+        dataSource={employees.map((employee) => ({
+          ...employee,
+          key: employee._id.$oid,
+        }))}
+        pagination={false} // Nếu bạn muốn phân trang, bạn có thể bật lên
+      />
     </div>
   );
 };

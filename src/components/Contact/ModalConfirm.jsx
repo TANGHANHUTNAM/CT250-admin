@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import StatusCodes from "../../utils/StatusCodes";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 const ModalConfirm = ({
   contact,
   pagePending,
@@ -51,18 +52,19 @@ const ModalConfirm = ({
     handleDeleteContact(contact._id);
   };
   const cancel = () => {};
+  const { t } = useTranslation();
   return (
     <Popconfirm
-      title={`Xóa liên hệ`}
-      description={`Bạn có chắc chắn muốn xóa liên hệ này không?`}
-      okText={`Có`}
-      cancelText={`Không`}
+      title={t("ModalConfirm.title")}
+      description={t("ModalConfirm.description")}
+      okText={t("ModalConfirm.okText")}
+      cancelText={t("ModalConfirm.cancelText")}
       onConfirm={confirm}
       onCancel={cancel}
     >
       <button className=" text-white bg-red-400 hover:bg-red-500 flex items-center justify-center rounded-md p-2 gap-1">
         <FaRegTrashAlt />
-        <span>Xóa</span>
+        <span>{t("ModalConfirm.closeButton")}</span>
       </button>
     </Popconfirm>
   );

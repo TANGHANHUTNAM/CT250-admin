@@ -1,4 +1,28 @@
-{
+{ 
+  "HeaderBarDropdown": {
+    "personalPage": "Profile",
+    "setting": "Settings",
+    "signout": "Signout",
+    "position": {
+      "position1": "Empoyee",      
+      "position2": "Admin"
+    }
+  },
+  "Sidebar": {
+      "dashboard": "Dashboard",      
+      "statistical": "Statistical",
+      "manageEmloyee": "Emloyees",      
+      "manageCustomer": "Customers",
+      "tableOrder": "Reservations",      
+      "manageTable": "Table Management",
+      "dishesOrder": "Orders",      
+      "manageDishes": "Dishes",
+      "manageCategory": "Categories",      
+      "manageDiscount": "Discounts", 
+      "manageContact": "Contacts",
+      "manageNews": "News", 
+      "logout": "Signout"
+  },
   "PaymentPolicy": {
     "title_page": "Payment Policy",
     "content_1": "Customers pay directly at the store",
@@ -213,5 +237,90 @@
     "chart3": "Total Sales by Item",
     "chart4": "Orders Placed by Day",
     "chart5": "Reservation Orders Placed by Day"
-  }
+  },
+  "Contact": {
+    "title": "Contact management"
+  },
+  "ModalContact": {
+  "title": "Customer",
+  "okText": "Send Feedback",
+  "cancelText": "Close",
+  "customerName": "Full Name:",
+  "customerEmail": "Email:",
+  "customerPhone": "Phone Number:",
+  "customerContent": "Content:",
+  "customerDate": "Submission Time:",
+  "feedbackContent": "Feedback Content:",
+  "enterFb": "Enter feedback content..."
+},
+"ModalContactComplete": {
+  "title": "Contact Details",
+  "cancelText": "Close",
+  "customer": "Customer",
+  "customerName": "Full Name:",
+  "customerEmail": "Email:",
+  "customerPhone": "Phone Number:",
+  "customerContent": "Content:",
+  "customerDate": "Submission Time:",
+  "employee": "Employee",
+  "employeeName": "Full Name:",
+  "employeeRole": "Role:",
+  "employeeUsername":"",
+  "employeeEmail": "Email:",
+  "employeePhone": "Phone Number:",
+  "employeeGender": "Gender:",
+  "employeeDOB": "Date of Birth:",
+  "employeeAddress": "Address:",
+  "employeeContent": "Content:",
+  "employeeDate": "Response Time:"
+},
+"TabContact": {
+  "STT": "No.",
+  "customerName": "Full Name:",
+  "customerEmail": "Email:",
+  "customerPhone": "Phone Number:",
+  "customerContent": "Content:",
+  "customerDate": "Submission Time:",
+  "action": "Action",
+  "see": "View",
+  "newContact": "New Contact",
+  "quantity": "Quantity:",
+  "processedContact": "Processed Contact",
+  "respondent": "Responder",
+  "replyContent": "Feedback Content",
+  "sentContent": "Sent Content",
+  "responseTime": "Response Time"
+},
+  "ModalContactPending": {
+    "contentErrorEmpty": "Feedback content cannot be empty",
+    "contentErrorLength": "Feedback content must be at least 30 characters long",
+    "customer": "Customer",
+    "sendFeedback": "Submit Feedback",
+    "closeButt": "Close",
+    "customerName": "Full Name:",
+    "customerEmail": "Email:",
+    "customerPhone": "Phone Number:",
+    "customerContent": "Content:",
+    "customerDate": "Submission Date:",
+    "feedbackContent": "Feedback Content",
+    "placeholder": "Enter feedback content..."
+},
+"ModalConfirm": {
+  "title": "Delete Contact",
+  "description": "Are you sure you want to delete this contact?",
+  "okText": "Yes",
+  "cancelText": "No",
+  "closeButton": "Delete"
+},
+"NotPermitted": {
+  "subTitle": "Sorry, you are not permitted to access this page."
+},
+"EmployeeList": {
+  "employeeName": "Full Name",
+  "employeeRole": "Role",
+  "employeePhone": "Phone Number",
+  "action": "Action",
+  "editButt": "Edit",
+  "deleteButt": "Delete"
+}
 }

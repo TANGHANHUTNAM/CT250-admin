@@ -5,6 +5,7 @@ import { replyContactService } from "../../services/contactService";
 import { useDispatch, useSelector } from "react-redux";
 import StatusCodes from "../../utils/StatusCodes";
 import { fetchContactPending } from "../../redux/reducer/contactSlice";
+import { useTranslation } from "react-i18next";
 const ModalContactPending = ({
   isModalOpen,
   setIsModalOpen,
@@ -19,6 +20,7 @@ const ModalContactPending = ({
   onChangeTableCompleted,
   isLoading,
 }) => {
+  const { t }= useTranslation();
   const dispatch = useDispatch();
   const [contentReply, setContentReply] = useState("");
   const [error, setError] = useState("");
@@ -27,9 +29,9 @@ const ModalContactPending = ({
     e.preventDefault();
     var newError = "";
     if (contentReply.length === 0) {
-      newError = "Nội dung phản hồi không được để trống";
+      newError = t("ModalContactPending.contentErrorEmpty");
     } else if (contentReply.length < 30) {
-      newError = "Nội dung phản hồi phải có ít nhất 30 ký tự";
+      newError = t("ModalContactPending.contentErrorLength");
     }
     if (newError.length > 0) {
       setError(newError);
@@ -93,14 +95,14 @@ const ModalContactPending = ({
   return (
     <>
       <Modal
-        title={`Khách hàng`}
+        title={t("ModalContactPending.Customer")}
         open={isModalOpen}
         onOk={handleOk}
-        okText="Gửi phản hồi"
+        okText={t("ModalContactPending.sendFeedback")}
         onCancel={handleCancel}
         width={1200}
         afterClose={handleResetForm}
-        cancelText="Đóng"
+        cancelText={t("ModalContactPending.closeButt")}
         cancelButtonProps={{ danger: true }}
         okButtonProps={{ loading: isLoading }}
       >
@@ -109,23 +111,23 @@ const ModalContactPending = ({
             {/* Customer */}
             <div className="customer pr-6 flex flex-col gap-3 mt-3">
               <div className="">
-                <span className="font-semibold opacity-85">Họ tên:</span>
+                <span className="font-semibold opacity-85">{t("ModalContactPending.customerName")}</span>
                 <div className="">{contact?.customerName}</div>
               </div>
               <div className="">
-                <span className="font-semibold opacity-85">Email:</span>
+                <span className="font-semibold opacity-85">{t("ModalContactPending.customerEmail")}</span>
                 <div className="">{contact?.customerEmail}</div>
               </div>
               <div className="">
-                <span className="font-semibold opacity-85">Số điện thoại:</span>
+                <span className="font-semibold opacity-85">{t("ModalContactPending.customerPhone")}</span>
                 <div className="">{contact?.customerPhone}</div>
               </div>
               <div className="">
-                <span className="font-semibold opacity-85">Nội dung:</span>
+                <span className="font-semibold opacity-85">{t("ModalContactPending.customerContent")}</span>
                 <div className="">{contact?.content}</div>
               </div>
               <div className="">
-                <span className="font-semibold opacity-85">Thời gian gửi:</span>
+                <span className="font-semibold opacity-85">{t("ModalContactPending.customerDate")}</span>
                 <div className="">
                   {new Date(contact?.createdAt).toLocaleString("vi-VN", {
                     day: "2-digit",
@@ -140,7 +142,7 @@ const ModalContactPending = ({
             </div>
             {/* Nội dung phản hồi */}
             <div className="p-3 border-solid border border-black/50 rounded-lg">
-              <div className="font-semibold opacity-85:">Nội dung phản hồi</div>
+              <div className="font-semibold opacity-85:">{t("ModalContactPending.feedbackContent")}</div>
               <div className="form mt-3">
                 <form onSubmit={handleOk} action="w-full">
                   <textarea
@@ -148,7 +150,7 @@ const ModalContactPending = ({
                     value={contentReply}
                     onChange={(e) => setContentReply(e.target.value)}
                     className="w-full h-48 p-3 border border-black/50 rounded-lg"
-                    placeholder="Nhập nội dung phản hồi..."
+                    placeholder={t("ModalContactPending.placeholder")}
                   />
                   <span className="text-sm text-red-500">{error}</span>
                 </form>
