@@ -8,7 +8,7 @@ const Detail = () => {
     return (
         <div className="basis-12/12 lg:basis-8/12 bg-white p-6">
             <div className="text-xl font-semibold mb-4">{t("Order.title")}</div>
-            <div className="border-2 border-neutral-400 rounded-lg">
+            <div className="border-2 border-neutral-400 rounded">
                 <div className="py-8 px-6">
                     <div className="border-b border-neutral-400 pb-6">
                         <div className="text-lg font-medium mb-1">

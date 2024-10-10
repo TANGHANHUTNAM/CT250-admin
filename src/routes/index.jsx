@@ -15,6 +15,9 @@ import News from "../components/News/News";
 import { PrivateRoute, RoleRoute } from "./privateRoute";
 import NotFound from "../components/NotFound/NotFound";
 import NotPermitted from "../components/Permission/NotPermitted";
+import Customer from "../components/Customer/Customer";
+import ManageTable from "../components/TableManagement/ManageTable";
+import Category from "../components/Category/Category";
 
 const routes = [
   {
@@ -46,12 +49,28 @@ const routes = [
         ),
       },
       {
+        path: "manage-customer",
+        element: (
+          <RoleRoute>
+            <Customer />
+          </RoleRoute>
+        ),
+      },
+      {
         path: "table-order",
         element: <ReservationLayout />,
       },
       {
+        path: "manage-table",
+        element: <ManageTable />,
+      },
+      {
         path: "dishes-order",
         element: <OderLayout />,
+      },
+      {
+        path: "manage-category",
+        element: <Category />,
       },
       {
         path: "manage-dishes",

@@ -12,16 +12,16 @@ const Main = () => {
   useNotifications();
 
   return (
-    <Layout hasSider className="!w-full !h-full box-content">
+    <Layout hasSider className="box-content !h-full !w-full">
       <Sidebar setCollapsed={setCollapsed} collapsed={collapsed} />
       <Layout
         style={{
           marginInlineStart: collapsed ? 80 : 200,
         }}
-        className="!h-full !min-h-screen box-content duration-300 transition-all"
+        className="box-content !h-full !min-h-screen transition-all duration-300"
       >
         <HeaderBar collapsed={collapsed} setCollapsed={setCollapsed} />
-        <Content className="m-5 box-content min-h-[80vh] flex bg-white">
+        <Content className="m-5 box-content flex min-h-[80vh] bg-white">
           <div className="flex-1">
             <Outlet />
           </div>

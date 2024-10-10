@@ -33,9 +33,9 @@ const TabContact = () => {
     (state) => state.contact
   );
   const [pagePending, setPagePending] = useState(1);
-  const [limitPending, setLimitPending] = useState(7);
+  const [limitPending, setLimitPending] = useState(5);
   const [pageCompleted, setPageCompleted] = useState(1);
-  const [limitCompleted, setLimitCompleted] = useState(7);
+  const [limitCompleted, setLimitCompleted] = useState(5);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     dispatch(

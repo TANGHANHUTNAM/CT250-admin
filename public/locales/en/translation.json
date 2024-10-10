@@ -218,37 +218,61 @@
     "title": "Contact management"
   },
   "ModalContact": {
-    "title": "Customer",
-    "okText": "Send feedback",
-    "cancelText": "Close",
-    "customerName": "Name:",
+    "title": "Khách hàng",
+    "okText": "Gửi phản hồi",
+    "cancelText": "Đóng",
+    "customerName": "Họ tên:",
     "customerEmail": "Email:",
-    "customerPhone": "Phone:",
-    "customerContent": "Content:",
-    "customerDate": "Sending Time:",
-    "feedbackContent": "Feedback content",
-    "enterFb": "Enter feedback content..."
+    "customerPhone": "Số điện thoại:",
+    "customerContent": "Nội dung:",
+    "customerDate": "Thời gian gửi:",
+    "feedbackContent": "Nội dung phản hồi:",
+    "enterFb": "Nhập nội dung phản hồi..."
+  },
+  "ModalContactComplete": {
+    "title": "Chi tiết liên hệ",
+    "cancelText": "Đóng",
+    "customer": "Khách hàng",
+    "customerName": "Họ tên:",
+    "customerEmail": "Email:",
+    "customerPhone": "Số điện thoại:",
+    "customerContent": "Nội dung:",
+    "customerDate": "Thời gian gửi:",
+    "employee": "Nhân viên",
+    "employeeName": "Họ tên:",
+    "employeeRole": "Vai trò:",
+    "employeeEmail": "Email:",
+    "employeePhone": "Số điện thoại:",
+    "employeeGender": "Giới tính:",
+    "cemployeeDOB": "Ngày sinh:",
+    "cemployeeAddress": "Địa chỉ:",
+    "cemployeeContent": "Nội dung:",
+    "employeeDate": "Thời gian phản hồi:"
   },
   "TabContact": {
-    "STT": "No.",
-    "customerName": "Name:",
+    "STT": "STT",
+    "customerName": "Họ tên:",
     "customerEmail": "Email:",
-    "customerPhone": "Phone:",
-    "customerContent": "Content:",
-    "customerDate": "Sending Time:",
-    "action": "Action",
-    "see": "See more",
-    "newContact": "New contact",
-    "quantity": "Quantity:",
-    "processedContact": "Processed contact"
+    "customerPhone": "Số điện thoại:",
+    "customerContent": "Nội dung:",
+    "customerDate": "Thời gian gửi:",
+    "action": "Hành động",
+    "see": "Xem",
+    "newContact": "Liên hệ mới",
+    "quantity": "Số lượng:",
+    "processedContact": "Liên hệ đã xử lý",
+    "Respondent": "Người phản hồi",
+    "feedbackContent": "Nội dung phản hồi",
+    "sentContent": "Nội dung gửi",
+    "responseTime": "Thời gian phản hồi"
   },
   "HeaderBarDropdown": {
-    "personalPage": "Personal page",
-    "setting": "Setting",
-    "signout": "Signout",
+    "personalPage": "Trang cá nhân",
+    "setting": "Cài đặt",
+    "signout": "Đăng xuất",
     "position": {
-      "position1": "Employee",      
-      "position2": "Admin"
+      "position1": "Nhân viên",      
+      "position2": "Quản trị viên"
     }
   }
 }

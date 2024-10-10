@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import { FaUsers } from "react-icons/fa";
 import { FaBowlFood } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "antd";
@@ -19,8 +17,12 @@ import { MdDiscount } from "react-icons/md";
 import { MdPermContactCalendar } from "react-icons/md";
 import { IoNewspaper } from "react-icons/io5";
 import { TbLogout2 } from "react-icons/tb";
-import "./Sidebar.css";
+
 import { IoMdStats } from "react-icons/io";
+import { FaUsersGear } from "react-icons/fa6";
+import { FaUserTie } from "react-icons/fa6";
+import { PiDeviceTabletSpeakerFill } from "react-icons/pi";
+import { BiSolidFoodMenu } from "react-icons/bi";
 
 const { Sider } = Layout;
 const Sidebar = ({ collapsed }) => {
@@ -51,7 +53,7 @@ const Sidebar = ({ collapsed }) => {
       key: "/",
       icon: <RxDashboard className="w-4 h-4" />,
       label: (
-        <Link to="/" className="text-base">
+        <Link to="/" className="text-sm">
           Dashboard
         </Link>
       ),
@@ -60,26 +62,44 @@ const Sidebar = ({ collapsed }) => {
       key: "/manage-statistical",
       icon: <IoMdStats className="w-4 h-4" />,
       label: (
-        <Link to="/manage-statistical" className="text-base">
+        <Link to="/manage-statistical" className="text-sm">
           Thống kê
         </Link>
       ),
     },
     {
       key: "/manage-emloyee",
-      icon: <FaUsers className="w-4 h-4" />,
+      icon: <FaUsersGear className="w-4 h-4" />,
       label: (
-        <Link to="/manage-emloyee" className="text-base">
+        <Link to="/manage-emloyee" className="text-sm">
           Nhân viên
         </Link>
       ),
     },
     {
+      key: "/manage-customer",
+      icon: <FaUserTie className="w-4 h-4" />,
+      label: (
+        <Link to="/manage-customer" className="text-sm">
+          Khách hàng
+        </Link>
+      ),
+    },
+    {
       key: "/table-order",
+      icon: <PiDeviceTabletSpeakerFill className="w-4 h-4" />,
+      label: (
+        <Link to="/table-order" className="text-sm">
+          Đơn đặt bàn
+        </Link>
+      ),
+    },
+    {
+      key: "/manage-table",
       icon: <MdTableRestaurant className="w-4 h-4" />,
       label: (
-        <Link to="/table-order" className="text-base">
-          Đặt bàn
+        <Link to="/manage-table" className="text-sm">
+          Quản lý bàn
         </Link>
       ),
     },
@@ -87,7 +107,7 @@ const Sidebar = ({ collapsed }) => {
       key: "/dishes-order",
       icon: <TiShoppingCart className="w-4 h-4" />,
       label: (
-        <Link to="/dishes-order" className="text-base">
+        <Link to="/dishes-order" className="text-sm">
           Đơn hàng
         </Link>
       ),
@@ -96,8 +116,17 @@ const Sidebar = ({ collapsed }) => {
       key: "/manage-dishes",
       icon: <FaBowlFood className="w-4 h-4" />,
       label: (
-        <Link to="/manage-dishes" className="text-base">
-          Món ăn
+        <Link to="/manage-dishes" className="text-sm">
+          Quản lý món ăn
+        </Link>
+      ),
+    },
+    {
+      key: "/manage-category",
+      icon: <BiSolidFoodMenu className="w-4 h-4" />,
+      label: (
+        <Link to="/manage-category" className="text-sm">
+          Quản lý danh mục
         </Link>
       ),
     },
@@ -105,7 +134,7 @@ const Sidebar = ({ collapsed }) => {
       key: "/manage-discount",
       icon: <MdDiscount className="w-4 h-4" />,
       label: (
-        <Link to="/manage-discount" className="text-base">
+        <Link to="/manage-discount" className="text-sm">
           Giảm giá
         </Link>
       ),
@@ -114,7 +143,7 @@ const Sidebar = ({ collapsed }) => {
       key: "/manage-contact",
       icon: <MdPermContactCalendar className="w-4 h-4" />,
       label: (
-        <Link to="/manage-contact" className="text-base">
+        <Link to="/manage-contact" className="text-sm">
           Liên hệ
         </Link>
       ),
@@ -123,7 +152,7 @@ const Sidebar = ({ collapsed }) => {
       key: "/manage-news",
       icon: <IoNewspaper className="w-4 h-4" />,
       label: (
-        <Link to="/manage-news" className="text-base">
+        <Link to="/manage-news" className="text-sm">
           Tin tức
         </Link>
       ),
@@ -132,7 +161,7 @@ const Sidebar = ({ collapsed }) => {
       key: "/logout",
       icon: <TbLogout2 onClick={() => handleLogout()} className="w-4 h-4" />,
       label: (
-        <span onClick={() => handleLogout()} className="text-base">
+        <span onClick={() => handleLogout()} className="text-sm">
           Đăng xuất
         </span>
       ),
@@ -142,7 +171,9 @@ const Sidebar = ({ collapsed }) => {
   const filteredMenuItems = menuItems.filter((item) => {
     if (
       role === "staff" &&
-      (item.key === "/manage-statistical" || item.key === "/manage-emloyee")
+      (item.key === "/manage-statistical" ||
+        item.key === "/manage-emloyee" ||
+        item.key === "/manage-customer")
     ) {
       return false;
     }
@@ -170,18 +201,22 @@ const Sidebar = ({ collapsed }) => {
       } !min-w-14 duration-300 transition-all`}
     >
       {collapsed ? (
-        <div className="p-3">
-          <img
-            src={favicon}
-            className="demo-logo-vertical m-auto mt-2"
-            alt="sada"
-            width={45}
-            height={45}
-          />
+        <div className="my-3">
+          <Link to="/">
+            <img
+              src={favicon}
+              className=" m-auto mt-3"
+              alt=""
+              width={45}
+              height={45}
+            />
+          </Link>
         </div>
       ) : (
-        <div className="p-3">
-          <img src={logo} className="demo-logo-vertical m-auto w-full" alt="" />
+        <div className="">
+          <Link to="/">
+            <img src={logo} className=" m-auto w-full p-3" alt="" />
+          </Link>
         </div>
       )}
       <Menu
