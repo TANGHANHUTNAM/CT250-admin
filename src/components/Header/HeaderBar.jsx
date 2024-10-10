@@ -44,11 +44,11 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
     {
       key: "1",
       label: (
-        <div className="flex gap-3 items-center text-black">
+        <div className="flex items-center gap-3 text-black">
           <Avatar size={40} src={avatar} />
-          <span className="flex flex-col gap-1 justify-start">
-            <span className="font-semibold text-sm opacity-80">{username}</span>
-            <span className="text-sm font-medium opacity-40 uppercase">
+          <span className="flex flex-col justify-start gap-1">
+            <span className="text-sm font-semibold opacity-80">{username}</span>
+            <span className="text-sm font-medium uppercase opacity-40">
               {role}
             </span>
           </span>
@@ -89,7 +89,7 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
   ];
 
   return (
-    <Header className="flex justify-between bg-white mx-5 p-0 sticky">
+    <Header className="sticky mx-5 flex justify-between bg-white p-0">
       <div className="flex">
         <Button
           type="text"
@@ -105,18 +105,19 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
       <div className="flex items-center">
         {/* New Icons for Cart, Order Table, and Contact */}
         <Notifications />
-        <Language isAuth={isAuth} className="!self-center " />
+        <Language isAuth={isAuth} className="!self-center" />
         {/* Dropdown Avatar */}
-        <div className="group ">
+        <div className="group">
           <Dropdown
             menu={{
               items,
             }}
+            className="w-fit"
             trigger={["hover"]}
           >
-            <a className="flex pr-2.5" onClick={(e) => e.preventDefault()}>
-              <Avatar size={40} src={avatar} className="self-center mx-2" />
-              <span className="group-hover:text-black opacity-80 font-semibold text-black/80">
+            <a className="flex pr-2" onClick={(e) => e.preventDefault()}>
+              <Avatar size={40} src={avatar} className="mx-2 self-center" />
+              <span className="font-semibold text-black/80 opacity-80 group-hover:text-black">
                 {username}
               </span>
             </a>
