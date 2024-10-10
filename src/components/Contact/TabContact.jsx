@@ -27,10 +27,10 @@ const TabContact = () => {
   };
   const contactPending = useSelector((state) => state.contact.contactPending);
   const contactCompleted = useSelector(
-    (state) => state.contact.contactCompleted
+    (state) => state.contact.contactCompleted,
   );
   const { totalContactPending, totalContactCompleted } = useSelector(
-    (state) => state.contact
+    (state) => state.contact,
   );
   const [pagePending, setPagePending] = useState(1);
   const [limitPending, setLimitPending] = useState(5);
@@ -39,7 +39,7 @@ const TabContact = () => {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     dispatch(
-      fetchContactCompleted({ page: pageCompleted, limit: limitCompleted })
+      fetchContactCompleted({ page: pageCompleted, limit: limitCompleted }),
     );
   }, [dispatch, pageCompleted, limitCompleted]);
 
@@ -118,7 +118,7 @@ const TabContact = () => {
         return (
           <div className="flex items-center justify-center space-x-1.5">
             <button
-              className="text-white bg-blue-400 hover:bg-blue-500 flex items-center justify-center rounded-md p-2 gap-1"
+              className="flex items-center justify-center gap-1 rounded-md bg-blue-400 p-2 text-white hover:bg-blue-500"
               onClick={() => showModal(contact)}
             >
               <MdOutlineRemoveRedEye />
@@ -236,7 +236,7 @@ const TabContact = () => {
         return (
           <div className="flex items-center justify-center space-x-1.5">
             <button
-              className="text-white bg-blue-400 hover:bg-blue-500 flex items-center justify-center rounded-md p-2 gap-1"
+              className="flex items-center justify-center gap-1 rounded-md bg-blue-400 p-2 text-white hover:bg-blue-500"
               onClick={() => ShowModalCompleted(contact)}
             >
               <MdOutlineRemoveRedEye />
