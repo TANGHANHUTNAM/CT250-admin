@@ -54,7 +54,7 @@ const Sidebar = ({ collapsed }) => {
       icon: <RxDashboard className="w-4 h-4" />,
       label: (
         <Link to="/" className="text-sm">
-          Dashboard
+          {t("Sidebar.dashboard")}
         </Link>
       ),
     },
@@ -63,7 +63,7 @@ const Sidebar = ({ collapsed }) => {
       icon: <IoMdStats className="w-4 h-4" />,
       label: (
         <Link to="/manage-statistical" className="text-sm">
-          Thống kê
+          {t("Sidebar.statistical")}
         </Link>
       ),
     },
@@ -72,7 +72,7 @@ const Sidebar = ({ collapsed }) => {
       icon: <FaUsersGear className="w-4 h-4" />,
       label: (
         <Link to="/manage-emloyee" className="text-sm">
-          Nhân viên
+          {t("Sidebar.manageEmloyee")}
         </Link>
       ),
     },
@@ -81,7 +81,7 @@ const Sidebar = ({ collapsed }) => {
       icon: <FaUserTie className="w-4 h-4" />,
       label: (
         <Link to="/manage-customer" className="text-sm">
-          Khách hàng
+          {t("Sidebar.manageCustomer")}
         </Link>
       ),
     },
@@ -90,7 +90,7 @@ const Sidebar = ({ collapsed }) => {
       icon: <PiDeviceTabletSpeakerFill className="w-4 h-4" />,
       label: (
         <Link to="/table-order" className="text-sm">
-          Đơn đặt bàn
+          {t("Sidebar.tableOrder")}
         </Link>
       ),
     },
@@ -99,7 +99,7 @@ const Sidebar = ({ collapsed }) => {
       icon: <MdTableRestaurant className="w-4 h-4" />,
       label: (
         <Link to="/manage-table" className="text-sm">
-          Quản lý bàn
+          {t("Sidebar.manageTable")}
         </Link>
       ),
     },
@@ -108,7 +108,7 @@ const Sidebar = ({ collapsed }) => {
       icon: <TiShoppingCart className="w-4 h-4" />,
       label: (
         <Link to="/dishes-order" className="text-sm">
-          Đơn hàng
+          {t("Sidebar.dishesOrder")}
         </Link>
       ),
     },
@@ -117,7 +117,7 @@ const Sidebar = ({ collapsed }) => {
       icon: <FaBowlFood className="w-4 h-4" />,
       label: (
         <Link to="/manage-dishes" className="text-sm">
-          Quản lý món ăn
+          {t("Sidebar.manageDishes")}
         </Link>
       ),
     },
@@ -126,7 +126,7 @@ const Sidebar = ({ collapsed }) => {
       icon: <BiSolidFoodMenu className="w-4 h-4" />,
       label: (
         <Link to="/manage-category" className="text-sm">
-          Quản lý danh mục
+          {t("Sidebar.manageCategory")}
         </Link>
       ),
     },
@@ -135,7 +135,7 @@ const Sidebar = ({ collapsed }) => {
       icon: <MdDiscount className="w-4 h-4" />,
       label: (
         <Link to="/manage-discount" className="text-sm">
-          Giảm giá
+          {t("Sidebar.manageDiscount")}
         </Link>
       ),
     },
@@ -144,7 +144,7 @@ const Sidebar = ({ collapsed }) => {
       icon: <MdPermContactCalendar className="w-4 h-4" />,
       label: (
         <Link to="/manage-contact" className="text-sm">
-          Liên hệ
+          {t("Sidebar.manageContact")}
         </Link>
       ),
     },
@@ -153,7 +153,7 @@ const Sidebar = ({ collapsed }) => {
       icon: <IoNewspaper className="w-4 h-4" />,
       label: (
         <Link to="/manage-news" className="text-sm">
-          Tin tức
+          {t("Sidebar.manageNews")}
         </Link>
       ),
     },
@@ -162,7 +162,7 @@ const Sidebar = ({ collapsed }) => {
       icon: <TbLogout2 onClick={() => handleLogout()} className="w-4 h-4" />,
       label: (
         <span onClick={() => handleLogout()} className="text-sm">
-          Đăng xuất
+          {t("Sidebar.logout")}
         </span>
       ),
     },

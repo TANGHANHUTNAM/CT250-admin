@@ -1,4 +1,30 @@
-{
+{ 
+  "HeaderBarDropdown": {
+    "personalPage": "Trang cá nhân",
+    "setting": "Cài đặt",
+    "signout": "Đăng xuất",
+    "position": {
+      "position1": "Nhân viên",      
+      "position2": "Quản trị viên"
+    },
+    "notificationsMenu":""
+
+  },
+  "Sidebar": {
+      "dashboard": "Dashboard",      
+      "statistical": "Thống kê",
+      "manageEmloyee": "Nhân viên",      
+      "manageCustomer": "Khách hàng",
+      "tableOrder": "Đơn đặt bàn",      
+      "manageTable": "Quản lý bàn",
+      "dishesOrder": "Đơn hàng",      
+      "manageDishes": "Quản lý món ăn",
+      "manageCategory": "Quản lý danh mục",      
+      "manageDiscount": "Giảm giá", 
+      "manageContact": "Liên hệ",
+      "manageNews": "Tin tức", 
+      "logout": "Đăng xuất"
+  },
   "PaymentPolicy": {
     "title_page": "Chính sách thanh toán",
     "content_1": "Khách hàng thanh toán trực tiếp tại cửa hàng",
@@ -244,15 +270,15 @@
     "employeeEmail": "Email:",
     "employeePhone": "Số điện thoại:",
     "employeeGender": "Giới tính:",
-    "cemployeeDOB": "Ngày sinh:",
-    "cemployeeAddress": "Địa chỉ:",
-    "cemployeeContent": "Nội dung:",
+    "employeeDOB": "Ngày sinh:",
+    "employeeAddress": "Địa chỉ:",
+    "employeeContent": "Nội dung:",
     "employeeDate": "Thời gian phản hồi:"
   },
   "TabContact": {
     "STT": "STT",
-    "customerName": "Họ tên:",
-    "customerEmail": "Email:",
+    "customerName": "Họ tên",
+    "customerEmail": "Email",
     "customerPhone": "Số điện thoại:",
     "customerContent": "Nội dung:",
     "customerDate": "Thời gian gửi:",
@@ -261,26 +287,17 @@
     "newContact": "Liên hệ mới",
     "quantity": "Số lượng:",
     "processedContact": "Liên hệ đã xử lý",
-    "Respondent": "Người phản hồi",
-    "feedbackContent": "Nội dung phản hồi",
+    "respondent": "Người phản hồi",
+    "replyContent": "Nội dung phản hồi",
     "sentContent": "Nội dung gửi",
     "responseTime": "Thời gian phản hồi"
-  },
-  "HeaderBarDropdown": {
-    "personalPage": "Trang cá nhân",
-    "setting": "Cài đặt",
-    "signout": "Đăng xuất",
-    "position": {
-      "position1": "Nhân viên",      
-      "position2": "Quản trị viên"
-    }
   },
   "ModalContactPending": {
     "contentErrorEmpty": "Nội dung phản hồi không được để trống",
     "contentErrorLength": "Nội dung phản hồi phải có ít nhất 30 ký tự",
     "customer": "Khách hàng",
-    "okText": "Gửi phản hồi",
-    "cancelText": "Đóng",
+    "sendFeedback": "Gửi phản hồi",
+    "closeButt": "Đóng",
     "customerName": "Họ tên:",
     "customerEmail": "Email:",
     "customerPhone": "Số điện thoại:",
@@ -290,6 +307,10 @@
     "placeholder": "Nhập nội dung phản hồi..."
   },
   "ModalConfirm":{
-
+    "title":"Xóa liên hệ",
+    "description":"Bạn có chắc chắn muốn xóa liên hệ này không?",
+    "okText": "Có",
+    "cancelText": "Không",
+    "closeButton":"Xóa"
   }
 }

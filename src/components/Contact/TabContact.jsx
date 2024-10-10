@@ -11,7 +11,9 @@ import {
 import ModalConfirm from "./ModalConfirm";
 import Avatar from "../avatar/Avatar";
 import ModalContactCompleted from "./ModalContactCompleted";
+import { useTranslation } from "react-i18next";
 const TabContact = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [contactPendingDetails, setContactPendingDetails] = useState(null);
@@ -51,31 +53,31 @@ const TabContact = () => {
   const columns_tab1 = [
     {
       align: "center",
-      title: "STT",
+      title: t("TabContact.STT"),
       className: "w-[50px] text-center font-semibold",
       render: (_, __, index) => (pagePending - 1) * limitPending + index + 1,
     },
     {
       align: "center",
-      title: "Họ tên",
+      title: t("TabContact.customerName"),
       dataIndex: "customerName",
       className: "font-semibold text-black/75 w-[200px]",
     },
     {
       align: "center",
-      title: "Email",
+      title: t("TabContact.customerEmail"),
       dataIndex: "customerEmail",
       className: "w-[200px]",
     },
     {
       align: "center",
-      title: "Số điện thoại",
+      title: t("TabContact.customerPhone"),
       dataIndex: "customerPhone",
       className: "w-[150px]",
     },
     {
       align: "center",
-      title: "Nội dung",
+      title: t("TabContact.customerContent"),
       dataIndex: "content",
       render: (content) => {
         return (
@@ -96,7 +98,7 @@ const TabContact = () => {
     },
     {
       align: "center",
-      title: "Thời gian gửi",
+      title: t("TabContact.customerDate"),
       dataIndex: "createdAt",
       className: "w-[200px]",
       render: (date) => {
@@ -112,7 +114,7 @@ const TabContact = () => {
     },
     {
       align: "center",
-      title: "Hành động",
+      title: t("TabContact.action"),
       className: "w-[200px]",
       render: (_, contact) => {
         return (
@@ -122,7 +124,7 @@ const TabContact = () => {
               onClick={() => showModal(contact)}
             >
               <MdOutlineRemoveRedEye />
-              <span>Xem</span>
+              <span>{t("TabContact.see")}</span>
             </button>
             <ModalConfirm
               pagePending={pagePending}
@@ -140,7 +142,7 @@ const TabContact = () => {
   const columns_tab2 = [
     {
       align: "center",
-      title: "STT",
+      title: t("TabContact.STT"),
       className: "w-[50px] text-center font-semibold",
       render: (_, __, index) =>
         (pageCompleted - 1) * limitCompleted + index + 1,
@@ -157,7 +159,7 @@ const TabContact = () => {
     },
     {
       align: "center",
-      title: "Người phản hồi",
+      title: t("TabContact.Respondent"),
       dataIndex: "staff",
       className: "font-semibold text-black/75 w-[150px]",
       render: (record) => {
@@ -166,7 +168,7 @@ const TabContact = () => {
     },
     {
       align: "center",
-      title: "Nội dung phản hồi",
+      title: t("TabContact.replyContent"),
       dataIndex: "replyContent",
       render: (content) => {
         return (
@@ -187,13 +189,13 @@ const TabContact = () => {
     },
     {
       align: "center",
-      title: "Khách hàng",
+      title: t("TabContact.customerName"),
       dataIndex: "customerName",
       className: "font-semibold text-black/75 w-[200px]",
     },
     {
       align: "center",
-      title: "Nội dung gửi",
+      title: t("TabContact.sentContent"),
       dataIndex: "content",
       render: (content) => {
         return (
@@ -214,7 +216,7 @@ const TabContact = () => {
     },
     {
       align: "center",
-      title: "Thời gian phản hồi",
+      title: t("TabContact.responseTime"),
       dataIndex: "updatedAt",
       className: "w-[200px]",
       render: (date) => {
@@ -230,7 +232,7 @@ const TabContact = () => {
     },
     {
       align: "center",
-      title: "Hành động",
+      title: t("TabContact.action"),
       className: "w-[100px]",
       render: (_, contact) => {
         return (
@@ -240,7 +242,7 @@ const TabContact = () => {
               onClick={() => ShowModalCompleted(contact)}
             >
               <MdOutlineRemoveRedEye />
-              <span>Xem</span>
+              <span>{t("TabContact.see")}</span>
             </button>
           </div>
         );
@@ -269,7 +271,7 @@ const TabContact = () => {
   const items = [
     {
       key: "1",
-      label: "Liên hệ mới",
+      label: t("TabContact.newContact"),
       children: (
         <TableContact
           columns={columns_tab1}
@@ -281,14 +283,14 @@ const TabContact = () => {
             current: pagePending,
             pageSize: limitPending,
             total: totalContactPending,
-            showTotal: (total) => `Số lượng: ${total}`,
+            showTotal: (total) => `${t("TabContact.quantity")}: ${total}`,
           }}
         />
       ),
     },
     {
       key: "2",
-      label: "Liên hệ đã xử lý",
+      label: t("TabContact.processedContact"),
       children: (
         <TableContact
           columns={columns_tab2}
@@ -299,7 +301,7 @@ const TabContact = () => {
             current: pageCompleted,
             pageSize: limitCompleted,
             total: totalContactCompleted,
-            showTotal: (total) => `Số lượng: ${total}`,
+            showTotal: (total) => `${t("TabContact.quantity")}: ${total}`,
           }}
         />
       ),
