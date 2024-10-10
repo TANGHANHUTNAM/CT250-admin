@@ -312,5 +312,16 @@
     "okText": "Có",
     "cancelText": "Không",
     "closeButton":"Xóa"
+  },
+  "NotPermitted": {
+    "subTitle":"Xin lỗi, bạn không được phép truy cập trang này."
+  },
+  "EmployeeList": {
+    "employeeName": "Họ tên",
+    "employeeRole": "Vai trò",
+    "employeePhone": "Số điện thoại",
+    "action": "Hành động",
+    "editButt": "Chỉnh sửa",
+    "deleteButt": "Xóa"
   }
 }

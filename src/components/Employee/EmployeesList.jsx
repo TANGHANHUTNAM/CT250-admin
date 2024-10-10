@@ -2,10 +2,11 @@ import React from 'react';
 import { Table, Avatar, Button } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import data from '../../../public/locales/ct250.accounts.json';
+import { useTranslation } from 'react-i18next';
 
 const EmployeesList = () => {
   const employees = data;
-
+  const { t } = useTranslation();
   const columns = [
     {
       title: 'Photo',
@@ -14,14 +15,14 @@ const EmployeesList = () => {
       render: (avatar) => <Avatar size={48} src={avatar.url} />,
     },
     {
-      title: 'Name',
+      title: t("EmployeeList.employeeName"),
       dataIndex: 'username',
       key: 'username',
       width: "350px",
       render: (text) => <span className="font-semibold">{text}</span>,
     },
     {
-      title: 'Role',
+      title: t("EmployeeList.employeeRole"),
       dataIndex: 'role',
       key: 'role',
     },
@@ -33,13 +34,13 @@ const EmployeesList = () => {
       render: (email) => <span>{email}</span>,
     },
     {
-      title: 'Phone',
+      title: t("EmployeeList.employeePhone"),
       dataIndex: 'phoneNumber',
       key: 'phoneNumber',
       render: (phoneNumber) => <span>{phoneNumber}</span>,
     },
     {
-      title: 'Action',
+      title: t("EmployeeList.action"),
       key: 'action',
       width: "200px",
       render: (_, record) => (
@@ -49,14 +50,14 @@ const EmployeesList = () => {
             icon={<EditOutlined />}
             onClick={() => handleEdit(record._id.$oid)}
           >
-            Edit
+            {t("EmployeeList.editButt")}
           </Button>
           <Button
             danger
             icon={<DeleteOutlined />}
             onClick={() => handleDelete(record._id.$oid)}
           >
-            Delete
+            {t("EmployeeList.deleteButt")}
           </Button>
         </div>
       ),

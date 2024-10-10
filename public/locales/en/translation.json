@@ -311,5 +311,16 @@
   "okText": "Yes",
   "cancelText": "No",
   "closeButton": "Delete"
+},
+"NotPermitted": {
+  "subTitle": "Sorry, you are not permitted to access this page."
+},
+"EmployeeList": {
+  "employeeName": "Full Name",
+  "employeeRole": "Role",
+  "employeePhone": "Phone Number",
+  "action": "Action",
+  "editButt": "Edit",
+  "deleteButt": "Delete"
 }
 }

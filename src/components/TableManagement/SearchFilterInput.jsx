@@ -1,43 +1,83 @@
-import { Dropdown, message } from "antd";
+import { Dropdown } from "antd";
 import { MdFilterListAlt } from "react-icons/md";
 import { IoMdSearch } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const SearchFilterInput = () => {
+const SearchFilterInput = ({
+  setFilterStatusTable,
+  setFilterTypeTable,
+  filterTypeTable,
+  filterStatusTable,
+  setCurrentPage,
+  handleSearch,
+  dataSearch,
+  setDataSearch,
+}) => {
+  const dataTypeTable = [
+    {
+      _id: "1",
+      name: "small",
+      capacity: 4,
+    },
+    {
+      _id: "2",
+      name: "medium",
+      capacity: 6,
+    },
+    {
+      _id: "3",
+      name: "large",
+      capacity: 8,
+    },
+  ];
+
+  const dataStatusTable = [
+    {
+      _id: "1",
+      name: "Trống",
+    },
+    {
+      _id: "2",
+      name: "Đặt trước",
+    },
+    {
+      _id: "3",
+      name: "Đang sử dụng",
+    },
+  ];
+
   const [listTypeTable, setListTypeTable] = useState([]);
   const [listStatusTable, setListStatusTable] = useState([]);
 
+  useEffect(() => {
+    setListTypeTable(dataTypeTable);
+    setListStatusTable(dataStatusTable);
+  }, []);
+
   const handleFilterTypeTable = ({ key }) => {
-    message.info(`Click on item ${key}`);
+    setFilterTypeTable(key);
+    setCurrentPage(1);
   };
   const handleFilterStatusTable = ({ key }) => {
-    message.info(`Click on item ${key}`);
+    setFilterStatusTable(key);
+    setCurrentPage(1);
   };
-  const handleSearch = (e) => {
-    console.log(e.target.value);
-  };
-  const items = [
-    {
-      label: "1st menu item",
-      key: "1",
-    },
-    {
-      label: "2nd menu item",
-      key: "2",
-    },
-    {
-      label: "3rd menu item",
-      key: "3",
-    },
-  ];
+
   return (
     <>
       {/* Filter Type Table */}
       <Dropdown
         menu={{
-          items,
+          items: listTypeTable.map((item) => {
+            return {
+              title: item.name,
+              key: item._id,
+              label: `${item.name} (${item.capacity})`,
+            };
+          }),
           onClick: handleFilterTypeTable,
           selectable: true,
+          selectedKeys: filterTypeTable,
         }}
       >
         <div className="flex cursor-pointer items-center gap-1 rounded-md bg-blue-500 p-1.5 px-2 text-white">
@@ -48,9 +88,16 @@ const SearchFilterInput = () => {
       {/* Filter Status Table */}
       <Dropdown
         menu={{
-          items,
+          items: listStatusTable.map((item) => {
+            return {
+              title: item.name,
+              key: item._id,
+              label: item.name,
+            };
+          }),
           onClick: handleFilterStatusTable,
           selectable: true,
+          selectedKeys: filterStatusTable,
         }}
       >
         <div className="flex cursor-pointer items-center gap-1 rounded-md bg-blue-500 p-1.5 px-2 text-white">
@@ -60,11 +107,15 @@ const SearchFilterInput = () => {
       </Dropdown>
       <div className="relative">
         <input
-          onChange={handleSearch}
+          onChange={(e) => setDataSearch(e.target.value)}
           className="h-full w-60 rounded-md border border-blue-500 p-1.5 pl-2 pr-10 outline-none"
           placeholder="Tìm kiếm"
+          value={dataSearch}
         />
-        <div className="absolute right-0 top-0 flex h-full w-fit cursor-pointer items-center justify-center rounded-e-md bg-blue-500 p-2 text-base text-white hover:bg-blue-500/90">
+        <div
+          onClick={() => handleSearch(dataSearch)}
+          className="absolute right-0 top-0 flex h-full w-fit cursor-pointer items-center justify-center rounded-e-md bg-blue-500 p-2 text-base text-white hover:bg-blue-500/90"
+        >
           <IoMdSearch />
         </div>
       </div>

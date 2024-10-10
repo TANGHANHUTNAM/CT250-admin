@@ -17,7 +17,6 @@ import { MdDiscount } from "react-icons/md";
 import { MdPermContactCalendar } from "react-icons/md";
 import { IoNewspaper } from "react-icons/io5";
 import { TbLogout2 } from "react-icons/tb";
-
 import { IoMdStats } from "react-icons/io";
 import { FaUsersGear } from "react-icons/fa6";
 import { FaUserTie } from "react-icons/fa6";
@@ -51,7 +50,7 @@ const Sidebar = ({ collapsed }) => {
   const menuItems = [
     {
       key: "/",
-      icon: <RxDashboard className="w-4 h-4" />,
+      icon: <RxDashboard className="h-4 w-4" />,
       label: (
         <Link to="/" className="text-sm">
           {t("Sidebar.dashboard")}
@@ -60,7 +59,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-statistical",
-      icon: <IoMdStats className="w-4 h-4" />,
+      icon: <IoMdStats className="h-4 w-4" />,
       label: (
         <Link to="/manage-statistical" className="text-sm">
           {t("Sidebar.statistical")}
@@ -69,7 +68,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-emloyee",
-      icon: <FaUsersGear className="w-4 h-4" />,
+      icon: <FaUsersGear className="h-4 w-4" />,
       label: (
         <Link to="/manage-emloyee" className="text-sm">
           {t("Sidebar.manageEmloyee")}
@@ -78,7 +77,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-customer",
-      icon: <FaUserTie className="w-4 h-4" />,
+      icon: <FaUserTie className="h-4 w-4" />,
       label: (
         <Link to="/manage-customer" className="text-sm">
           {t("Sidebar.manageCustomer")}
@@ -87,7 +86,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/table-order",
-      icon: <PiDeviceTabletSpeakerFill className="w-4 h-4" />,
+      icon: <PiDeviceTabletSpeakerFill className="h-4 w-4" />,
       label: (
         <Link to="/table-order" className="text-sm">
           {t("Sidebar.tableOrder")}
@@ -96,7 +95,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-table",
-      icon: <MdTableRestaurant className="w-4 h-4" />,
+      icon: <MdTableRestaurant className="h-4 w-4" />,
       label: (
         <Link to="/manage-table" className="text-sm">
           {t("Sidebar.manageTable")}
@@ -105,7 +104,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/dishes-order",
-      icon: <TiShoppingCart className="w-4 h-4" />,
+      icon: <TiShoppingCart className="h-4 w-4" />,
       label: (
         <Link to="/dishes-order" className="text-sm">
           {t("Sidebar.dishesOrder")}
@@ -114,7 +113,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-dishes",
-      icon: <FaBowlFood className="w-4 h-4" />,
+      icon: <FaBowlFood className="h-4 w-4" />,
       label: (
         <Link to="/manage-dishes" className="text-sm">
           {t("Sidebar.manageDishes")}
@@ -123,7 +122,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-category",
-      icon: <BiSolidFoodMenu className="w-4 h-4" />,
+      icon: <BiSolidFoodMenu className="h-4 w-4" />,
       label: (
         <Link to="/manage-category" className="text-sm">
           {t("Sidebar.manageCategory")}
@@ -132,7 +131,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-discount",
-      icon: <MdDiscount className="w-4 h-4" />,
+      icon: <MdDiscount className="h-4 w-4" />,
       label: (
         <Link to="/manage-discount" className="text-sm">
           {t("Sidebar.manageDiscount")}
@@ -141,7 +140,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-contact",
-      icon: <MdPermContactCalendar className="w-4 h-4" />,
+      icon: <MdPermContactCalendar className="h-4 w-4" />,
       label: (
         <Link to="/manage-contact" className="text-sm">
           {t("Sidebar.manageContact")}
@@ -150,7 +149,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/manage-news",
-      icon: <IoNewspaper className="w-4 h-4" />,
+      icon: <IoNewspaper className="h-4 w-4" />,
       label: (
         <Link to="/manage-news" className="text-sm">
           {t("Sidebar.manageNews")}
@@ -159,7 +158,7 @@ const Sidebar = ({ collapsed }) => {
     },
     {
       key: "/logout",
-      icon: <TbLogout2 onClick={() => handleLogout()} className="w-4 h-4" />,
+      icon: <TbLogout2 onClick={() => handleLogout()} className="h-4 w-4" />,
       label: (
         <span onClick={() => handleLogout()} className="text-sm">
           {t("Sidebar.logout")}
@@ -196,16 +195,16 @@ const Sidebar = ({ collapsed }) => {
       style={siderStyle}
       collapsible
       collapsed={collapsed}
-      className={`!bg-white  !flex-none ${
+      className={`!flex-none !bg-white ${
         !collapsed ? "!max-w-auto" : "!max-w-fit"
-      } !min-w-14 duration-300 transition-all`}
+      } !min-w-14 transition-all duration-300`}
     >
       {collapsed ? (
         <div className="my-3">
           <Link to="/">
             <img
               src={favicon}
-              className=" m-auto mt-3"
+              className="m-auto mt-3"
               alt=""
               width={45}
               height={45}
@@ -215,7 +214,7 @@ const Sidebar = ({ collapsed }) => {
       ) : (
         <div className="">
           <Link to="/">
-            <img src={logo} className=" m-auto w-full p-3" alt="" />
+            <img src={logo} className="m-auto w-full p-3" alt="" />
           </Link>
         </div>
       )}
