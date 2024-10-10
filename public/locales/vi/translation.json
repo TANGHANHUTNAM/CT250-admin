@@ -323,5 +323,21 @@
     "action": "Hành động",
     "editButt": "Chỉnh sửa",
     "deleteButt": "Xóa"
+  },
+  "Notifications": {
+    "content1": "Bạn có 5 thông báo",
+    "content2": "Người dùng mới đã đăng ký",
+    "content3": "Người dùng đã bị xóa",
+    "content4": "Báo cáo bán hàng đã sẵn sàng",
+    "content5": "Khách hàng mới",
+    "content6": "Máy chủ quá tải",
+    "reservation": {
+      "new": "Bạn có {{total}} đơn đặt bàn mới",
+      "seeAllOrder": "Xem tất cả đơn"
+    },
+    "contacts": {
+      "new": "Bạn có {{totalContactPending}} liên hệ mới",
+      "seeAllContact": "Xem tất cả liên hệ"
+    }
   }
 }
