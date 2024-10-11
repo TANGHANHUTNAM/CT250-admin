@@ -7,6 +7,7 @@ import { getReservationsByStatus } from "../services/reservationService";
 import StatusCodes from "../utils/StatusCodes";
 import { toast } from "react-toastify";
 import HandleReservationModal from "../components/Reservation/HandleReservationModal";
+import { useSelector } from "react-redux";
 
 const status = {
   pending: { key: "pending", trans: "Reservation.status.pending" },
@@ -22,6 +23,10 @@ const ReservationLayout = () => {
   const [reservations, setReservations] = useState([]);
   const [selectedReservation, setSelectedReservation] = useState(null);
   const [open, setOpen] = useState(false);
+
+  const pendingReservationFromRedux = useSelector(
+    (state) => state.reservation.data,
+  );
 
   const getReservations = async () => {
     const res = await getReservationsByStatus(activeStatus);
@@ -41,6 +46,12 @@ const ReservationLayout = () => {
     getReservations();
   }, [activeStatus]);
 
+  useEffect(() => {
+    if (activeStatus === status.pending.key) {
+      setReservations(pendingReservationFromRedux);
+    }
+  }, [pendingReservationFromRedux]);
+
   const handleComplete = async (completeFunc = async () => {}) => {
     const res = await completeFunc(selectedReservation?._id);
     console.log(res);
@@ -57,8 +68,8 @@ const ReservationLayout = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5 lg:flex-row bg-[#f5f5f5] h-full">
-      <div className="flex flex-col gap-5 w-2/5 shrink-0 h-full">
+    <div className="flex h-full flex-col gap-5 bg-[#f5f5f5] lg:flex-row">
+      <div className="flex h-full w-2/5 shrink-0 flex-col gap-5">
         <Progress
           status={Object.values(status)}
           active={activeStatus}

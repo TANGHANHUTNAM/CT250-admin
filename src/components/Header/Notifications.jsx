@@ -116,14 +116,16 @@ const Notifications = () => {
       </ul>
     </div>
   );
+
   const reservation = useSelector((state) => state.reservation);
+
   const orderTableMenu = (
     <div className="dropdown-menu show w-80 rounded-lg bg-white p-0 shadow-lg">
       <h6 className="dropdown-header rounded-t-lg bg-red-500 p-2 pl-4 font-semibold text-white">
-        {t('Notifications.reservation.new', { total: reservation?.total })}
+        {t("Notifications.reservation.new", { total: reservation?.total })}
       </h6>
       <ul className="w-full divide-y divide-gray-200">
-        {reservation?.data?.map((item) => {
+        {reservation?.data?.slice(0, 3)?.map((item) => {
           return (
             <li key={item?._id} className="flex w-full px-4 py-2">
               <div className="w-full">
@@ -167,7 +169,7 @@ const Notifications = () => {
   const contactMenu = (
     <div className="dropdown-menu show rounded-lg bg-white p-0 shadow-lg">
       <h6 className="dropdown-header rounded-t-lg bg-blue-500 p-2 pl-4 font-semibold text-white">
-      {t('Notifications.contacts.new', { totalContactPending })}
+        {t("Notifications.contacts.new", { totalContactPending })}
       </h6>
       <ul className="divide-y divide-gray-200">
         {contactPending.slice(0, 3).map((contact) => {
