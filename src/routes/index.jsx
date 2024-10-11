@@ -7,7 +7,6 @@ import Settings from "../components/Dashboard/Settings";
 import ReservationLayout from "../layouts/ReservationLayout";
 import OderLayout from "../layouts/OrderLayout";
 import EmployeesList from "../components/Employee/EmployeesList";
-import MenuLayout from "../layouts/MenuLayout";
 import Statistical from "../components/Statistical/Statistical";
 import Discount from "../components/Discount/Discount";
 import Contact from "../components/Contact/Contact";
@@ -18,6 +17,7 @@ import NotPermitted from "../components/Permission/NotPermitted";
 import Customer from "../components/Customer/Customer";
 import ManageTable from "../components/TableManagement/ManageTable";
 import Category from "../components/Category/Category";
+import ManageDishes from "../components/Dishes/ManageDishes";
 
 const routes = [
   {
@@ -74,7 +74,7 @@ const routes = [
       },
       {
         path: "manage-dishes",
-        element: <MenuLayout />,
+        element: <ManageDishes />,
       },
       {
         path: "manage-statistical",
