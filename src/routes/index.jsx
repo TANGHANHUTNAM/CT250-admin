@@ -17,7 +17,9 @@ import NotPermitted from "../components/Permission/NotPermitted";
 import Customer from "../components/Customer/Customer";
 import ManageTable from "../components/TableManagement/ManageTable";
 import Category from "../components/Category/Category";
+
 import ManageDishes from "../components/Dishes/ManageDishes";
+import Setting from "../components/Setting/Setting";
 
 const routes = [
   {
@@ -38,7 +40,7 @@ const routes = [
       },
       {
         path: "settings",
-        element: <Settings />,
+        element: <Setting />,
       },
       {
         path: "manage-emloyee",

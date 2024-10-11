@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { changedPendingReservation } from "../redux/reducer/reservationSlice";
 import { toast } from "react-toastify";
-import { getPendingReservationsWithPagination } from "../services/reservationService";
+import { getReservationsByStatus } from "../services/reservationService";
 import StatusCodes from "../utils/StatusCodes";
 import { changedPendingContact } from "../redux/reducer/contactSlice";
 import { getAllContactsPending } from "../services/contactService";
@@ -13,13 +13,13 @@ const useNotifications = () => {
   // Gọi api lấy dữ liệu khởi tạo khi render lần đầu
   useEffect(() => {
     const getInitialReservation = async () => {
-      const res = await getPendingReservationsWithPagination(1, 6);
+      const res = await getReservationsByStatus("pending");
 
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
         dispatch(
           changedPendingReservation({
-            total: res.DT.totalItems,
-            data: res.DT.data,
+            total: res.DT.length,
+            data: res.DT,
           }),
         );
       }
