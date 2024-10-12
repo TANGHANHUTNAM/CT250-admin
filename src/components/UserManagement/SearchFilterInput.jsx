@@ -11,17 +11,17 @@ const SearchFilterInput = ({
   dataSearch,
   setDataSearch,
 }) => {
-  const dataRole = [
+  const roles = [
     {
-      _id: "1",
+      _id: "customer",
       name: "Khách hàng",
     },
     {
-      _id: "2",
+      _id: "staff",
       name: "Nhân viên",
     },
     {
-      _id: "3",
+      _id: "admin",
       name: "Admin",
     },
   ];
@@ -29,7 +29,7 @@ const SearchFilterInput = ({
   const [ListRole, setListRole] = useState([]);
 
   useEffect(() => {
-    setListRole(dataRole);
+    setListRole(roles);
   }, []);
 
   const handlefilterRole = ({ key }) => {
@@ -64,7 +64,7 @@ const SearchFilterInput = ({
         <input
           onChange={(e) => setDataSearch(e.target.value)}
           className="h-full w-60 rounded-md border border-blue-500 p-1.5 pl-2 pr-10 outline-none"
-          placeholder="Tìm kiếm"
+          placeholder="username, tên, email"
           value={dataSearch}
         />
         <div

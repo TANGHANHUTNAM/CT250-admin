@@ -18,6 +18,10 @@ import SearchFilterInput from "./SearchFilterInput";
 import { GrPowerReset } from "react-icons/gr";
 import ModalCreateEmployee from "./ModalCreateEmployee";
 import ModalViewUser from "./ModalViewUser";
+import { getAllUserWithFilter } from "../../services/accountServiec";
+import StatusCodes from "../../utils/StatusCodes";
+import { MdOutlineDeleteForever } from "react-icons/md";
+import Avatar from "../avatar/Avatar";
 
 const ManageUser = () => {
   // Modal
@@ -25,10 +29,10 @@ const ManageUser = () => {
   const [openModalViewUser, setOpenModalViewUser] = useState(false);
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(1);
+  const [pageSize, setPageSize] = useState(6);
   const [total, setTotal] = useState(0);
   // Table
-  const [listTable, setListTable] = useState([]);
+  const [listUser, setListUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [filterRole, setFilterRole] = useState({
     key: "",
@@ -39,30 +43,28 @@ const ManageUser = () => {
   const [detailUser, setDetailUser] = useState(null);
 
   useEffect(() => {
-    setListTable(data);
-    setTotal(data.length);
-  }, []);
-
-  useEffect(() => {
-    fetchListTable();
+    fetchListUser();
   }, [currentPage, pageSize, filterRole, search]);
 
-  const fetchListTable = async () => {
+  const fetchListUser = async () => {
     setIsLoading(true);
-    setTimeout(() => {
-      let query = `page=${currentPage}&limit=${pageSize}`;
-      if (filterRole.key) {
-        query += `&role=/${filterRole.key}/i`;
+    let query = `page=${currentPage}&limit=${pageSize}`;
+    if (filterRole.key) {
+      query += `&role=${filterRole.key}`;
+    }
+    if (search) {
+      query += `&search=${search}`;
+    }
+    try {
+      const res = await getAllUserWithFilter(query);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        setListUser(res.DT.data);
+        setTotal(res.DT.totalData);
       }
-      if (search) {
-        query += `&fullname=/${search}/i`;
-      }
-
-      // Call API
-      console.log("localhost:8081/", query);
-
-      setIsLoading(false);
-    }, 500);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
   };
 
   const handleDeleteUser = (_id) => {
@@ -78,15 +80,12 @@ const ManageUser = () => {
     }
   };
   const handleSearch = (value) => {
-    if (value === "") {
-      return;
-    }
     setSearch(value);
     setCurrentPage(1);
   };
   const handleReset = () => {
     setCurrentPage(1);
-    setPageSize(1);
+    setPageSize(6);
     setFilterRole({ key: "", value: "Chọn vai trò" });
     setSearch("");
     setDataSearch("");
@@ -105,38 +104,72 @@ const ManageUser = () => {
       ),
     },
     {
-      title: "Tên bàn",
-      dataIndex: "tableNumber",
-      key: "tableNumber",
-      render: (field) => {
-        return <span>{`Bàn số ${field}`}</span>;
-      },
-    },
-    {
-      title: "Trạng thái",
-      dataIndex: "tableStatus",
-      key: "tableStatus",
-      render: (field) => {
-        return <span>{field.name}</span>;
-      },
-    },
-    {
-      title: "Loại bàn",
-      dataIndex: "tableType",
-      key: "tableType",
-      render: (field) => {
+      title: "Người dùng",
+      dataIndex: "username",
+      key: "username",
+      with: "10%",
+      render: (_, record) => {
         return (
-          <Space size="small">
-            <span>{field.name}</span>
-            <span>{`(${field.capacity} người)`}</span>
+          <Space size="middle">
+            <Avatar size={32} src={record.avatar || undefined} />
+            <span>{record.username}</span>
           </Space>
         );
       },
     },
     {
+      title: "Họ tên",
+      dataIndex: "fullname",
+      key: "fullname",
+      render: (text) => text || "--",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      render: (text) => text || "--",
+    },
+    {
+      title: "Số điện thoại",
+      dataIndex: "phoneNumber",
+      key: "phoneNumber",
+      render: (text) => text || "--",
+    },
+    {
+      title: "Giới tính",
+      dataIndex: "gender",
+      key: "gender",
+      with: 50,
+      render: (text) => text || "--",
+    },
+    {
+      title: "Địa chỉ",
+      dataIndex: "address",
+      key: "address",
+      render: (text) => text || "--",
+    },
+    {
+      title: "Vai trò",
+      dataIndex: "role",
+      key: "role",
+    },
+    {
+      title: "Ngày tạo",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (createdAt) => {
+        return new Date(createdAt).toLocaleString("vi-VN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      },
+    },
+    {
       title: "Hành động",
       key: "action",
-      width: "10% ",
       align: "center",
       render: (_, record) => {
         return (
@@ -154,6 +187,7 @@ const ManageUser = () => {
               <CiEdit />
             </button>
             <Popconfirm
+              disabled={record.role === "customer"}
               title="Xóa tài khoản"
               description="Bạn có chắc chắn muốn xóa tài khoản này?"
               onConfirm={() => handleDeleteUser(record._id)}
@@ -161,53 +195,19 @@ const ManageUser = () => {
               okText="Có"
               cancelText="Không"
             >
-              <button className="text-red-500">
-                <MdDeleteOutline />
+              <button
+                disabled={record.role === "customer"}
+                className="text-red-500"
+              >
+                {record.role === "customer" ? (
+                  <MdOutlineDeleteForever />
+                ) : (
+                  <MdDeleteOutline />
+                )}
               </button>
             </Popconfirm>
           </Space>
         );
-      },
-    },
-  ];
-  const data = [
-    {
-      _id: "1",
-      tableNumber: "1",
-      tableStatus: {
-        _id: "1",
-        name: "Trống",
-      },
-      tableType: {
-        _id: "1",
-        name: "small",
-        capacity: 4,
-      },
-    },
-    {
-      _id: "2",
-      tableNumber: "2",
-      tableStatus: {
-        _id: "2",
-        name: "Đặt trước",
-      },
-      tableType: {
-        _id: "2",
-        name: "medium",
-        capacity: 6,
-      },
-    },
-    {
-      _id: "3",
-      tableNumber: "3",
-      tableStatus: {
-        _id: "3",
-        name: "Đang sử dụng",
-      },
-      tableType: {
-        _id: "3",
-        name: "large",
-        capacity: 8,
       },
     },
   ];
@@ -307,7 +307,7 @@ const ManageUser = () => {
             title={renderHeader}
             bordered
             columns={newColumns}
-            dataSource={listTable}
+            dataSource={listUser}
             rowKey={(record) => record._id}
             onChange={handleChangeUserTable}
             loading={isLoading}
