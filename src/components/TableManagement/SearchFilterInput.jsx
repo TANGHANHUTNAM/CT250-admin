@@ -55,11 +55,19 @@ const SearchFilterInput = ({
   }, []);
 
   const handleFilterTypeTable = ({ key }) => {
-    setFilterTypeTable(key);
+    const label = listTypeTable.find((item) => item._id === key).name;
+    setFilterTypeTable({
+      key,
+      value: label,
+    });
     setCurrentPage(1);
   };
   const handleFilterStatusTable = ({ key }) => {
-    setFilterStatusTable(key);
+    const label = listStatusTable.find((item) => item._id === key).name;
+    setFilterStatusTable({
+      key,
+      value: label,
+    });
     setCurrentPage(1);
   };
 
@@ -77,12 +85,12 @@ const SearchFilterInput = ({
           }),
           onClick: handleFilterTypeTable,
           selectable: true,
-          selectedKeys: filterTypeTable,
+          selectedKeys: filterTypeTable.key,
         }}
       >
         <div className="flex cursor-pointer items-center gap-1 rounded-md bg-blue-500 p-1.5 px-2 text-white">
           <MdFilterListAlt />
-          <span>{`Loại bàn`}</span>
+          <span>{filterTypeTable.value}</span>
         </div>
       </Dropdown>
       {/* Filter Status Table */}
@@ -97,12 +105,12 @@ const SearchFilterInput = ({
           }),
           onClick: handleFilterStatusTable,
           selectable: true,
-          selectedKeys: filterStatusTable,
+          selectedKeys: filterStatusTable.key,
         }}
       >
         <div className="flex cursor-pointer items-center gap-1 rounded-md bg-blue-500 p-1.5 px-2 text-white">
           <MdFilterListAlt />
-          <span>{`Trạng thái`}</span>
+          <span>{filterStatusTable.value}</span>
         </div>
       </Dropdown>
       <div className="relative">
