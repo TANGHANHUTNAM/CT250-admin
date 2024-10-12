@@ -122,7 +122,7 @@ const Sidebar = ({ collapsed }) => {
     {
       key: "Món ăn",
       icon: <FaBowlFood className="h-4 w-4" />,
-      label: <div className="text-sm">Đơn bàn</div>,
+      label: <div className="text-sm">Món ăn</div>,
       children: [
         {
           key: "/manage-dishes",
