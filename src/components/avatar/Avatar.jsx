@@ -15,18 +15,15 @@ const Avatar = ({ size = 32, src, ...props }) => {
       <Avt
         size={size}
         style={{
-          backgroundColor: "#ffe5d1d4",
-          color: "#ff882c",
+          backgroundColor: "#cccccc",
+          color: "#fff",
         }}
         icon={<UserOutlined />}
         src={src || undefined}
         {...props}
       />
       {props.isActive == "editing" && (
-        <div
-          rotationSlider
-          className="absolute bottom-6 right-0 !bg-neutral-300 p-2 h-12 w-12 rounded-full text-center !text-black "
-        >
+        <div className="absolute bottom-6 right-0 h-12 w-12 rounded-full !bg-neutral-300 p-2 text-center !text-black">
           <ImgCrop rotationSlider>
             <Upload
               action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
