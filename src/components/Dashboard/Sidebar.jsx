@@ -19,9 +19,6 @@ import { IoNewspaper } from "react-icons/io5";
 import { TbLogout2 } from "react-icons/tb";
 import { IoMdStats } from "react-icons/io";
 import { FaUsersGear } from "react-icons/fa6";
-import { FaUserTie } from "react-icons/fa6";
-import { PiDeviceTabletSpeakerFill } from "react-icons/pi";
-import { BiSolidFoodMenu } from "react-icons/bi";
 
 const { Sider } = Layout;
 const Sidebar = ({ collapsed }) => {
@@ -57,6 +54,7 @@ const Sidebar = ({ collapsed }) => {
         </Link>
       ),
     },
+
     {
       key: "/manage-statistical",
       icon: <IoMdStats className="h-4 w-4" />,
@@ -67,67 +65,82 @@ const Sidebar = ({ collapsed }) => {
       ),
     },
     {
-      key: "/manage-emloyee",
+      key: "/manage-user",
       icon: <FaUsersGear className="h-4 w-4" />,
       label: (
-        <Link to="/manage-emloyee" className="text-sm">
-          {t("Sidebar.manageEmloyee")}
+        <Link to="/manage-user" className="text-sm">
+          Người dùng
         </Link>
       ),
     },
     {
-      key: "/manage-customer",
-      icon: <FaUserTie className="h-4 w-4" />,
-      label: (
-        <Link to="/manage-customer" className="text-sm">
-          {t("Sidebar.manageCustomer")}
-        </Link>
-      ),
-    },
-    {
-      key: "/table-order",
-      icon: <PiDeviceTabletSpeakerFill className="h-4 w-4" />,
-      label: (
-        <Link to="/table-order" className="text-sm">
-          {t("Sidebar.tableOrder")}
-        </Link>
-      ),
-    },
-    {
-      key: "/manage-table",
+      key: "Đơn bàn",
       icon: <MdTableRestaurant className="h-4 w-4" />,
-      label: (
-        <Link to="/manage-table" className="text-sm">
-          {t("Sidebar.manageTable")}
-        </Link>
-      ),
+      label: <div className="text-sm">Đơn bàn</div>,
+      children: [
+        {
+          key: "/table-order",
+          label: (
+            <Link to="/table-order" className="text-sm">
+              Đơn đặt bàn
+            </Link>
+          ),
+        },
+        {
+          key: "/manage-table",
+          label: (
+            <Link to="/manage-table" className="text-sm">
+              Quản lý bàn
+            </Link>
+          ),
+        },
+      ],
     },
     {
-      key: "/dishes-order",
+      key: "Đơn hàng",
       icon: <TiShoppingCart className="h-4 w-4" />,
-      label: (
-        <Link to="/dishes-order" className="text-sm">
-          {t("Sidebar.dishesOrder")}
-        </Link>
-      ),
+      label: <div className="text-sm">Đơn hàng</div>,
+      children: [
+        {
+          key: "/dishes-order",
+          label: (
+            <Link to="/dishes-order" className="text-sm">
+              Đơn đặt hàng
+            </Link>
+          ),
+        },
+        {
+          key: "/manage-order",
+          label: (
+            <Link to="/manage-order" className="text-sm">
+              Quản đơn hàng
+            </Link>
+          ),
+        },
+      ],
     },
     {
-      key: "/manage-dishes",
+      key: "Món ăn",
       icon: <FaBowlFood className="h-4 w-4" />,
-      label: (
-        <Link to="/manage-dishes" className="text-sm">
-          {t("Sidebar.manageDishes")}
-        </Link>
-      ),
-    },
-    {
-      key: "/manage-category",
-      icon: <BiSolidFoodMenu className="h-4 w-4" />,
-      label: (
-        <Link to="/manage-category" className="text-sm">
-          {t("Sidebar.manageCategory")}
-        </Link>
-      ),
+      label: <div className="text-sm">Đơn bàn</div>,
+      children: [
+        {
+          key: "/manage-dishes",
+          label: (
+            <Link to="/manage-dishes" className="text-sm">
+              Quản lý món ăn
+            </Link>
+          ),
+        },
+        {
+          key: "/manage-category",
+          label: (
+            <Link to="/manage-category" className="text-sm">
+              Quản lý danh mục
+            </Link>
+          ),
+        },
+      ],
     },
     {
       key: "/manage-discount",
@@ -171,7 +184,7 @@ const Sidebar = ({ collapsed }) => {
     if (
       role === "staff" &&
       (item.key === "/manage-statistical" ||
-        item.key === "/manage-emloyee" ||
+        item.key === "/manage-user" ||
         item.key === "/manage-customer")
     ) {
       return false;
@@ -219,9 +232,10 @@ const Sidebar = ({ collapsed }) => {
         </div>
       )}
       <Menu
+        mode="inline"
         className="font-medium"
-        defaultSelectedKeys={["/"]}
         items={filteredMenuItems}
+        defaultSelectedKeys={["/"]}
         selectedKeys={window.location.pathname}
       />
     </Sider>

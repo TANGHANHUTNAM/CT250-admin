@@ -3,9 +3,9 @@ import Main from "../pages/Main";
 import LoginPage from "../pages/Login";
 import DashboardContent from "../components/Dashboard/DashboardContent";
 import UserInfo from "../components/UserInfo/UserInfo";
-import Settings from "../components/Dashboard/Settings";
+
 import ReservationLayout from "../layouts/ReservationLayout";
-import OderLayout from "../layouts/OrderLayout";
+import OrderLayout from "../layouts/OrderLayout";
 import EmployeesList from "../components/Employee/EmployeesList";
 import Statistical from "../components/Statistical/Statistical";
 import Discount from "../components/Discount/Discount";
@@ -14,12 +14,13 @@ import News from "../components/News/News";
 import { PrivateRoute, RoleRoute } from "./privateRoute";
 import NotFound from "../components/NotFound/NotFound";
 import NotPermitted from "../components/Permission/NotPermitted";
-import Customer from "../components/Customer/Customer";
+
 import ManageTable from "../components/TableManagement/ManageTable";
 import Category from "../components/Category/Category";
 
 import ManageDishes from "../components/Dishes/ManageDishes";
 import Setting from "../components/Setting/Setting";
+import ManageOrder from "../components/OrderManagement/ManageOrder";
 
 const routes = [
   {
@@ -43,18 +44,10 @@ const routes = [
         element: <Setting />,
       },
       {
-        path: "manage-emloyee",
+        path: "manage-user",
         element: (
           <RoleRoute>
             <EmployeesList />
-          </RoleRoute>
-        ),
-      },
-      {
-        path: "manage-customer",
-        element: (
-          <RoleRoute>
-            <Customer />
           </RoleRoute>
         ),
       },
@@ -68,7 +61,11 @@ const routes = [
       },
       {
         path: "dishes-order",
-        element: <OderLayout />,
+        element: <OrderLayout />,
+      },
+      {
+        path: "manage-order",
+        element: <ManageOrder />,
       },
       {
         path: "manage-category",
