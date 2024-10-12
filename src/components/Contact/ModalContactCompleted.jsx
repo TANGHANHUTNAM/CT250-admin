@@ -9,10 +9,12 @@ const ModalContactCompleted = ({ isModalOpen, setIsModalOpen, contact }) => {
   return (
     <>
       <Modal
+        style={{ top: 20 }}
         title={t("ModalContactComplete.title")}
         open={isModalOpen}
         onCancel={handleCancel}
         width={1200}
+        height={800}
         cancelText={t("ModalContactComplete.cancelText")}
         cancelButtonProps={{ danger: true }}
         okButtonProps={{ hidden: true }}
@@ -20,26 +22,38 @@ const ModalContactCompleted = ({ isModalOpen, setIsModalOpen, contact }) => {
         <div className="Modal">
           <div className="grid grid-cols-2 text-base">
             {/* Customer */}
-            <div className="customer pr-6 flex flex-col gap-3 mt-3">
-              <div className="text-xl font-semibold">{t("ModalContactComplete.customer")}</div>
+            <div className="customer mt-3 flex flex-col gap-3 pr-6">
+              <div className="text-xl font-semibold">
+                {t("ModalContactComplete.customer")}
+              </div>
               <div className="">
-                <span className="font-semibold opacity-85">{t("ModalContactComplete.customerName")}</span>
+                <span className="font-semibold opacity-85">
+                  {t("ModalContactComplete.customerName")}
+                </span>
                 <div className="">{contact?.customerName}</div>
               </div>
               <div className="">
-                <span className="font-semibold opacity-85">{t("ModalContactComplete.customerEmail")}</span>
+                <span className="font-semibold opacity-85">
+                  {t("ModalContactComplete.customerEmail")}
+                </span>
                 <div className="">{contact?.customerEmail}</div>
               </div>
               <div className="">
-                <span className="font-semibold opacity-85">{t("ModalContactComplete.customerPhone")}</span>
+                <span className="font-semibold opacity-85">
+                  {t("ModalContactComplete.customerPhone")}
+                </span>
                 <div className="">{contact?.customerPhone}</div>
               </div>
               <div className="">
-                <span className="font-semibold opacity-85">{t("ModalContactComplete.customerContent")}</span>
+                <span className="font-semibold opacity-85">
+                  {t("ModalContactComplete.customerContent")}
+                </span>
                 <div className="">{contact?.content}</div>
               </div>
               <div className="">
-                <span className="font-semibold opacity-85">{t("ModalContactComplete.customerDate")}</span>
+                <span className="font-semibold opacity-85">
+                  {t("ModalContactComplete.customerDate")}
+                </span>
                 <div className="">
                   {new Date(contact?.createdAt).toLocaleString("vi-VN", {
                     day: "2-digit",
@@ -54,15 +68,17 @@ const ModalContactCompleted = ({ isModalOpen, setIsModalOpen, contact }) => {
             </div>
             {/* Nội dung phản hồi */}
             <div className="p-3">
-              <div className="flex flex-col gap-2 border-2 p-3 border-solid rounded-md border-black">
-                <div className="font-semibold text-xl flex justify-between items-center">
+              <div className="flex flex-col gap-2 rounded-md border-2 border-solid border-black p-3">
+                <div className="flex items-center justify-between text-xl font-semibold">
                   <span>{t("ModalContactComplete.employee")}</span>
                   <span>
                     <Avatar src={contact?.staff?.avtar?.url} size={40} />
                   </span>
                 </div>
                 <div className="">
-                  <span className="font-semibold opacity-85">{t("ModalContactComplete.employeeName")}</span>
+                  <span className="font-semibold opacity-85">
+                    {t("ModalContactComplete.employeeName")}
+                  </span>
                   <span className="ml-3">{contact?.staff?.fullName}</span>
                 </div>
                 <div className="">
@@ -70,38 +86,50 @@ const ModalContactCompleted = ({ isModalOpen, setIsModalOpen, contact }) => {
                   <span className="ml-3">{contact?.staff?.username}</span>
                 </div>
                 <div className="">
-                  <span className="font-semibold opacity-85">{t("ModalContactComplete.employeeRole")}</span>
+                  <span className="font-semibold opacity-85">
+                    {t("ModalContactComplete.employeeRole")}
+                  </span>
                   <span className="ml-3 uppercase">{contact?.staff?.role}</span>
                 </div>
                 <div className="">
-                  <span className="font-semibold opacity-85">{t("ModalContactComplete.employeeEmail")}</span>
+                  <span className="font-semibold opacity-85">
+                    {t("ModalContactComplete.employeeEmail")}
+                  </span>
                   <span className="ml-3">{contact?.staff?.email}</span>
                 </div>
                 <div className="">
                   <span className="font-semibold opacity-85">
-                  {t("ModalContactComplete.employeePhone")}
+                    {t("ModalContactComplete.employeePhone")}
                   </span>
                   <span className="ml-3">{contact?.staff?.phoneNumber}</span>
                 </div>
                 <div className="">
-                  <span className="font-semibold opacity-85">{t("ModalContactComplete.employeeGender")}</span>
+                  <span className="font-semibold opacity-85">
+                    {t("ModalContactComplete.employeeGender")}
+                  </span>
                   <span className="ml-3">{contact?.staff?.gender}</span>
                 </div>
                 <div className="">
-                  <span className="font-semibold opacity-85">{t("ModalContactComplete.employeeDOB")}</span>
+                  <span className="font-semibold opacity-85">
+                    {t("ModalContactComplete.employeeDOB")}
+                  </span>
                   <span className="ml-3">{contact?.staff?.birthday}</span>
                 </div>
                 <div className="">
-                  <span className="font-semibold opacity-85">{t("ModalContactComplete.employeeAddress")}</span>
+                  <span className="font-semibold opacity-85">
+                    {t("ModalContactComplete.employeeAddress")}
+                  </span>
                   <span className="ml-3">{contact?.staff?.address}</span>
                 </div>
                 <div className="">
-                  <span className="font-semibold opacity-85">{t("ModalContactComplete.employeeContent")}</span>
+                  <span className="font-semibold opacity-85">
+                    {t("ModalContactComplete.employeeContent")}
+                  </span>
                   <div className="">{contact?.replyContent}</div>
                 </div>
                 <div className="">
                   <span className="font-semibold opacity-85">
-                  {t("ModalContactComplete.employeeDate")}
+                    {t("ModalContactComplete.employeeDate")}
                   </span>
                   <div className="">
                     {new Date(contact?.updatedAt).toLocaleString("vi-VN", {

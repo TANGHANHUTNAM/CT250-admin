@@ -24,7 +24,7 @@ const ModalConfirm = ({
         const newTotalPages = Math.ceil(newTotalContacts / limitPending);
         const newPagePending = Math.max(
           pagePending > newTotalPages ? newTotalPages : pagePending,
-          1
+          1,
         );
         onChangeTablePending({
           current: newPagePending,
@@ -34,7 +34,7 @@ const ModalConfirm = ({
           fetchContactPending({
             page: newPagePending,
             limit: limitPending,
-          })
+          }),
         );
       }
       toast.success(res.EM);
@@ -62,9 +62,8 @@ const ModalConfirm = ({
       onConfirm={confirm}
       onCancel={cancel}
     >
-      <button className=" text-white bg-red-400 hover:bg-red-500 flex items-center justify-center rounded-md p-2 gap-1">
+      <button className="flex items-center justify-center rounded-md p-2 text-base text-red-500 hover:text-red-500/90">
         <FaRegTrashAlt />
-        <span>{t("ModalConfirm.closeButton")}</span>
       </button>
     </Popconfirm>
   );

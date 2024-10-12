@@ -115,16 +115,15 @@ const TabContact = () => {
     {
       align: "center",
       title: t("TabContact.action"),
-      className: "w-[200px]",
+      with: "10%",
       render: (_, contact) => {
         return (
           <div className="flex items-center justify-center space-x-1.5">
             <button
-              className="flex items-center justify-center gap-1 rounded-md bg-blue-400 p-2 text-white hover:bg-blue-500"
+              className="flex items-center justify-center rounded-md p-2 text-lg text-blue-500 hover:text-blue-500/90"
               onClick={() => showModal(contact)}
             >
               <MdOutlineRemoveRedEye />
-              <span>{t("TabContact.see")}</span>
             </button>
             <ModalConfirm
               pagePending={pagePending}
@@ -238,11 +237,10 @@ const TabContact = () => {
         return (
           <div className="flex items-center justify-center space-x-1.5">
             <button
-              className="flex items-center justify-center gap-1 rounded-md bg-blue-400 p-2 text-white hover:bg-blue-500"
+              className="flex items-center justify-center text-lg text-blue-500 hover:text-blue-500/90"
               onClick={() => ShowModalCompleted(contact)}
             >
               <MdOutlineRemoveRedEye />
-              <span>{t("TabContact.see")}</span>
             </button>
           </div>
         );
@@ -283,7 +281,7 @@ const TabContact = () => {
             current: pagePending,
             pageSize: limitPending,
             total: totalContactPending,
-            showTotal: (total) => `${t("TabContact.quantity")}: ${total}`,
+            showTotal: (total) => `${t("TabContact.quantity")} ${total}`,
           }}
         />
       ),
@@ -301,7 +299,7 @@ const TabContact = () => {
             current: pageCompleted,
             pageSize: limitCompleted,
             total: totalContactCompleted,
-            showTotal: (total) => `${t("TabContact.quantity")}: ${total}`,
+            showTotal: (total) => `${t("TabContact.quantity")} ${total}`,
           }}
         />
       ),
@@ -312,12 +310,7 @@ const TabContact = () => {
       <ConfigProvider
         theme={{
           components: {
-            Tabs: {
-              inkBarColor: "#d69c52",
-              itemActiveColor: "#d69c52",
-              itemHoverColor: "#d69c52",
-              itemSelectedColor: "#d69c52",
-            },
+            Tabs: {},
           },
         }}
       >
