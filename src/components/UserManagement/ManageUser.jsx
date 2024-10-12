@@ -10,47 +10,33 @@ import {
 } from "antd";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { IoSettingsSharp } from "react-icons/io5";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
-
 import { useEffect, useState } from "react";
 import SearchFilterInput from "./SearchFilterInput";
 import { GrPowerReset } from "react-icons/gr";
-import ModalCreateTable from "./ModalCreateTable";
-import ModalCreateTypeTable from "./ModalCreateTypeTable";
-import ModalEditTable from "./ModalEditTable";
-import ModalViewTypeTable from "./ModalViewTypeTable";
-import ModalViewTable from "./ModalViewTable";
+import ModalCreateEmployee from "./ModalCreateEmployee";
+import ModalViewUser from "./ModalViewUser";
 
-const ManageTable = () => {
+const ManageUser = () => {
   // Modal
-  const [openModalCreateTable, setOpenModalCreateTable] = useState(false);
-  const [openModalViewTable, setOpenModalViewTable] = useState(false);
-  const [openModalEditTable, setOpenModalEditTable] = useState(false);
-  const [openModalCreateTypeTable, setOpenModalCreateTypeTable] =
-    useState(false);
-  const [openModalViewTypeTable, setOpenModalViewTypeTable] = useState(false);
-
-  // Table
+  const [openModalCreateEmployee, setOpenModalCreateEmployee] = useState(false);
+  const [openModalViewUser, setOpenModalViewUser] = useState(false);
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(1);
   const [total, setTotal] = useState(0);
+  // Table
   const [listTable, setListTable] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [filterTypeTable, setFilterTypeTable] = useState({
+  const [filterRole, setFilterRole] = useState({
     key: "",
-    value: "Chọn loại bàn",
-  });
-  const [filterStatusTable, setFilterStatusTable] = useState({
-    key: "",
-    value: "Chọn trạng thái",
+    value: "Chọn vai trò",
   });
   const [dataSearch, setDataSearch] = useState("");
   const [search, setSearch] = useState("");
-
-  const [detailTable, setDetailTable] = useState(null);
+  const [detailUser, setDetailUser] = useState(null);
 
   useEffect(() => {
     setListTable(data);
@@ -59,20 +45,17 @@ const ManageTable = () => {
 
   useEffect(() => {
     fetchListTable();
-  }, [currentPage, pageSize, filterTypeTable, filterStatusTable, search]);
+  }, [currentPage, pageSize, filterRole, search]);
 
   const fetchListTable = async () => {
     setIsLoading(true);
     setTimeout(() => {
       let query = `page=${currentPage}&limit=${pageSize}`;
-      if (filterTypeTable.key) {
-        query += `&tableType=/${filterTypeTable.key}/i`;
-      }
-      if (filterStatusTable.key) {
-        query += `&tableStatus=/${filterStatusTable.key}/i`;
+      if (filterRole.key) {
+        query += `&role=/${filterRole.key}/i`;
       }
       if (search) {
-        query += `&tableNumber=/${search}/i`;
+        query += `&fullname=/${search}/i`;
       }
 
       // Call API
@@ -82,10 +65,10 @@ const ManageTable = () => {
     }, 500);
   };
 
-  const handleDeleteTable = (_id) => {
+  const handleDeleteUser = (_id) => {
     console.log(_id);
   };
-  const handleTableChange = (pagination, filters, sorter) => {
+  const handleChangeUserTable = (pagination, filters, sorter) => {
     if (pagination.current !== currentPage) {
       setCurrentPage(pagination.current);
     }
@@ -104,14 +87,7 @@ const ManageTable = () => {
   const handleReset = () => {
     setCurrentPage(1);
     setPageSize(1);
-    setFilterTypeTable({
-      key: "",
-      value: "Chọn loại bàn",
-    });
-    setFilterStatusTable({
-      key: "",
-      value: "Chọn trạng thái",
-    });
+    setFilterRole({ key: "", value: "Chọn vai trò" });
     setSearch("");
     setDataSearch("");
     setCheckedList(defaultCheckedList);
@@ -167,23 +143,20 @@ const ManageTable = () => {
           <Space size="middle" className="text-xl">
             <button
               onClick={() => {
-                setDetailTable(record);
-                setOpenModalViewTable(true);
+                setDetailUser(record);
+                setOpenModalViewUser(true);
               }}
               className="text-blue-500"
             >
               <MdOutlineRemoveRedEye />
             </button>
-            <button
-              onClick={() => setOpenModalEditTable(true)}
-              className="text-yellow-500"
-            >
+            <button className="text-yellow-500">
               <CiEdit />
             </button>
             <Popconfirm
-              title="Xóa bàn này?"
-              description="Bạn có chắc chắn muốn xóa bàn này?"
-              onConfirm={() => handleDeleteTable(record._id)}
+              title="Xóa tài khoản"
+              description="Bạn có chắc chắn muốn xóa tài khoản này?"
+              onConfirm={() => handleDeleteUser(record._id)}
               onCancel={() => {}}
               okText="Có"
               cancelText="Không"
@@ -290,35 +263,19 @@ const ManageTable = () => {
             dataSearch={dataSearch}
             setDataSearch={setDataSearch}
             handleSearch={handleSearch}
-            filterTypeTable={filterTypeTable}
-            filterStatusTable={filterStatusTable}
-            setFilterStatusTable={setFilterStatusTable}
-            setFilterTypeTable={setFilterTypeTable}
+            filterRole={filterRole}
+            setFilterRole={setFilterRole}
             setCurrentPage={setCurrentPage}
           />
         </div>
         {/* Button */}
         <div className="flex space-x-1.5">
           <button
-            onClick={() => setOpenModalCreateTable(true)}
+            onClick={() => setOpenModalCreateEmployee(true)}
             className="flex w-fit items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-1.5 text-primary hover:bg-blue-500/80"
           >
             <IoMdAddCircleOutline />
-            <span>Thêm bàn</span>
-          </button>
-          <button
-            onClick={() => setOpenModalCreateTypeTable(true)}
-            className="flex w-fit items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-1.5 text-primary hover:bg-blue-500/90"
-          >
-            <MdOutlineBookmarkAdd />
-            <span>Thêm loại bàn</span>
-          </button>
-          <button
-            onClick={() => setOpenModalViewTypeTable(true)}
-            className="flex w-fit items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-1.5 text-primary hover:bg-blue-500/90"
-          >
-            <MdOutlineRemoveRedEye />
-            <span>Xem loại bàn</span>
+            <span>Thêm người dùng</span>
           </button>
         </div>
       </div>
@@ -330,7 +287,7 @@ const ManageTable = () => {
       <Row gutter={[0, 10]}>
         <Col span={12}>
           <div className="ml-2 py-1 text-3xl font-semibold uppercase text-blue-500">
-            Quản lý bàn
+            Quản lý người dùng
           </div>
         </Col>
         <Col span={12}>
@@ -352,7 +309,7 @@ const ManageTable = () => {
             columns={newColumns}
             dataSource={listTable}
             rowKey={(record) => record._id}
-            onChange={handleTableChange}
+            onChange={handleChangeUserTable}
             loading={isLoading}
             pagination={{
               current: currentPage,
@@ -363,29 +320,17 @@ const ManageTable = () => {
           />
         </Col>
       </Row>
-      <ModalCreateTable
-        openModalCreateTable={openModalCreateTable}
-        setOpenModalCreateTable={setOpenModalCreateTable}
+      <ModalCreateEmployee
+        openModalCreateEmployee={openModalCreateEmployee}
+        setOpenModalCreateEmployee={setOpenModalCreateEmployee}
       />
-      <ModalCreateTypeTable
-        openModalCreateTypeTable={openModalCreateTypeTable}
-        setOpenModalCreateTypeTable={setOpenModalCreateTypeTable}
-      />
-      <ModalEditTable
-        openModalEditTable={openModalEditTable}
-        setOpenModalEditTable={setOpenModalEditTable}
-      />
-      <ModalViewTable
-        detailTable={detailTable}
-        openModalViewTable={openModalViewTable}
-        setOpenModalViewTable={setOpenModalViewTable}
-      />
-      <ModalViewTypeTable
-        openModalViewTypeTable={openModalViewTypeTable}
-        setOpenModalViewTypeTable={setOpenModalViewTypeTable}
+      <ModalViewUser
+        detailUser={detailUser}
+        openModalViewUser={openModalViewUser}
+        setOpenModalViewUser={setOpenModalViewUser}
       />
     </div>
   );
 };
 
-export default ManageTable;
+export default ManageUser;
