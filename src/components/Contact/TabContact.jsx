@@ -153,12 +153,12 @@ const TabContact = () => {
       className: "font-semibold text-black/75",
       width: "100px",
       render: (record) => {
-        return <Avatar size={40} src={record.avatar} />;
+        return <Avatar size={40} src={record?.avatar} />;
       },
     },
     {
       align: "center",
-      title: t("TabContact.Respondent"),
+      title: "Username",
       dataIndex: "staff",
       className: "font-semibold text-black/75 w-[150px]",
       render: (record) => {

@@ -7,21 +7,25 @@ import {
   Row,
   Space,
   Table,
+  Tag,
 } from "antd";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { IoSettingsSharp } from "react-icons/io5";
-import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
+import { MdOutlineDeleteForever } from "react-icons/md";
 import { useEffect, useState } from "react";
 import SearchFilterInput from "./SearchFilterInput";
 import { GrPowerReset } from "react-icons/gr";
 import ModalCreateEmployee from "./ModalCreateEmployee";
 import ModalViewUser from "./ModalViewUser";
-import { getAllUserWithFilter } from "../../services/accountServiec";
+import {
+  deleteUserRoleStaff,
+  getAllUserWithFilter,
+} from "../../services/accountServiec";
 import StatusCodes from "../../utils/StatusCodes";
-import { MdOutlineDeleteForever } from "react-icons/md";
 import Avatar from "../avatar/Avatar";
+import { toast } from "react-toastify";
 
 const ManageUser = () => {
   // Modal
@@ -67,10 +71,24 @@ const ManageUser = () => {
     setIsLoading(false);
   };
 
-  const handleDeleteUser = (_id) => {
-    console.log(_id);
+  const handleDeleteUser = async (_id) => {
+    setIsLoading(true);
+    try {
+      const res = await deleteUserRoleStaff(_id);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        setCurrentPage(1);
+        fetchListUser();
+        toast.success("Xóa tài khoản thành công");
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error("Xóa tài khoản không thành công");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
   };
-  const handleChangeUserTable = (pagination, filters, sorter) => {
+  const handleChangeUserTable = (pagination) => {
     if (pagination.current !== currentPage) {
       setCurrentPage(pagination.current);
     }
@@ -152,6 +170,17 @@ const ManageUser = () => {
       title: "Vai trò",
       dataIndex: "role",
       key: "role",
+      render: (_, { role }) => {
+        return (
+          <Tag
+            color={
+              role === "admin" ? "red" : role === "staff" ? "blue" : "green"
+            }
+          >
+            {role.toUpperCase()}
+          </Tag>
+        );
+      },
     },
     {
       title: "Ngày tạo",
@@ -173,7 +202,7 @@ const ManageUser = () => {
       align: "center",
       render: (_, record) => {
         return (
-          <Space size="middle" className="text-xl">
+          <div className="flex justify-center gap-3 text-xl">
             <button
               onClick={() => {
                 setDetailUser(record);
@@ -183,11 +212,8 @@ const ManageUser = () => {
             >
               <MdOutlineRemoveRedEye />
             </button>
-            <button className="text-yellow-500">
-              <CiEdit />
-            </button>
             <Popconfirm
-              disabled={record.role === "customer"}
+              disabled={record.role === "customer" || record.role === "admin"}
               title="Xóa tài khoản"
               description="Bạn có chắc chắn muốn xóa tài khoản này?"
               onConfirm={() => handleDeleteUser(record._id)}
@@ -196,17 +222,17 @@ const ManageUser = () => {
               cancelText="Không"
             >
               <button
-                disabled={record.role === "customer"}
+                disabled={record.role === "customer" || record.role === "admin"}
                 className="text-red-500"
               >
-                {record.role === "customer" ? (
+                {record.role === "customer" || record.role === "admin" ? (
                   <MdOutlineDeleteForever />
                 ) : (
                   <MdDeleteOutline />
                 )}
               </button>
             </Popconfirm>
-          </Space>
+          </div>
         );
       },
     },
@@ -275,7 +301,7 @@ const ManageUser = () => {
             className="flex w-fit items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-1.5 text-primary hover:bg-blue-500/80"
           >
             <IoMdAddCircleOutline />
-            <span>Thêm người dùng</span>
+            <span>Thêm nhân viên</span>
           </button>
         </div>
       </div>
@@ -321,6 +347,9 @@ const ManageUser = () => {
         </Col>
       </Row>
       <ModalCreateEmployee
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        fetchListUser={fetchListUser}
         openModalCreateEmployee={openModalCreateEmployee}
         setOpenModalCreateEmployee={setOpenModalCreateEmployee}
       />
