@@ -50,9 +50,25 @@ export const userSlice = createSlice({
         role: "",
       },
     }),
+    updateInformation: (state, action) => ({
+      ...state,
+      account: {
+        id: action?.payload?._id,
+        avatar: action?.payload?.avatar,
+        username: action?.payload?.username,
+        email: action?.payload?.email,
+        fullname: action?.payload?.fullname,
+        birthday: action?.payload?.birthday,
+        gender: action?.payload?.gender,
+        phoneNumber: action?.payload?.phoneNumber,
+        address: action?.payload?.address,
+        role: action?.payload?.role,
+      },
+    }),
   },
 });
 
-export const { loginSuccess, logoutSuccess } = userSlice.actions;
+export const { loginSuccess, logoutSuccess, updateInformation } =
+  userSlice.actions;
 
 export default userSlice.reducer;
