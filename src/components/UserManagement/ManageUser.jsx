@@ -139,7 +139,7 @@ const ManageUser = () => {
         return (
           <Space size="middle">
             <Avatar size={32} src={record.avatar || undefined} />
-            <span>{record.username}</span>
+            <span className="font-medium">{record.username}</span>
           </Space>
         );
       },
@@ -167,7 +167,11 @@ const ManageUser = () => {
       dataIndex: "gender",
       key: "gender",
       with: 50,
-      render: (text) => text || "--",
+      render: (text) => {
+        return (
+          <>{text === "male" ? "Nam" : text === "female" ? "Nữ" : "Khác"}</>
+        );
+      },
     },
     {
       title: "Địa chỉ",

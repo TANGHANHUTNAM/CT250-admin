@@ -5,9 +5,13 @@ import { MdFilterList } from "react-icons/md";
 import ModalCreateDish from "./ModalCreateDish";
 import { useEffect, useState } from "react";
 import ModalEditDish from "./ModalEditDish";
-import { getDishesWithPagination } from "../../services/dishService";
+import {
+  deleteDish,
+  getDishesWithPagination,
+} from "../../services/dishService";
 import StatusCodes from "../../utils/StatusCodes";
 import ModalViewDish from "./ModalViewDish";
+import { toast } from "react-toastify";
 const ManageDishes = () => {
   const [openModalCreateDish, setOpenModalCreateDish] = useState(false);
   const [openModalViewDish, setOpenModalViewDish] = useState(false);
@@ -35,6 +39,27 @@ const ManageDishes = () => {
       }
       if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
         console.log(res);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
+  const handleDeleteDish = async (id) => {
+    setIsLoading(true);
+    try {
+      const res = await deleteDish(id);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        const newTotalDish = total - 1;
+        const newTotalPage = Math.ceil(newTotalDish / limit);
+        const newPage = Math.max(page > newTotalPage ? newTotalPage : page, 1);
+        if (newPage === page) fetchDishes();
+        setPage(newPage);
+        toast.success("Xóa món ăn thành công");
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error("Xóa món ăn thất bại");
       }
     } catch (error) {
       console.log(error);
@@ -117,13 +142,14 @@ const ManageDishes = () => {
       </div>
       <DishList
         isLoading={isLoading}
+        handleDeleteDish={handleDeleteDish}
         listDish={listDish}
         setDishDetail={setDishDetail}
         setOpenModalViewDish={setOpenModalViewDish}
         setOpenModalEditDish={setOpenModalEditDish}
       />
       <Pagination
-        className={`${listDish && listDish.length > 0 ? "" : "hidden"} my-3`}
+        className={`${listDish && listDish.length > 0 ? "" : "hidden"} mb-2 mt-10`}
         align="end"
         disabled={isLoading}
         pageSize={limit}
