@@ -113,7 +113,7 @@ const Sidebar = ({ collapsed }) => {
           key: "/manage-order",
           label: (
             <Link to="/manage-order" className="text-sm">
-              Quản đơn hàng
+              Quản lý đơn hàng
             </Link>
           ),
         },

@@ -14,7 +14,7 @@ const ManageDishes = () => {
   const [openModalEditDish, setOpenModalEditDish] = useState(false);
 
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(1);
+  const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
   const [listDish, setListDish] = useState([]);
   const [dishDetail, setDishDetail] = useState(null);
@@ -26,15 +26,20 @@ const ManageDishes = () => {
 
   const fetchDishes = async () => {
     setIsLoading(true);
-    setTimeout(async () => {
-      let query = `page=${page}&limit=${limit}`;
+    let query = `page=${page}&limit=${limit}`;
+    try {
       const res = await getDishesWithPagination(query);
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
         setListDish(res.DT.data);
-        setTotal(res.DT.totalPages);
+        setTotal(res.DT.totalData);
       }
-      setIsLoading(false);
-    }, 1000);
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        console.log(res);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
   };
   const items2 = [
     {
@@ -74,7 +79,7 @@ const ManageDishes = () => {
               items: items1,
             }}
           >
-            <div className="flex h-full w-fit cursor-pointer items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-1 text-white">
+            <div className="flex h-full w-fit cursor-pointer items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-2 text-white">
               <MdFilterList className="text-lg" />
               <span className="ml-1">Lọc theo loại</span>
             </div>
@@ -84,7 +89,7 @@ const ManageDishes = () => {
               items: items2,
             }}
           >
-            <div className="flex h-full w-fit cursor-pointer items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-1 text-white">
+            <div className="flex h-full w-fit cursor-pointer items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-2 text-white">
               <MdFilterList className="text-lg" />
               <span className="ml-1">Lọc theo thuộc tính</span>
             </div>
@@ -103,7 +108,7 @@ const ManageDishes = () => {
           </div>
           <button
             onClick={() => setOpenModalCreateDish(true)}
-            className="flex min-w-fit items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-1 text-white hover:bg-blue-500/90"
+            className="flex min-w-fit items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-2 text-white hover:bg-blue-500/90"
           >
             <MdAddCircleOutline className="text-base" />
             <span>Thêm mới</span>
@@ -126,7 +131,7 @@ const ManageDishes = () => {
         total={total}
         showTotal={(total) => `Số lượng: ${total}`}
         showSizeChanger
-        pageSizeOptions={[1, 2, 5, 10, 20]}
+        pageSizeOptions={[1, 5, 10, 20]}
         onShowSizeChange={(_, pageSize) => {
           setPage(1);
           setLimit(pageSize);

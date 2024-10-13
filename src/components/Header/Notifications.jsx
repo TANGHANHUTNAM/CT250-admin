@@ -167,7 +167,7 @@ const Notifications = () => {
   );
 
   const contactMenu = (
-    <div className="dropdown-menu show rounded-lg bg-white p-0 shadow-lg">
+    <div className="dropdown-menu show w-80 rounded-lg bg-white p-0 shadow-lg">
       <h6 className="dropdown-header rounded-t-lg bg-blue-500 p-2 pl-4 font-semibold text-white">
         {t("Notifications.contacts.new", { totalContactPending })}
       </h6>

@@ -14,7 +14,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { IoSettingsSharp } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineDeleteForever } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import SearchFilterInput from "./SearchFilterInput";
 import { GrPowerReset } from "react-icons/gr";
 import ModalCreateEmployee from "./ModalCreateEmployee";
@@ -26,7 +26,7 @@ import {
 import StatusCodes from "../../utils/StatusCodes";
 import Avatar from "../avatar/Avatar";
 import { toast } from "react-toastify";
-
+import { debounce } from "lodash";
 const ManageUser = () => {
   // Modal
   const [openModalCreateEmployee, setOpenModalCreateEmployee] = useState(false);
@@ -42,13 +42,9 @@ const ManageUser = () => {
     key: "",
     value: "Chọn vai trò",
   });
-  const [dataSearch, setDataSearch] = useState("");
+
   const [search, setSearch] = useState("");
   const [detailUser, setDetailUser] = useState(null);
-
-  useEffect(() => {
-    fetchListUser();
-  }, [currentPage, pageSize, filterRole, search]);
 
   const fetchListUser = async () => {
     setIsLoading(true);
@@ -70,6 +66,20 @@ const ManageUser = () => {
     }
     setIsLoading(false);
   };
+
+  const debouncedFetchListUser = useCallback(
+    debounce(() => {
+      fetchListUser();
+    }, 300),
+    [currentPage, pageSize, filterRole, search],
+  );
+
+  useEffect(() => {
+    debouncedFetchListUser();
+    return () => {
+      debouncedFetchListUser.cancel();
+    };
+  }, [debouncedFetchListUser]);
 
   const handleDeleteUser = async (_id) => {
     setIsLoading(true);
@@ -106,7 +116,6 @@ const ManageUser = () => {
     setPageSize(6);
     setFilterRole({ key: "", value: "Chọn vai trò" });
     setSearch("");
-    setDataSearch("");
     setCheckedList(defaultCheckedList);
   };
   const columns = [
@@ -286,8 +295,6 @@ const ManageUser = () => {
           <SearchFilterInput
             search={search}
             setSearch={setSearch}
-            dataSearch={dataSearch}
-            setDataSearch={setDataSearch}
             handleSearch={handleSearch}
             filterRole={filterRole}
             setFilterRole={setFilterRole}
