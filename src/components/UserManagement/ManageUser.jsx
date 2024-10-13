@@ -18,7 +18,7 @@ import SearchFilterInput from "./SearchFilterInput";
 import { GrPowerReset } from "react-icons/gr";
 import ModalCreateEmployee from "./ModalCreateEmployee";
 import ModalViewUser from "./ModalViewUser";
-import { getAllUserWithFilter } from "../../services/accountServiec";
+import { getAllUserWithFilter } from "../../services/accountService";
 import StatusCodes from "../../utils/StatusCodes";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import Avatar from "../avatar/Avatar";

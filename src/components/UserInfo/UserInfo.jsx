@@ -1,247 +1,251 @@
 import { useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { useTranslation } from "react-i18next";
+import {
+  Form,
+  Input,
+  Select,
+  Button,
+  Row,
+  Col,
+  DatePicker,
+  message,
+} from "antd";
 import Avatar from "../avatar/Avatar";
-import { FaCog, FaUserCircle } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { Tooltip } from "antd";
-import { useDynamicTitle } from "../../hooks";
+import { IoCameraOutline } from "react-icons/io5";
+import { Upload } from "antd";
+import StatusCodes from "../../utils/StatusCodes";
+import { toast } from "react-toastify";
+import ImgCrop from "antd-img-crop";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserInfomation } from "../../services/accountService";
+import dayjs from "dayjs";
+import { updateInformation } from "../../redux/reducer/userSlice";
 
 const UserInfo = () => {
-  useDynamicTitle("Trang cá nhân");
+  const { Option } = Select;
   const { account } = useSelector((state) => state.user);
-  const { t } = useTranslation();
-  const [isActive, setIsActive] = useState("userinfo");
-  const [formData, setFormData] = useState({
-    username: "Ben Sherman",
-    email: "ben.sherman@gmail.com",
-    gender: "Male",
-    birthday: new Date("1999-07-30"),
-    language: "English",
-    country: "United States",
-    emailNotification: true,
-    privateAccount: false,
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-  });
+  const [form] = Form.useForm();
+  const [fileList, setFileList] = useState([]);
+  const [uploadStatus, setUploadStatus] = useState(""); // State for upload status
+  const dispatch = useDispatch();
 
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
+  const onChange = ({ fileList: newFileList }) => {
+    if (newFileList.length > 1) {
+      // If more than one file is selected, display an error message
+      message.error("You can only upload one file.");
+      return;
+    }
+    setFileList(newFileList);
+    // Update upload status
+    if (newFileList.length > 0) {
+      setUploadStatus(`Selected ${newFileList.length} file`);
+    } else {
+      setUploadStatus("");
+    }
   };
 
-  const handleDateChange = (date) => {
-    setFormData({
-      ...formData,
-      birthday: date,
-    });
-  };
+  const onFinish = async (values) => {
+    const formData = new FormData();
+    // Append form data fields
+    formData.append("username", values.username);
+    formData.append("fullname", values.fullName);
+    formData.append(
+      "birthday",
+      values.birthday
+        ? dayjs(values.birthday, "DD/MM/YYYY").format("YYYY-MM-DD")
+        : "",
+    );
+    formData.append("gender", values.gender);
+    formData.append("phoneNumber", values.phoneNumber);
+    formData.append("address", values.address);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    // Append uploaded image (if any)
+    if (fileList.length > 0) {
+      formData.append("avatar", fileList[0].originFileObj);
+    } else {
+      formData.append("avatar", values.avatar);
+    }
+
     console.log(formData);
-    setIsActive("userinfo"); // Switch back to "userinfo" tab after saving
+
+    try {
+      // Call the API to update user information
+      const res = await updateUserInfomation(
+        account.id,
+        formData,
+        values.avatar,
+      );
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        toast.success(res.EM);
+        dispatch(updateInformation({ ...res.DT, avatar: res.DT?.avatar?.url }));
+        setFileList([]); // Clear the uploaded file
+        setUploadStatus(""); // Clear the upload status after success
+      }
+      if (res && res.EC === StatusCodes.ERROR_DEFAULT) {
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      message.error("Failed to update profile.");
+    }
+  };
+
+  const labelWithRequired = (label) => <span>{label}</span>;
+
+  const props = {
+    onRemove: (file) => {
+      setFileList([]); // Clear fileList when file is removed
+      setUploadStatus(""); // Clear upload status
+    },
+    beforeUpload: (file) => {
+      if (fileList.length >= 1) {
+        // If already has one file, show error message
+        message.error("You can only upload one file.");
+        return Upload.LIST_IGNORE; // Prevent adding the file
+      }
+      setFileList([file]); // Only allow one file
+      setUploadStatus(`Selected 1 file`); // Update upload status
+      return false; // Prevent auto upload
+    },
+    fileList,
+    showUploadList: false, // Hide default upload list
+  };
+
+  // Function to handle file removal
+  const handleRemoveFile = () => {
+    setFileList([]); // Clear the fileList
+    setUploadStatus(""); // Clear the upload status
+    message.success("File removed successfully."); // Show success message
   };
 
   return (
-    <div className="flex flex-row bg-white !h-screen !overflow-hidden p-3">
-      <div className="basis-1/4 flex flex-col justify-start border-r-2 border-gray-200 pt-24">
-        <Avatar
-          size={150}
-          src={account.avatar}
-          className="!mx-auto mb-12"
-          isActive={isActive}
-        />
-        <div className="mx-auto flex flex-col !items-center text-neutral-400 !w-full ">
-          <Tooltip placement="right" title={t("UserInfo.usertab")}>
-            <li
-              className={`${
-                isActive === "userinfo"
-                  ? "!font-semibold !text-black border-r-4 border-black"
-                  : ""
-              }  text-lg font-medium transition duration-200 flex justify-center cursor-pointer px-5 !w-full`}
-              onClick={() => setIsActive("userinfo")}
+    <div className="!h-full !w-full flex-row !overflow-hidden bg-white p-6">
+      <div className="mb-12 mt-4 flex w-full flex-row items-center">
+        <div className="relative ml-6 !h-fit !basis-3/12 !justify-start">
+          <Avatar size={180} src={account.avatar} />
+          {/* Display upload status below the upload button */}
+          <ImgCrop rotationSlider>
+            <Upload
+              className="absolute bottom-0 right-32 z-50 flex h-12 w-12 items-center justify-center rounded-full !bg-neutral-300 !text-black"
+              action={null}
+              onChange={onChange}
+              {...props}
             >
-              <div className="flex justify-start items-center !w-36">
-                <FaUserCircle className={`text-2xl !my-3 mr-2`} />
-                {t("UserInfo.usertab")}
-              </div>
-            </li>
-          </Tooltip>
-          <Tooltip placement="right" title={t("UserInfo.edittab")}>
-            <li
-              className={`${
-                isActive === "editing"
-                  ? "!font-semibold !text-black border-r-4 border-black"
-                  : ""
-              }  text-lg font-medium transition duration-200 flex items-center justify-center cursor-pointer px-5 !w-full text-left`}
-              onClick={() => setIsActive("editing")}
-            >
-              <div className="flex !justify-start items-center !w-36">
-                <FaCog className={`text-2xl !my-3 mr-2`} />
-                {t("UserInfo.edittab")}
-              </div>
-            </li>
-          </Tooltip>
+              {<IoCameraOutline className="text-2xl" />}
+            </Upload>
+          </ImgCrop>
+        </div>
+        <div className="!basis-8/12">
+          <div className="text-2xl font-semibold">{account.fullname}</div>
+          <div className="mb-3 mt-2 flex !text-lg">
+            <div className="mr-1 font-medium text-blue-400">
+              {account.email}
+            </div>
+            <div>-</div>
+            <div className="ml-1 capitalize">{account.role}</div>
+          </div>
+          <div className="flex items-center">
+            <Button type="default" onClick={handleRemoveFile}>
+              Remove File
+            </Button>
+            {uploadStatus && (
+              <div className="ml-4 text-sm text-gray-600">{uploadStatus}</div>
+            )}
+          </div>
         </div>
       </div>
-      <form onSubmit={handleSubmit} className="p-8 basis-3/4">
-        <h1 className="text-2xl font-semibold mb-4 border-b-2 border-gray-200">
-          {t("UserInfo.title")}
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-md font-medium text-gray-700">
-              {t("UserInfo.username")}
-            </label>
-            <input
-              type="text"
+
+      <div className="mb-5 ml-8 text-2xl">Account</div>
+
+      <Form
+        form={form}
+        onFinish={onFinish}
+        initialValues={{
+          username: account.username,
+          email: account.email,
+          fullName: account.fullname,
+          role: account.role,
+          gender: account.gender,
+          birthday: dayjs(account.birthday, "DD/MM/YYYY"),
+          phoneNumber: account.phoneNumber,
+          address: account.address,
+          avatar: account.avatar.url,
+        }}
+        layout="vertical"
+        className="!ml-8"
+      >
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
               name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-              disabled={isActive === "userinfo"} // Disable when in "userinfo"
-              className="mt-1 block w-full rounded-sm border-2 border-gray-200 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-
-          <div>
-            <label className="block text-md font-medium text-gray-700">
-              {t("UserInfo.currentpassword")}
-            </label>
-            <input
-              type="password"
-              name="currentPassword"
-              value={formData.currentPassword}
-              onChange={handleInputChange}
-              disabled={isActive === "userinfo"}
-              className="mt-1 block w-full rounded-sm border-2 border-gray-200 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-
-          <div>
-            <label className="block text-md font-medium text-gray-700">
-              {t("UserInfo.email")}
-            </label>
-            <input
-              type="email"
+              label={labelWithRequired("Username")}
+              rules={[
+                { required: true, message: "Please enter your username" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
               name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              disabled={isActive === "userinfo"}
-              className="mt-1 block w-full rounded-sm border-2 border-gray-200 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-
-          <div>
-            <label className="block text-md font-medium text-gray-700">
-              {t("UserInfo.newpassword")}
-            </label>
-            <input
-              type="password"
-              name="newPassword"
-              value={formData.newPassword}
-              onChange={handleInputChange}
-              disabled={isActive === "userinfo"}
-              className="mt-1 block w-full rounded-sm border-2 border-gray-200 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-
-          <div>
-            <label className="block text-md font-medium text-gray-700">
-              {t("UserInfo.gender")}
-            </label>
-            <select
-              name="gender"
-              value={formData.gender}
-              onChange={handleInputChange}
-              disabled={isActive === "userinfo"}
-              className="mt-1 block w-full rounded-sm border-2 border-gray-200 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              label={labelWithRequired("Email")}
+              rules={[
+                { required: true, message: "Please enter your email" },
+                { type: "email", message: "Please enter a valid email" },
+              ]}
             >
-              {t("UserInfo.genderselection", { returnObjects: true }).map(
-                (gender, index) => (
-                  <option key={index} value={gender}>
-                    {gender}
-                  </option>
-                )
-              )}
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-md font-medium text-gray-700">
-              {t("UserInfo.confirmpassword")}
-            </label>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
-              disabled={isActive === "userinfo"}
-              className="mt-1 block w-full rounded-sm border-2 border-gray-200 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-
-          <div>
-            <label className="block text-md font-medium text-gray-700">
-              {t("UserInfo.language")}
-            </label>
-            <select
-              name="language"
-              value={formData.language}
-              onChange={handleInputChange}
-              disabled={isActive === "userinfo"}
-              className="mt-1 block w-full rounded-sm border-2 border-gray-200 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              <Input disabled/>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              name="fullName"
+              label={labelWithRequired("Full name")}
+              rules={[
+                { required: true, message: "Please enter your full name" },
+              ]}
             >
-              <option value="English">English</option>
-              <option value="Spanish">Spanish</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-md font-medium text-gray-700">
-              {t("UserInfo.country")}
-            </label>
-            <select
-              name="country"
-              value={formData.country}
-              onChange={handleInputChange}
-              disabled={isActive === "userinfo"}
-              className="mt-1 block w-full rounded-sm border-2 border-gray-200 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            >
-              <option value="United States">United States</option>
-              <option value="Canada">Canada</option>
-            </select>
-          </div>
-
-          <div className="">
-            <label className="block text-md font-medium text-gray-700">
-              {t("UserInfo.birthday")}
-            </label>
-            <DatePicker
-              selected={formData.birthday}
-              onChange={handleDateChange}
-              dateFormat="MMMM d, yyyy"
-              disabled={isActive === "userinfo"}
-              className="mt-1 block w-full rounded-sm border-2 border-gray-200 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-          {isActive === "editing" && (
-            <div className="mt-6">
-              <button
-                type="submit"
-                className="px-4 py-2 bg-violet-700 text-white rounded-sm border-2 border-gray-200 p-2 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                {t("UserInfo.save")}
-              </button>
-            </div>
-          )}
-        </div>
-      </form>
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name="birthday" label="Birthday">
+              <DatePicker format={"DD/MM/YYYY"} className="w-full" />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name="gender" label="Gender">
+              <Select>
+                <Option value="male">Male</Option>
+                <Option value="female">Female</Option>
+                <Option value="other">Other</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name="phoneNumber" label="Phone Number">
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name="address" label="Address">
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name="role" label="Role">
+              <Select disabled>
+                <Option value="customer">Customer</Option>
+                <Option value="staff">Staff</Option>
+                <Option value="admin">Admin</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form>
     </div>
   );
 };

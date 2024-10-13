@@ -39,12 +39,12 @@ const Setting = () => {
   };
 
   return (
-    <div className="mx-auto shadow-md p-4">
+    <div className="mx-auto p-4 shadow-md">
       {/* <div className="mb-6 text-center"> */}
-        {/* <SettingOutlined className="text-4xl text-blue-500" /> */}
-        <Title level={2} className="mt-4">
-          Settings
-        </Title>
+      {/* <SettingOutlined className="text-4xl text-blue-500" /> */}
+      <Title level={2} className="mt-4">
+        Settings
+      </Title>
       {/* </div> */}
 
       {/* My Notifications Section */}
@@ -92,27 +92,33 @@ const Setting = () => {
           </div> */}
 
           <div>
-            <Title level={5}>Desktop Notification</Title>
+            <div className="flex">
+              <Title level={5} className="mr-10">Desktop Notification</Title>
+              <Switch
+                checked={desktopNotification}
+                onChange={setDesktopNotification}
+              />
+            </div>
             <Text className="mb-2 block">
               Receive desktop notifications whenever your organisation requires
               your attention.
             </Text>
-            <Switch
-              checked={desktopNotification}
-              onChange={setDesktopNotification}
-            />
           </div>
 
           <div>
-            <Title level={5}>Email Notification</Title>
+            <div className="flex">
+              <Title level={5} className="!mr-10">
+                Email Notification{" "}
+              </Title>
+              <Switch
+                checked={emailNotification}
+                onChange={setEmailNotification}
+              />
+            </div>
             <Text className="mb-2 block">
               Receive email notifications whenever your organisation requires
               your attention.
             </Text>
-            <Switch
-              checked={emailNotification}
-              onChange={setEmailNotification}
-            />
           </div>
         </div>
       </div>
@@ -123,7 +129,7 @@ const Setting = () => {
           My Settings
         </Divider> */}
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-1">
           {/* Appearance */}
           <div>
             <Title level={5}>Appearance</Title>
@@ -133,21 +139,11 @@ const Setting = () => {
             <Select
               value={appearance}
               onChange={handleAppearanceChange}
-              className="w-full"
+              className="w-1/3"
             >
               <Option value="Light">Light</Option>
               <Option value="Dark">Dark</Option>
             </Select>
-          </div>
-
-          {/* Two Factor Auth */}
-          <div>
-            <Title level={5}>Two-factor authentication</Title>
-            <Text className="mb-2 block">
-              Keep your account secure by enabling 2FA via SMS or using a
-              temporary one-time passcode (TOTP).
-            </Text>
-            <Switch checked={twoFactorAuth} onChange={setTwoFactorAuth} />
           </div>
 
           {/* Language */}
@@ -159,7 +155,7 @@ const Setting = () => {
             <Select
               value={language}
               onChange={handleLanguageChange}
-              className="w-full"
+              className="w-1/3"
             >
               <Option value="English">English</Option>
               <Option value="Vietnamese">Vietnamese</Option>
