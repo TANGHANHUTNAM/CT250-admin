@@ -4,13 +4,15 @@ import { PiDeviceTabletSpeakerFill } from "react-icons/pi";
 import { TiShoppingCart } from "react-icons/ti";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Notifications = () => {
+  const { t } = useTranslation();
   const notificationsMenu = (
     <div className="w-64 rounded-lg bg-white p-3 shadow-lg">
       {/* Header */}
       <div className="rounded-t-lg bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-600">
-        You have 5 notifications
+        {t("Notifications.content1")}
       </div>
 
       {/* Notifications List */}
@@ -23,7 +25,7 @@ const Notifications = () => {
           >
             {/* SVG path */}
           </svg>
-          <span className="text-gray-700">New user registered</span>
+          <span className="text-gray-700">{t("Notifications.content2")}</span>
         </li>
         <li className="flex items-center px-4 py-2 hover:bg-gray-100">
           <svg
@@ -33,7 +35,7 @@ const Notifications = () => {
           >
             {/* SVG path */}
           </svg>
-          <span className="text-gray-700">User deleted</span>
+          <span className="text-gray-700">{t("Notifications.content3")}</span>
         </li>
         <li className="flex items-center px-4 py-2 hover:bg-gray-100">
           <svg
@@ -43,7 +45,7 @@ const Notifications = () => {
           >
             {/* SVG path */}
           </svg>
-          <span className="text-gray-700">Sales report is ready</span>
+          <span className="text-gray-700">{t("Notifications.content4")}</span>
         </li>
         <li className="flex items-center px-4 py-2 hover:bg-gray-100">
           <svg
@@ -53,7 +55,7 @@ const Notifications = () => {
           >
             {/* SVG path */}
           </svg>
-          <span className="text-gray-700">New client</span>
+          <span className="text-gray-700">{t("Notifications.content5")}</span>
         </li>
         <li className="flex items-center px-4 py-2 hover:bg-gray-100">
           <svg
@@ -63,7 +65,7 @@ const Notifications = () => {
           >
             {/* SVG path */}
           </svg>
-          <span className="text-gray-700">Server overloaded</span>
+          <span className="text-gray-700">{t("Notifications.content6")}</span>
         </li>
       </ul>
 
@@ -116,13 +118,14 @@ const Notifications = () => {
   );
 
   const reservation = useSelector((state) => state.reservation);
+
   const orderTableMenu = (
     <div className="dropdown-menu show w-80 rounded-lg bg-white p-0 shadow-lg">
       <h6 className="dropdown-header rounded-t-lg bg-red-500 p-2 pl-4 font-semibold text-white">
-        Bạn có {reservation?.total} đơn đặt bàn mới
+        {t("Notifications.reservation.new", { total: reservation?.total })}
       </h6>
       <ul className="w-full divide-y divide-gray-200">
-        {reservation?.data?.map((item) => {
+        {reservation?.data?.slice(0, 3)?.map((item) => {
           return (
             <li key={item?._id} className="flex w-full px-4 py-2">
               <div className="w-full">
@@ -153,7 +156,7 @@ const Notifications = () => {
           to={"/table-order"}
           className="font-semibold text-red-500 hover:text-red-600"
         >
-          Xem tất cả đơn
+          {t("Notifications.reservation.seeAllOrder")}
         </Link>
       </div>
     </div>
@@ -166,7 +169,7 @@ const Notifications = () => {
   const contactMenu = (
     <div className="dropdown-menu show rounded-lg bg-white p-0 shadow-lg">
       <h6 className="dropdown-header rounded-t-lg bg-blue-500 p-2 pl-4 font-semibold text-white">
-        Bạn có {totalContactPending} liên hệ mới
+        {t("Notifications.contacts.new", { totalContactPending })}
       </h6>
       <ul className="divide-y divide-gray-200">
         {contactPending.slice(0, 3).map((contact) => {
@@ -199,7 +202,7 @@ const Notifications = () => {
       </ul>
       <div className="border-t border-gray-200 py-2 text-center">
         <Link to={"/manage-contact"} className="font-semibold text-blue-600">
-          Xem tất cả liên hệ
+          {t("Notifications.contacts.seeAllContact")}
         </Link>
       </div>
     </div>

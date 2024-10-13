@@ -81,6 +81,8 @@ const HandleReservationModal = ({
       handleCancel();
       getReservations();
       setSelectedReservation(null);
+      setSelectedTables({});
+      setRemainPeoples(0);
     }
 
     if (res && res.EC === StatusCodes.ERROR_DEFAULT) {
@@ -105,7 +107,7 @@ const HandleReservationModal = ({
           return newSelected;
         });
         setRemainPeoples((prev) =>
-          Math.min(data?.peopleNumber ?? 0, prev + capacity)
+          Math.min(data?.peopleNumber ?? 0, prev + capacity),
         );
       } else if (remainPeoples > 0) {
         // chưa được chọn
@@ -168,18 +170,18 @@ const HandleReservationModal = ({
         },
       }}
     >
-      <div className="py-2 divide-y divide-gray-300">
-        <div className="py-4 space-y-2.5">
-          <div className="flex justify-between items-center">
+      <div className="divide-y divide-gray-300 py-2">
+        <div className="space-y-2.5 py-4">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <FaUser className="w-4 h-4 text-violet-600" />
+              <FaUser className="h-4 w-4 text-violet-600" />
               <span className="text-base">
                 {t("Reservation.handleReservation.peopleNumber")}:{" "}
                 <span className="font-semibold">{data?.peopleNumber}</span>
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <FaUser className="w-4 h-4 text-violet-600" />
+              <FaUser className="h-4 w-4 text-violet-600" />
               <span className="text-base">
                 {t("Reservation.handleReservation.isNotAssigned")}:{" "}
                 <span className="font-semibold">{remainPeoples}</span>
@@ -188,7 +190,7 @@ const HandleReservationModal = ({
           </div>
           {data?.note && (
             <div className="flex items-center gap-2">
-              <CgNotes className="w-4 h-4 text-violet-600" />
+              <CgNotes className="h-4 w-4 text-violet-600" />
               <span className="text-base">
                 {t("Reservation.handleReservation.note")}:{" "}
                 <span className="font-semibold">{data?.note}</span>
@@ -196,7 +198,7 @@ const HandleReservationModal = ({
             </div>
           )}
         </div>
-        <div className="py-4 space-y-8">
+        <div className="space-y-8 py-4">
           {tables.length > 0 ? (
             tables.map((table, i) => {
               return (
@@ -206,28 +208,28 @@ const HandleReservationModal = ({
                 >
                   <div className="shrink-0">
                     <p className="flex items-center gap-2">
-                      <MdTableRestaurant className="w-5 h-5 text-violet-400" />
+                      <MdTableRestaurant className="h-5 w-5 text-violet-400" />
                       <span className="text-base font-medium">
                         {table?.typeName}
                       </span>
                     </p>
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 "></div>
-                      <span className="font-medium text-gray-600 text-sm">
+                      <div className="h-5 w-5"></div>
+                      <span className="text-sm font-medium text-gray-600">
                         {t("Reservation.handleReservation.capacity")}:{" "}
                         <span>{table?.capacity}</span>
                       </span>
                     </div>
                   </div>
-                  <div className="grow grid grid-cols-10 gap-4 py-1.5">
+                  <div className="grid grow grid-cols-10 gap-4 py-1.5">
                     {table?.tables?.map((item, i) => {
                       return (
                         <div
                           key={i}
-                          className="col-span-1 flex justify-center items-center"
+                          className="col-span-1 flex items-center justify-center"
                         >
                           <div
-                            className={`w-9 h-9 text-sm border-2 border-violet-600 font-medium rounded-full flex justify-center items-center cursor-pointer hover:bg-violet-600 ${
+                            className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-violet-600 text-sm font-medium hover:bg-violet-600 ${
                               selectedTables[item?.tableId]
                                 ? "bg-violet-600 text-white"
                                 : ""
@@ -246,7 +248,7 @@ const HandleReservationModal = ({
               );
             })
           ) : (
-            <div className="px-4 py-2.5 bg-violet-100 font-medium text-violet-700 rounded-md">
+            <div className="rounded-md bg-violet-100 px-4 py-2.5 font-medium text-violet-700">
               {t("Reservation.handleReservation.emptyTables")}
             </div>
           )}

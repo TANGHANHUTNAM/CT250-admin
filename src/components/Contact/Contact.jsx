@@ -1,8 +1,10 @@
+import { useTranslation } from "react-i18next";
 import { useDynamicTitle } from "../../hooks";
 import TabContact from "./TabContact";
 
 const Contact = () => {
-  useDynamicTitle("Quản lý liên hệ");
+  const {t} = useTranslation();
+  useDynamicTitle(t("Contact.title"));
   return (
     <div className="p-3">
       <TabContact />

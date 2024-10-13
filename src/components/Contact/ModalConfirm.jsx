@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import StatusCodes from "../../utils/StatusCodes";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 const ModalConfirm = ({
   contact,
   pagePending,
@@ -23,7 +24,7 @@ const ModalConfirm = ({
         const newTotalPages = Math.ceil(newTotalContacts / limitPending);
         const newPagePending = Math.max(
           pagePending > newTotalPages ? newTotalPages : pagePending,
-          1
+          1,
         );
         onChangeTablePending({
           current: newPagePending,
@@ -33,7 +34,7 @@ const ModalConfirm = ({
           fetchContactPending({
             page: newPagePending,
             limit: limitPending,
-          })
+          }),
         );
       }
       toast.success(res.EM);
@@ -51,18 +52,18 @@ const ModalConfirm = ({
     handleDeleteContact(contact._id);
   };
   const cancel = () => {};
+  const { t } = useTranslation();
   return (
     <Popconfirm
-      title={`Xóa liên hệ`}
-      description={`Bạn có chắc chắn muốn xóa liên hệ này không?`}
-      okText={`Có`}
-      cancelText={`Không`}
+      title={t("ModalConfirm.title")}
+      description={t("ModalConfirm.description")}
+      okText={t("ModalConfirm.okText")}
+      cancelText={t("ModalConfirm.cancelText")}
       onConfirm={confirm}
       onCancel={cancel}
     >
-      <button className=" text-white bg-red-400 hover:bg-red-500 flex items-center justify-center rounded-md p-2 gap-1">
+      <button className="flex items-center justify-center rounded-md p-2 text-base text-red-500 hover:text-red-500/90">
         <FaRegTrashAlt />
-        <span>Xóa</span>
       </button>
     </Popconfirm>
   );

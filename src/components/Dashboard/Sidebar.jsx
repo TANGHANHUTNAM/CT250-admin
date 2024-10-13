@@ -17,12 +17,8 @@ import { MdDiscount } from "react-icons/md";
 import { MdPermContactCalendar } from "react-icons/md";
 import { IoNewspaper } from "react-icons/io5";
 import { TbLogout2 } from "react-icons/tb";
-
 import { IoMdStats } from "react-icons/io";
 import { FaUsersGear } from "react-icons/fa6";
-import { FaUserTie } from "react-icons/fa6";
-import { PiDeviceTabletSpeakerFill } from "react-icons/pi";
-import { BiSolidFoodMenu } from "react-icons/bi";
 
 const { Sider } = Layout;
 const Sidebar = ({ collapsed }) => {
@@ -51,118 +47,134 @@ const Sidebar = ({ collapsed }) => {
   const menuItems = [
     {
       key: "/",
-      icon: <RxDashboard className="w-4 h-4" />,
+      icon: <RxDashboard className="h-4 w-4" />,
       label: (
         <Link to="/" className="text-sm">
-          Dashboard
+          {t("Sidebar.dashboard")}
         </Link>
       ),
     },
+
     {
       key: "/manage-statistical",
-      icon: <IoMdStats className="w-4 h-4" />,
+      icon: <IoMdStats className="h-4 w-4" />,
       label: (
         <Link to="/manage-statistical" className="text-sm">
-          Thống kê
+          {t("Sidebar.statistical")}
         </Link>
       ),
     },
     {
-      key: "/manage-emloyee",
-      icon: <FaUsersGear className="w-4 h-4" />,
+      key: "/manage-user",
+      icon: <FaUsersGear className="h-4 w-4" />,
       label: (
-        <Link to="/manage-emloyee" className="text-sm">
-          Nhân viên
+        <Link to="/manage-user" className="text-sm">
+          Người dùng
         </Link>
       ),
     },
     {
-      key: "/manage-customer",
-      icon: <FaUserTie className="w-4 h-4" />,
-      label: (
-        <Link to="/manage-customer" className="text-sm">
-          Khách hàng
-        </Link>
-      ),
+      key: "Đơn bàn",
+      icon: <MdTableRestaurant className="h-4 w-4" />,
+      label: <div className="text-sm">Đơn bàn</div>,
+      children: [
+        {
+          key: "/table-order",
+          label: (
+            <Link to="/table-order" className="text-sm">
+              Đơn đặt bàn
+            </Link>
+          ),
+        },
+        {
+          key: "/manage-table",
+          label: (
+            <Link to="/manage-table" className="text-sm">
+              Quản lý bàn
+            </Link>
+          ),
+        },
+      ],
     },
     {
-      key: "/table-order",
-      icon: <PiDeviceTabletSpeakerFill className="w-4 h-4" />,
-      label: (
-        <Link to="/table-order" className="text-sm">
-          Đơn đặt bàn
-        </Link>
-      ),
+      key: "Đơn hàng",
+      icon: <TiShoppingCart className="h-4 w-4" />,
+      label: <div className="text-sm">Đơn hàng</div>,
+      children: [
+        {
+          key: "/dishes-order",
+          label: (
+            <Link to="/dishes-order" className="text-sm">
+              Đơn đặt hàng
+            </Link>
+          ),
+        },
+        {
+          key: "/manage-order",
+          label: (
+            <Link to="/manage-order" className="text-sm">
+              Quản đơn hàng
+            </Link>
+          ),
+        },
+      ],
     },
     {
-      key: "/manage-table",
-      icon: <MdTableRestaurant className="w-4 h-4" />,
-      label: (
-        <Link to="/manage-table" className="text-sm">
-          Quản lý bàn
-        </Link>
-      ),
-    },
-    {
-      key: "/dishes-order",
-      icon: <TiShoppingCart className="w-4 h-4" />,
-      label: (
-        <Link to="/dishes-order" className="text-sm">
-          Đơn hàng
-        </Link>
-      ),
-    },
-    {
-      key: "/manage-dishes",
-      icon: <FaBowlFood className="w-4 h-4" />,
-      label: (
-        <Link to="/manage-dishes" className="text-sm">
-          Quản lý món ăn
-        </Link>
-      ),
-    },
-    {
-      key: "/manage-category",
-      icon: <BiSolidFoodMenu className="w-4 h-4" />,
-      label: (
-        <Link to="/manage-category" className="text-sm">
-          Quản lý danh mục
-        </Link>
-      ),
+      key: "Món ăn",
+      icon: <FaBowlFood className="h-4 w-4" />,
+      label: <div className="text-sm">Món ăn</div>,
+      children: [
+        {
+          key: "/manage-dishes",
+          label: (
+            <Link to="/manage-dishes" className="text-sm">
+              Quản lý món ăn
+            </Link>
+          ),
+        },
+        {
+          key: "/manage-category",
+          label: (
+            <Link to="/manage-category" className="text-sm">
+              Quản lý danh mục
+            </Link>
+          ),
+        },
+      ],
     },
     {
       key: "/manage-discount",
-      icon: <MdDiscount className="w-4 h-4" />,
+      icon: <MdDiscount className="h-4 w-4" />,
       label: (
         <Link to="/manage-discount" className="text-sm">
-          Giảm giá
+          {t("Sidebar.manageDiscount")}
         </Link>
       ),
     },
     {
       key: "/manage-contact",
-      icon: <MdPermContactCalendar className="w-4 h-4" />,
+      icon: <MdPermContactCalendar className="h-4 w-4" />,
       label: (
         <Link to="/manage-contact" className="text-sm">
-          Liên hệ
+          {t("Sidebar.manageContact")}
         </Link>
       ),
     },
     {
       key: "/manage-news",
-      icon: <IoNewspaper className="w-4 h-4" />,
+      icon: <IoNewspaper className="h-4 w-4" />,
       label: (
         <Link to="/manage-news" className="text-sm">
-          Tin tức
+          {t("Sidebar.manageNews")}
         </Link>
       ),
     },
     {
       key: "/logout",
-      icon: <TbLogout2 onClick={() => handleLogout()} className="w-4 h-4" />,
+      icon: <TbLogout2 onClick={() => handleLogout()} className="h-4 w-4" />,
       label: (
         <span onClick={() => handleLogout()} className="text-sm">
-          Đăng xuất
+          {t("Sidebar.logout")}
         </span>
       ),
     },
@@ -172,7 +184,7 @@ const Sidebar = ({ collapsed }) => {
     if (
       role === "staff" &&
       (item.key === "/manage-statistical" ||
-        item.key === "/manage-emloyee" ||
+        item.key === "/manage-user" ||
         item.key === "/manage-customer")
     ) {
       return false;
@@ -196,16 +208,16 @@ const Sidebar = ({ collapsed }) => {
       style={siderStyle}
       collapsible
       collapsed={collapsed}
-      className={`!bg-white  !flex-none ${
+      className={`!flex-none !bg-white ${
         !collapsed ? "!max-w-auto" : "!max-w-fit"
-      } !min-w-14 duration-300 transition-all`}
+      } !min-w-14 transition-all duration-300`}
     >
       {collapsed ? (
         <div className="my-3">
           <Link to="/">
             <img
               src={favicon}
-              className=" m-auto mt-3"
+              className="m-auto mt-3"
               alt=""
               width={45}
               height={45}
@@ -215,14 +227,15 @@ const Sidebar = ({ collapsed }) => {
       ) : (
         <div className="">
           <Link to="/">
-            <img src={logo} className=" m-auto w-full p-3" alt="" />
+            <img src={logo} className="m-auto w-full p-3" alt="" />
           </Link>
         </div>
       )}
       <Menu
+        mode="inline"
         className="font-medium"
-        defaultSelectedKeys={["/"]}
         items={filteredMenuItems}
+        defaultSelectedKeys={["/"]}
         selectedKeys={window.location.pathname}
       />
     </Sider>
