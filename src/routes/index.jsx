@@ -6,7 +6,7 @@ import UserInfo from "../components/UserInfo/UserInfo";
 import ReservationLayout from "../layouts/ReservationLayout";
 import OrderLayout from "../layouts/OrderLayout";
 import Statistical from "../components/Statistical/Statistical";
-import Discount from "../components/Discount/Discount";
+import ManageDiscount from "../components/Discount/ManageDiscount";
 import Contact from "../components/Contact/Contact";
 import News from "../components/News/News";
 import { PrivateRoute, RoleRoute } from "./privateRoute";
@@ -82,7 +82,7 @@ const routes = [
       },
       {
         path: "manage-discount",
-        element: <Discount />,
+        element: <ManageDiscount />,
       },
       {
         path: "manage-contact",

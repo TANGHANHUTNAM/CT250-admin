@@ -22,7 +22,7 @@ import ModalViewUser from "./ModalViewUser";
 import {
   deleteUserRoleStaff,
   getAllUserWithFilter,
-} from "../../services/accountServiec";
+} from "../../services/accountService";
 import StatusCodes from "../../utils/StatusCodes";
 import Avatar from "../avatar/Avatar";
 import { toast } from "react-toastify";
