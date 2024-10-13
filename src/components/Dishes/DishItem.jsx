@@ -1,5 +1,4 @@
 import { FaEye, FaStar } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { formatCurrency } from "../../utils/format";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { CiEdit } from "react-icons/ci";
@@ -10,6 +9,7 @@ const DishItem = ({
   setDishDetail,
   setOpenModalViewDish,
   setOpenModalEditDish,
+  handleDeleteDish,
 }) => {
   return (
     <div className="p-2">
@@ -88,7 +88,7 @@ const DishItem = ({
             <Popconfirm
               title={`Xóa món ăn ${dish?.name}`}
               description={`Bạn có chắc chắn muốn xóa món ăn này?`}
-              onConfirm={() => {}}
+              onConfirm={() => handleDeleteDish(dish?._id)}
               onCancel={() => {}}
               okText="Có"
               cancelText="Không"

@@ -20,7 +20,7 @@ const ModalContactPending = ({
   onChangeTableCompleted,
   isLoading,
 }) => {
-  const { t }= useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [contentReply, setContentReply] = useState("");
   const [error, setError] = useState("");
@@ -38,17 +38,17 @@ const ModalContactPending = ({
       return;
     } else {
       setIsLoading(true);
-      const res = await replyContactService(contact._id, {
-        replyContent: contentReply,
-        staffId: id,
-      });
       try {
+        const res = await replyContactService(contact._id, {
+          replyContent: contentReply,
+          staffId: id,
+        });
         if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
           const newTotalContacts = totalContactPending - 1;
           const newTotalPages = Math.ceil(newTotalContacts / limitPending);
           const newPagePending = Math.max(
             pagePending > newTotalPages ? newTotalPages : pagePending,
-            1
+            1,
           );
           onChangeTablePending({
             current: newPagePending,
@@ -58,7 +58,7 @@ const ModalContactPending = ({
             fetchContactPending({
               page: newPagePending,
               limit: limitPending,
-            })
+            }),
           );
           onChangeTableCompleted({
             current: 1,
@@ -68,7 +68,7 @@ const ModalContactPending = ({
             fetchContactCompleted({
               page: 1,
               limit: limitCompleted,
-            })
+            }),
           );
           toast.success(res.EM);
           setIsLoading(false);
@@ -109,25 +109,35 @@ const ModalContactPending = ({
         <div className="Modal">
           <div className="grid grid-cols-2 text-base">
             {/* Customer */}
-            <div className="customer pr-6 flex flex-col gap-3 mt-3">
+            <div className="customer mt-3 flex flex-col gap-3 pr-6">
               <div className="">
-                <span className="font-semibold opacity-85">{t("ModalContactPending.customerName")}</span>
+                <span className="font-semibold opacity-85">
+                  {t("ModalContactPending.customerName")}
+                </span>
                 <div className="">{contact?.customerName}</div>
               </div>
               <div className="">
-                <span className="font-semibold opacity-85">{t("ModalContactPending.customerEmail")}</span>
+                <span className="font-semibold opacity-85">
+                  {t("ModalContactPending.customerEmail")}
+                </span>
                 <div className="">{contact?.customerEmail}</div>
               </div>
               <div className="">
-                <span className="font-semibold opacity-85">{t("ModalContactPending.customerPhone")}</span>
+                <span className="font-semibold opacity-85">
+                  {t("ModalContactPending.customerPhone")}
+                </span>
                 <div className="">{contact?.customerPhone}</div>
               </div>
               <div className="">
-                <span className="font-semibold opacity-85">{t("ModalContactPending.customerContent")}</span>
+                <span className="font-semibold opacity-85">
+                  {t("ModalContactPending.customerContent")}
+                </span>
                 <div className="">{contact?.content}</div>
               </div>
               <div className="">
-                <span className="font-semibold opacity-85">{t("ModalContactPending.customerDate")}</span>
+                <span className="font-semibold opacity-85">
+                  {t("ModalContactPending.customerDate")}
+                </span>
                 <div className="">
                   {new Date(contact?.createdAt).toLocaleString("vi-VN", {
                     day: "2-digit",
@@ -141,15 +151,17 @@ const ModalContactPending = ({
               </div>
             </div>
             {/* Nội dung phản hồi */}
-            <div className="p-3 border-solid border border-black/50 rounded-lg">
-              <div className="font-semibold opacity-85:">{t("ModalContactPending.feedbackContent")}</div>
+            <div className="rounded-lg border border-solid border-black/50 p-3">
+              <div className="opacity-85: font-semibold">
+                {t("ModalContactPending.feedbackContent")}
+              </div>
               <div className="form mt-3">
                 <form onSubmit={handleOk} action="w-full">
                   <textarea
                     disabled={isLoading}
                     value={contentReply}
                     onChange={(e) => setContentReply(e.target.value)}
-                    className="w-full h-48 p-3 border border-black/50 rounded-lg"
+                    className="h-48 w-full rounded-lg border border-black/50 p-3"
                     placeholder={t("ModalContactPending.placeholder")}
                   />
                   <span className="text-sm text-red-500">{error}</span>

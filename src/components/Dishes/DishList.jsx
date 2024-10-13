@@ -6,6 +6,7 @@ const DishList = ({
   setDishDetail,
   setOpenModalViewDish,
   setOpenModalEditDish,
+  handleDeleteDish,
 }) => {
   if (isLoading) {
     return (
@@ -15,7 +16,7 @@ const DishList = ({
     );
   } else
     return listDish && listDish.length > 0 ? (
-      <div className="grid min-h-screen sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid sm:grid-cols-3 lg:grid-cols-5">
         {listDish.map((dish) => {
           return (
             <DishItem
@@ -24,6 +25,7 @@ const DishList = ({
               setDishDetail={setDishDetail}
               setOpenModalViewDish={setOpenModalViewDish}
               setOpenModalEditDish={setOpenModalEditDish}
+              handleDeleteDish={handleDeleteDish}
             />
           );
         })}
