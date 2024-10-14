@@ -2,7 +2,7 @@ import { DatePicker, Form, Input, Modal, Select } from "antd";
 import dayjs from "dayjs";
 import StatusCodes from "../../utils/StatusCodes";
 import { toast } from "react-toastify";
-import { createUserRoleStaff } from "../../services/accountServiec";
+import { createUserRoleStaff } from "../../services/accountService";
 const ModalCreateEmployee = ({
   isLoading,
   setIsLoading,

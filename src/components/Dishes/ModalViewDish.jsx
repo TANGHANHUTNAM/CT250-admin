@@ -35,6 +35,9 @@ const ModalViewDish = ({
                   {dishDetail?.name}
                 </h2>
                 <p className="mb-2 text-gray-700">
+                  <strong>Thực đơn: </strong> {dishDetail?.category?.[1]?.name}
+                </p>
+                <p className="mb-2 text-gray-700">
                   <strong>Thành phần: </strong> {dishDetail?.ingredients}
                 </p>
                 <p className="mb-2 text-gray-700">
@@ -95,6 +98,15 @@ const ModalViewDish = ({
                     <span className="font-medium">
                       {" "}
                       {dishDetail?.averageRating}
+                    </span>
+                  </p>
+                  <p className="mb-2 text-gray-700">
+                    <strong>Ngày tạo:</strong>{" "}
+                    <span className="font-medium">
+                      {" "}
+                      {new Date(dishDetail?.createdAt).toLocaleDateString(
+                        "vi-VN",
+                      )}
                     </span>
                   </p>
                 </div>

@@ -58,12 +58,25 @@ const ModalViewUser = ({
                 </div>
                 <div>
                   <label className="mb-1 block text-base">Giới tính:</label>
-                  <p className="text-gray-600">{detailUser?.gender || "--"}</p>
+                  <p className="text-gray-600">
+                    {(detailUser?.gender === "male"
+                      ? "Nam"
+                      : detailUser?.gender === "female"
+                        ? "Nữ"
+                        : "Khác") || "--"}
+                  </p>
                 </div>
                 <div>
                   <label className="mb-1 block text-base">Ngày sinh:</label>
                   <p className="text-gray-600">
-                    {detailUser?.birthday || "--"}
+                    {new Date(detailUser?.birthday).toLocaleDateString(
+                      "vi-VN",
+                      {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                      },
+                    ) || "--"}
                   </p>
                 </div>
                 <div>
