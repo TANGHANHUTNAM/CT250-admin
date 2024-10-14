@@ -62,13 +62,19 @@ const SearchFilterInput = ({
       </Dropdown>
       <div className="relative">
         <input
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setCurrentPage(1);
+            setSearch(e.target.value);
+          }}
           className="h-full w-60 rounded-md border border-blue-500 p-1.5 pl-2 pr-10 outline-none"
           placeholder="username, tên, email"
           value={search}
         />
         <div
-          onClick={() => handleSearch(search)}
+          onClick={() => {
+            setCurrentPage(1);
+            handleSearch(search);
+          }}
           className="absolute right-0 top-0 flex h-full w-fit cursor-pointer items-center justify-center rounded-e-md bg-blue-500 p-2 text-base text-white hover:bg-blue-500/90"
         >
           <IoMdSearch />
