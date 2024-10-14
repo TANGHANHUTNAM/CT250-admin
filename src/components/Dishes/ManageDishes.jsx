@@ -1,17 +1,16 @@
 import DishList from "./DishList";
 import { MdAddCircleOutline, MdSearch } from "react-icons/md";
-import { Dropdown, Pagination } from "antd";
-import { MdFilterList } from "react-icons/md";
+import { Pagination } from "antd";
+import { GrPowerReset } from "react-icons/gr";
 import ModalCreateDish from "./ModalCreateDish";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ModalEditDish from "./ModalEditDish";
-import {
-  deleteDish,
-  getDishesWithPagination,
-} from "../../services/dishService";
+import { deleteDish, getDishesByFilter } from "../../services/dishService";
 import StatusCodes from "../../utils/StatusCodes";
 import ModalViewDish from "./ModalViewDish";
 import { toast } from "react-toastify";
+import FilterSort from "./FilterSort";
+import { debounce } from "lodash";
 const ManageDishes = () => {
   const [openModalCreateDish, setOpenModalCreateDish] = useState(false);
   const [openModalViewDish, setOpenModalViewDish] = useState(false);
@@ -23,16 +22,26 @@ const ManageDishes = () => {
   const [listDish, setListDish] = useState([]);
   const [dishDetail, setDishDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    fetchDishes();
-  }, [page, limit]);
+  const [filterCategory, setFilterCategory] = useState({
+    key: "",
+    value: "Chọn danh mục",
+  });
+  const [filterSortBy, setFilterSortBy] = useState({
+    key: "",
+    value: "Chọn loại sắp xếp",
+  });
+  const [filterPrice, setFilterPrice] = useState([]);
+  const [search, setSearch] = useState("");
 
   const fetchDishes = async () => {
     setIsLoading(true);
     let query = `page=${page}&limit=${limit}`;
+    if (search) query += `&search=${search}`;
+    if (filterCategory.key) query += `&category=${filterCategory.key}`;
+    if (filterSortBy.key) query += `&sortBy=${filterSortBy.key}`;
+    if (filterPrice.length > 0) query += `&price=${filterPrice.join(",")}`;
     try {
-      const res = await getDishesWithPagination(query);
+      const res = await getDishesByFilter(query);
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
         setListDish(res.DT.data);
         setTotal(res.DT.totalData);
@@ -44,6 +53,25 @@ const ManageDishes = () => {
       console.log(error);
     }
     setIsLoading(false);
+  };
+
+  const debouncedFetchDishes = useCallback(
+    debounce(() => {
+      fetchDishes();
+    }, 300),
+    [page, limit, filterCategory, filterSortBy, filterPrice, search],
+  );
+
+  useEffect(() => {
+    debouncedFetchDishes();
+    return () => {
+      debouncedFetchDishes.cancel();
+    };
+  }, [debouncedFetchDishes]);
+
+  const handleSearch = (value) => {
+    setSearch(value);
+    setPage(1);
   };
 
   const handleDeleteDish = async (id) => {
@@ -66,59 +94,28 @@ const ManageDishes = () => {
     }
     setIsLoading(false);
   };
-  const items2 = [
-    {
-      key: "1",
-      label: "Theo giá tăng dần",
-    },
-    {
-      key: "2",
-      label: "Theo giá giảm dần",
-    },
-    {
-      key: "3",
-      label: "Món mới nhất",
-    },
-    {
-      key: "4",
-      label: "Món cũ nhất",
-    },
-  ];
-  const items1 = [
-    {
-      key: "3",
-      label: "Món chính",
-    },
-    {
-      key: "4",
-      label: "Món phụ",
-    },
-  ];
 
+  const handleResetFilter = () => {
+    setFilterCategory({ key: "", value: "Chọn danh mục" });
+    setFilterSortBy({ key: "", value: "Chọn loại sắp xếp" });
+    setFilterPrice([]);
+    setSearch("");
+    setPage(1);
+    setLimit(5);
+  };
   return (
     <div className="p-3">
       <div className="mb-3 flex w-full items-center justify-between px-2">
         <div className="flex w-1/2 gap-1.5">
-          <Dropdown
-            menu={{
-              items: items1,
-            }}
-          >
-            <div className="flex h-full w-fit cursor-pointer items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-2 text-white">
-              <MdFilterList className="text-lg" />
-              <span className="ml-1">Lọc theo loại</span>
-            </div>
-          </Dropdown>
-          <Dropdown
-            menu={{
-              items: items2,
-            }}
-          >
-            <div className="flex h-full w-fit cursor-pointer items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-2 text-white">
-              <MdFilterList className="text-lg" />
-              <span className="ml-1">Lọc theo thuộc tính</span>
-            </div>
-          </Dropdown>
+          <FilterSort
+            filterCategory={filterCategory}
+            setFilterCategory={setFilterCategory}
+            filterSortBy={filterSortBy}
+            setFilterSortBy={setFilterSortBy}
+            filterPrice={filterPrice}
+            setFilterPrice={setFilterPrice}
+            setPage={setPage}
+          />
         </div>
         <div className="flex w-1/2 justify-end gap-1.5">
           <div className="relative text-black">
@@ -126,11 +123,29 @@ const ManageDishes = () => {
               className="h-full min-w-52 rounded-md border border-blue-500 px-2 outline-none focus:border-blue-600"
               type="text"
               placeholder={`Tìm kiếm món ăn`}
+              value={search}
+              onChange={(e) => {
+                setPage(1);
+                setSearch(e.target.value);
+              }}
             />
-            <button className="absolute right-0 top-0 flex h-full items-center justify-center rounded-md rounded-l-none bg-blue-500 px-1.5 hover:bg-blue-500/90">
+            <buttonsetPage
+              onClick={() => {
+                setPage(1);
+                handleSearch(search);
+              }}
+              className="absolute right-0 top-0 flex h-full items-center justify-center rounded-md rounded-l-none bg-blue-500 px-1.5 hover:bg-blue-500/90"
+            >
               <MdSearch className="text-lg text-white" />
-            </button>
+            </buttonsetPage>
           </div>
+          <button
+            onClick={() => handleResetFilter()}
+            className="flex min-w-fit items-center justify-center gap-1.5 rounded-md bg-blue-500 px-2 py-2 text-white hover:bg-blue-500/90"
+          >
+            <GrPowerReset className="text-base" />
+            <span>Reset</span>
+          </button>
           <button
             onClick={() => setOpenModalCreateDish(true)}
             className="flex min-w-fit items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-2 text-white hover:bg-blue-500/90"
@@ -161,6 +176,7 @@ const ManageDishes = () => {
         onShowSizeChange={(_, pageSize) => {
           setPage(1);
           setLimit(pageSize);
+          console.log(_);
         }}
         onChange={(page, pageSize) => {
           setPage(page);
