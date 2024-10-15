@@ -4,6 +4,7 @@ import HeaderBar from "../components/Header/HeaderBar";
 import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
 import { useNotifications } from "../hooks";
+import { Header } from "antd/es/layout/layout";
 const { Content } = Layout;
 
 const Main = () => {
@@ -21,7 +22,14 @@ const Main = () => {
         className="box-content !h-full !min-h-screen transition-all duration-300"
       >
         <HeaderBar collapsed={collapsed} setCollapsed={setCollapsed} />
-        <Content className="m-5 box-content flex min-h-[80vh] bg-white">
+        <Content
+          style={{
+            marginTop: 64, // Adjust based on the height of HeaderBar
+            overflow: "auto",
+            height: "calc(100vh - 64px)", // Adjust based on the height of HeaderBar
+          }}
+          className="m-5 flex bg-white"
+        >
           <div className="flex-1">
             <Outlet />
           </div>
