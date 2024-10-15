@@ -6,31 +6,31 @@ const ReservationList = ({
   setSelected = (item) => {},
 }) => {
   return (
-    <div className="w-full h-full max-h-[76.8vh] overflow-y-auto bg-white rounded-sm p-3 divide-y divide-gray-200">
+    <div className="h-full max-h-[76.8vh] w-full divide-y divide-gray-200 overflow-y-auto rounded-sm bg-white p-3">
       {reservations.length > 0 &&
         reservations.map((item, i) => {
           return (
             <div
               key={`${i}-${item?._id}`}
-              className={`px-3 py-4 w-full space-y-2 cursor-pointer hover:bg-violet-50 ${
-                selected?._id === item?._id ? "bg-violet-100" : ""
+              className={`w-full cursor-pointer space-y-2 px-3 py-4 hover:bg-blue-50 ${
+                selected?._id === item?._id ? "bg-blue-50" : ""
               }`}
               onClick={() => setSelected(item)}
             >
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <div
                   className={`text-base font-medium ${
-                    selected?._id === item?._id ? "text-violet-700" : ""
+                    selected?._id === item?._id ? "text-blue-600" : ""
                   }`}
                 >
-                  <span className="text-violet-700">#</span>
+                  <span className="text-blue-600">#</span>
                   {item?._id}
                 </div>
-                <div className="text-gray-500 text-sm">
+                <div className="text-sm text-gray-500">
                   {new Date(item?.createdAt).toLocaleString("vi-VN")}
                 </div>
               </div>
-              <div className="flex justify-between items-start text-sm text-gray-700">
+              <div className="flex items-start justify-between text-sm text-gray-700">
                 <div>
                   <p>{item?.customerName}</p>
                   <p>{item?.customerEmail}</p>
@@ -42,7 +42,7 @@ const ReservationList = ({
         })}
 
       {reservations.length === 0 && (
-        <div className="w-full h-full flex justify-center items-center">
+        <div className="flex h-full w-full items-center justify-center">
           <Empty />
         </div>
       )}
