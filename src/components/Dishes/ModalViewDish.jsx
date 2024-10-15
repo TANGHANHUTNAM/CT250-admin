@@ -1,5 +1,6 @@
 import { Modal } from "antd";
 import { formatCurrency } from "../../utils/format";
+import dayjs from "dayjs";
 const ModalViewDish = ({
   dishDetail,
   setDishDetail,
@@ -18,11 +19,11 @@ const ModalViewDish = ({
         okButtonProps={{ danger: true }}
         cancelButtonProps={{ style: { display: "none" } }}
         width={1200}
-        style={{ top: 40 }}
+        style={{ top: 20 }}
       >
         {dishDetail && (
           <div className="rounded-lg bg-white p-6 shadow-lg">
-            <div className="flex flex-col md:flex-row">
+            <div className="flex flex-col items-center justify-center md:flex-row">
               <div className="mb-4 md:mb-0 md:w-1/3">
                 <img
                   src={dishDetail?.image}
@@ -35,8 +36,14 @@ const ModalViewDish = ({
                   {dishDetail?.name}
                 </h2>
                 <p className="mb-2 text-gray-700">
-                  <strong>Thực đơn: </strong> {dishDetail?.category?.[1]?.name}
+                  <strong>Danh mục level 1: </strong>{" "}
+                  {dishDetail?.category?.[1]?.name}
                 </p>
+                <p className="mb-2 text-gray-700">
+                  <strong>Danh mục level 2: </strong>{" "}
+                  {dishDetail?.category?.[2]?.name}
+                </p>
+
                 <p className="mb-2 text-gray-700">
                   <strong>Thành phần: </strong> {dishDetail?.ingredients}
                 </p>
@@ -62,6 +69,26 @@ const ModalViewDish = ({
                       <strong>Giá sau giảm:</strong>{" "}
                       <span className="font-medium text-red-500">
                         {formatCurrency(dishDetail?.discountedPrice)}
+                      </span>
+                    </p>
+                  )}
+                  {dishDetail?.discount > 0 && (
+                    <p className="mb-2 text-gray-700">
+                      <strong>Ngày bắt đầu giảm giá:</strong>{" "}
+                      <span className="font-medium text-red-500">
+                        {dayjs(dishDetail?.discountStartDate).format(
+                          "DD/MM/YYYY",
+                        )}
+                      </span>
+                    </p>
+                  )}
+                  {dishDetail?.discount > 0 && (
+                    <p className="mb-2 text-gray-700">
+                      <strong>Ngày kết thúc giảm giá:</strong>{" "}
+                      <span className="font-medium text-red-500">
+                        {dayjs(dishDetail?.discountEndDate).format(
+                          "DD/MM/YYYY",
+                        )}
                       </span>
                     </p>
                   )}
@@ -105,6 +132,15 @@ const ModalViewDish = ({
                     <span className="font-medium">
                       {" "}
                       {new Date(dishDetail?.createdAt).toLocaleDateString(
+                        "vi-VN",
+                      )}
+                    </span>
+                  </p>
+                  <p className="mb-2 text-gray-700">
+                    <strong>Ngày cập nhật:</strong>{" "}
+                    <span className="font-medium">
+                      {" "}
+                      {new Date(dishDetail?.updatedAt).toLocaleDateString(
                         "vi-VN",
                       )}
                     </span>
