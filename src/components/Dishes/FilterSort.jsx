@@ -1,8 +1,5 @@
 import { Checkbox, Dropdown } from "antd";
 import { MdFilterList } from "react-icons/md";
-import { getAllCagegory } from "../../services/categoryService";
-import StatusCodes from "../../utils/StatusCodes";
-import { useEffect, useState } from "react";
 
 const FilterSort = ({
   filterCategory,
@@ -12,25 +9,8 @@ const FilterSort = ({
   filterPrice,
   setFilterPrice,
   setPage,
+  listCategory,
 }) => {
-  const [listCategory, setListCategory] = useState([]);
-  useEffect(() => {
-    const fetchGetAllCategory = async () => {
-      try {
-        const res = await getAllCagegory();
-        if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-          setListCategory(res.DT);
-        }
-        if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
-          console.log(res);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchGetAllCategory();
-  }, []);
-
   const sortBy = [
     {
       key: "a-z",

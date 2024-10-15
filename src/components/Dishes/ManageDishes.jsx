@@ -11,6 +11,7 @@ import ModalViewDish from "./ModalViewDish";
 import { toast } from "react-toastify";
 import FilterSort from "./FilterSort";
 import { debounce } from "lodash";
+import { getAllCagegory } from "../../services/categoryService";
 const ManageDishes = () => {
   const [openModalCreateDish, setOpenModalCreateDish] = useState(false);
   const [openModalViewDish, setOpenModalViewDish] = useState(false);
@@ -21,6 +22,7 @@ const ManageDishes = () => {
   const [total, setTotal] = useState(0);
   const [listDish, setListDish] = useState([]);
   const [dishDetail, setDishDetail] = useState(null);
+  const [listCategory, setListCategory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [filterCategory, setFilterCategory] = useState({
     key: "",
@@ -32,6 +34,23 @@ const ManageDishes = () => {
   });
   const [filterPrice, setFilterPrice] = useState([]);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const fetchGetAllCategory = async () => {
+      try {
+        const res = await getAllCagegory();
+        if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+          setListCategory(res.DT);
+        }
+        if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+          console.log(res);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchGetAllCategory();
+  }, []);
 
   const fetchDishes = async () => {
     setIsLoading(true);
@@ -108,6 +127,8 @@ const ManageDishes = () => {
       <div className="mb-3 flex w-full items-center justify-between px-2">
         <div className="flex w-1/2 gap-1.5">
           <FilterSort
+            listCategory={listCategory}
+            setListCategory={setListCategory}
             filterCategory={filterCategory}
             setFilterCategory={setFilterCategory}
             filterSortBy={filterSortBy}
@@ -129,7 +150,7 @@ const ManageDishes = () => {
                 setSearch(e.target.value);
               }}
             />
-            <buttonsetPage
+            <button
               onClick={() => {
                 setPage(1);
                 handleSearch(search);
@@ -137,7 +158,7 @@ const ManageDishes = () => {
               className="absolute right-0 top-0 flex h-full items-center justify-center rounded-md rounded-l-none bg-blue-500 px-1.5 hover:bg-blue-500/90"
             >
               <MdSearch className="text-lg text-white" />
-            </buttonsetPage>
+            </button>
           </div>
           <button
             onClick={() => handleResetFilter()}
@@ -176,16 +197,20 @@ const ManageDishes = () => {
         onShowSizeChange={(_, pageSize) => {
           setPage(1);
           setLimit(pageSize);
-          console.log(_);
         }}
         onChange={(page, pageSize) => {
           setPage(page);
           setLimit(pageSize);
         }}
       />
+
       <ModalCreateDish
         openModalCreateDish={openModalCreateDish}
         setOpenModalCreateDish={setOpenModalCreateDish}
+        listCategory={listCategory}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        fetchDishes={fetchDishes}
       />
       <ModalViewDish
         dishDetail={dishDetail}
@@ -194,10 +219,15 @@ const ManageDishes = () => {
         setOpenModalViewDish={setOpenModalViewDish}
       />
       <ModalEditDish
+        setListCategory={setListCategory}
+        listCategory={listCategory}
         dishDetail={dishDetail}
         setDishDetail={setDishDetail}
         openModalEditDish={openModalEditDish}
         setOpenModalEditDish={setOpenModalEditDish}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        fetchDishes={fetchDishes}
       />
     </div>
   );

@@ -194,7 +194,7 @@ const UserInfo = () => {
                 { type: "email", message: "Please enter a valid email" },
               ]}
             >
-              <Input disabled/>
+              <Input disabled />
             </Form.Item>
           </Col>
           <Col span={12}>
