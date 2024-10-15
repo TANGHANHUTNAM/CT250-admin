@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { addDish } from "../../services/dishService";
 import StatusCodes from "../../utils/StatusCodes";
 import { getAllCategoryLevel2ByLevel1 } from "../../services/categoryService";
+import { get } from "lodash";
 
 const ModalCreateDish = ({
   openModalCreateDish,
@@ -361,30 +362,21 @@ const ModalCreateDish = ({
                       );
                     }
                     if (
-                      dayjs(value).isBefore(
+                      getFieldValue("discountStartDate") &&
+                      (dayjs(value).isBefore(
                         dayjs(getFieldValue("discountStartDate")),
                         "day",
                       ) ||
-                      dayjs(value).isSame(
-                        dayjs(getFieldValue("discountStartDate")),
-                        "day",
-                      )
+                        dayjs(value).isSame(
+                          dayjs(getFieldValue("discountStartDate")),
+                          "day",
+                        ))
                     ) {
                       return Promise.reject(
                         "Ngày kết thúc giảm giá không được nhỏ hơn hoặc bằng ngày bắt đầu!",
                       );
                     }
-                    if (
-                      value &&
-                      dayjs(value).isBefore(
-                        dayjs(getFieldValue("discountStartDate")),
-                        "day",
-                      )
-                    ) {
-                      return Promise.reject(
-                        "Ngày kết thúc giảm giá không được nhỏ hơn ngày bắt đầu giảm giá!",
-                      );
-                    }
+
                     return Promise.resolve();
                   },
                 }),
