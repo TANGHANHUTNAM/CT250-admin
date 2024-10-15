@@ -126,6 +126,7 @@ const ModalEditDish = ({
           loading: isLoading,
           disabled: isLoading,
         }}
+        loading={isLoading}
         maskClosable={false}
         cancelButtonProps={{
           danger: true,

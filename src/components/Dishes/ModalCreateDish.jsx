@@ -106,6 +106,7 @@ const ModalCreateDish = ({
             setSelectCagetoryLevel2(null);
           }
         }}
+        loading={isLoading}
         open={openModalCreateDish}
         style={{ top: 50 }}
         title={`Thêm món mới`}
