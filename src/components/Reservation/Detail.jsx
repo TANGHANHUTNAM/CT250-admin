@@ -12,20 +12,20 @@ const Detail = ({
   const { t } = useTranslation();
 
   const { loading, apiFunction: handleCompleteReservation } = useApi(
-    async (id) => await completeReservation(id)
+    async (id) => await completeReservation(id),
   );
 
   return (
     <>
-      <div className="grow bg-white rounded-sm p-6">
+      <div className="grow rounded-sm bg-white p-6">
         <div className="text-xl font-semibold">{t("Reservation.title")}</div>
         {reservation ? (
           <div className="divide-y divide-gray-300">
-            <div className="py-6 flex justify-between items-center">
+            <div className="flex items-center justify-between py-6">
               <div>
                 <div className="text-lg font-medium">
                   Reservation{" "}
-                  <span className="text-violet-600">#{reservation?._id}</span>
+                  <span className="text-blue-500">#{reservation?._id}</span>
                 </div>
                 <div className="text-base text-gray-500">
                   {new Date(reservation?.createdAt).toLocaleString("vi-VN")}
@@ -33,7 +33,7 @@ const Detail = ({
               </div>
               <StatusTag status={reservation?.status} />
             </div>
-            <div className="py-6 space-y-5">
+            <div className="space-y-5 py-6">
               <div className="flex">
                 <div className="w-2/5 text-sm text-neutral-500">
                   {t("Reservation.info")}
@@ -65,7 +65,7 @@ const Detail = ({
                 <div className="text-sm font-semibold">
                   {reservation?.arrivalTime},{" "}
                   {new Date(reservation?.arrivalDate).toLocaleDateString(
-                    "vi-VN"
+                    "vi-VN",
                   )}
                 </div>
               </div>
@@ -87,7 +87,7 @@ const Detail = ({
             {reservation?.status === validStatus.pending && (
               <div className="flex justify-end py-6">
                 <button
-                  className="bg-violet-600 text-white p-3 rounded-lg px-6 font-semibold hover:bg-violet-700"
+                  className="rounded-lg bg-blue-500 p-3 px-6 font-semibold text-white hover:bg-blue-600"
                   onClick={() => setOpen(true)}
                 >
                   {t("Reservation.action.handle")}
@@ -99,14 +99,14 @@ const Detail = ({
                 <LoadingButton
                   label={t("Reservation.action.complete")}
                   loading={loading}
-                  buttonClass="rounded-md bg-violet-600 text-white px-6 py-2.5 text-sm font-medium hover:bg-violet-700 focus:outline-none"
+                  buttonClass="rounded-md bg-blue-500 text-white px-6 py-2.5 text-sm font-medium hover:bg-blue-600 focus:outline-none"
                   onClick={() => handleComplete(handleCompleteReservation)}
                 />
               </div>
             )}
           </div>
         ) : (
-          <div className="my-6 p-3 rounded-md bg-violet-50 text-violet-800">
+          <div className="my-6 rounded-md bg-blue-50 p-3 text-blue-700">
             {t("Reservation.noSelected")}
           </div>
         )}

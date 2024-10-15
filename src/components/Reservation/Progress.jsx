@@ -4,16 +4,16 @@ const Progress = ({ status = [], active, setActive = (key) => {} }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-white rounded-sm w-full flex">
+    <div className="flex w-full rounded-sm bg-white">
       {status.map((item, i) => {
         return (
           <button
             key={i}
-            className={`p-3 text-center grow hover:text-violet-700 ${
+            className={`grow p-3 text-center hover:text-blue-600 ${
               i === 0 ? "rounded-l-sm" : ""
             } ${i === status.length - 1 ? "rounded-r-sm" : ""} ${
               item.key === active
-                ? "bg-violet-700 font-medium text-white hover:!text-violet-50"
+                ? "bg-blue-600 font-medium text-white hover:!text-blue-50"
                 : ""
             }`}
             onClick={() => setActive(item?.key)}

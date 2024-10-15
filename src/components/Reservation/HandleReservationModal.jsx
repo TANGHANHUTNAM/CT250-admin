@@ -95,6 +95,8 @@ const HandleReservationModal = ({
   const handleCancel = () => {
     setOpen(false);
     setTables([]);
+    setSelectedTables({});
+    setRemainPeoples(0);
   };
 
   const handleSelectTable = (table, capacity) => {
@@ -128,7 +130,7 @@ const HandleReservationModal = ({
       title={
         <div className="text-xl font-semibold">
           {t("Reservation.handleReservation.title")}{" "}
-          <span className="text-violet-600">#{data?._id}</span>
+          <span className="text-blue-500">#{data?._id}</span>
         </div>
       }
       open={open}
@@ -142,22 +144,22 @@ const HandleReservationModal = ({
             <LoadingButton
               label={t("Reservation.action.cancel")}
               loading={loading}
-              buttonClass="rounded-md border-2 border-violet-500 text-violet-500 px-6 py-2.5 text-sm font-medium hover:bg-gray-100 hover:text-violet-700 focus:outline-none"
-              loadingIconClass="!text-violet-700"
+              buttonClass="rounded-md border-2 border-blue-400 text-blue-400 px-6 py-2.5 text-sm font-medium hover:bg-gray-100 hover:text-blue-600 focus:outline-none"
+              loadingIconClass="!text-blue-600"
               onClick={handleCancel}
             />
             <LoadingButton
               label={t("Reservation.action.reject")}
               loading={loading}
-              buttonClass="rounded-md bg-violet-400 text-white px-6 py-2.5 text-sm font-medium hover:bg-violet-500 focus:outline-none"
-              loadingIconClass="!text-violet-700"
+              buttonClass="rounded-md bg-blue-300 text-white px-6 py-2.5 text-sm font-medium hover:bg-blue-400 focus:outline-none"
+              loadingIconClass="!text-blue-600"
               onClick={handleReject}
             />
             {tables.length > 0 && (
               <LoadingButton
                 label={t("Reservation.action.accept")}
                 loading={loading}
-                buttonClass="rounded-md bg-violet-600 text-white px-6 py-2.5 text-sm font-medium hover:bg-violet-700 focus:outline-none"
+                buttonClass="rounded-md bg-blue-500 text-white px-6 py-2.5 text-sm font-medium hover:bg-blue-600 focus:outline-none"
                 onClick={handleAccept}
               />
             )}
@@ -174,14 +176,14 @@ const HandleReservationModal = ({
         <div className="space-y-2.5 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <FaUser className="h-4 w-4 text-violet-600" />
+              <FaUser className="h-4 w-4 text-blue-500" />
               <span className="text-base">
                 {t("Reservation.handleReservation.peopleNumber")}:{" "}
                 <span className="font-semibold">{data?.peopleNumber}</span>
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <FaUser className="h-4 w-4 text-violet-600" />
+              <FaUser className="h-4 w-4 text-blue-500" />
               <span className="text-base">
                 {t("Reservation.handleReservation.isNotAssigned")}:{" "}
                 <span className="font-semibold">{remainPeoples}</span>
@@ -190,7 +192,7 @@ const HandleReservationModal = ({
           </div>
           {data?.note && (
             <div className="flex items-center gap-2">
-              <CgNotes className="h-4 w-4 text-violet-600" />
+              <CgNotes className="h-4 w-4 text-blue-500" />
               <span className="text-base">
                 {t("Reservation.handleReservation.note")}:{" "}
                 <span className="font-semibold">{data?.note}</span>
@@ -208,7 +210,7 @@ const HandleReservationModal = ({
                 >
                   <div className="shrink-0">
                     <p className="flex items-center gap-2">
-                      <MdTableRestaurant className="h-5 w-5 text-violet-400" />
+                      <MdTableRestaurant className="h-5 w-5 text-blue-300" />
                       <span className="text-base font-medium">
                         {table?.typeName}
                       </span>
@@ -229,9 +231,9 @@ const HandleReservationModal = ({
                           className="col-span-1 flex items-center justify-center"
                         >
                           <div
-                            className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-violet-600 text-sm font-medium hover:bg-violet-600 ${
+                            className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-blue-500 text-sm font-medium hover:bg-blue-500 ${
                               selectedTables[item?.tableId]
-                                ? "bg-violet-600 text-white"
+                                ? "bg-blue-500 text-white"
                                 : ""
                             }`}
                             onClick={() =>
@@ -248,7 +250,7 @@ const HandleReservationModal = ({
               );
             })
           ) : (
-            <div className="rounded-md bg-violet-100 px-4 py-2.5 font-medium text-violet-700">
+            <div className="rounded-md bg-blue-50 px-4 py-2.5 font-medium text-blue-600">
               {t("Reservation.handleReservation.emptyTables")}
             </div>
           )}
