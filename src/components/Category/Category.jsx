@@ -127,7 +127,7 @@ const Category = () => {
       dataIndex: "image",
       align: "center",
       width: 70,
-      render: (image) => <Image width={50} src={image || "error"} />,
+      render: (image) => <Image width={100} src={image || "error"} />,
     },
     {
       title: "Danh mục cấp 1",
