@@ -7,6 +7,7 @@ const DishList = ({
   setOpenModalViewDish,
   setOpenModalEditDish,
   handleDeleteDish,
+  handleSetAvailabilityDish,
 }) => {
   if (isLoading) {
     return (
@@ -26,6 +27,7 @@ const DishList = ({
               setOpenModalViewDish={setOpenModalViewDish}
               setOpenModalEditDish={setOpenModalEditDish}
               handleDeleteDish={handleDeleteDish}
+              handleSetAvailabilityDish={handleSetAvailabilityDish}
             />
           );
         })}

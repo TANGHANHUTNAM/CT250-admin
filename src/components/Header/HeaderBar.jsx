@@ -101,7 +101,6 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
       >
         <Button
           type="text"
-          hover
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           onClick={() => setCollapsed(!collapsed)}
           style={{

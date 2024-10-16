@@ -2,7 +2,9 @@ import { FaEye, FaStar } from "react-icons/fa";
 import { formatCurrency } from "../../utils/format";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { CiEdit } from "react-icons/ci";
-import { Popconfirm } from "antd";
+import { Popconfirm, Tooltip } from "antd";
+import { BsCartPlus } from "react-icons/bs";
+import { BsCartX } from "react-icons/bs";
 
 const DishItem = ({
   dish,
@@ -10,6 +12,7 @@ const DishItem = ({
   setOpenModalViewDish,
   setOpenModalEditDish,
   handleDeleteDish,
+  handleSetAvailabilityDish,
 }) => {
   return (
     <div className="p-2">
@@ -50,6 +53,15 @@ const DishItem = ({
               New
             </div>
           )}
+          {!dish?.isAvailibility ? (
+            <div className="discount absolute bottom-0 left-2 z-20 w-fit bg-red-500 px-2 py-1 text-center text-xs font-bold text-primary">
+              Hết hàng
+            </div>
+          ) : (
+            <div className="discount absolute bottom-0 left-2 z-20 w-fit bg-green-500 px-2 py-1 text-center text-xs font-bold text-primary">
+              Còn hàng
+            </div>
+          )}
         </div>
         {/* content */}
         <div className="flex flex-col gap-1 border-x border-b border-gray-300 bg-neutral-100 p-2 pt-1 text-left sm:p-3">
@@ -85,18 +97,48 @@ const DishItem = ({
                 <span className="ml-0.5">đã bán</span>
               </span>
             </div>
-            <Popconfirm
-              title={`Xóa món ăn ${dish?.name}`}
-              description={`Bạn có chắc chắn muốn xóa món ăn này?`}
-              onConfirm={() => handleDeleteDish(dish?._id)}
-              onCancel={() => {}}
-              okText="Có"
-              cancelText="Không"
-            >
-              <div className="favorite flex cursor-pointer text-2xl text-red-500">
-                <RiDeleteBin6Line />
-              </div>
-            </Popconfirm>
+            <div className="flex gap-2">
+              <Popconfirm
+                title={`Xét trạng thái món ăn ${dish?.name}`}
+                description={`Bạn có chắc chắn muốn xét món ăn này ${dish?.isAvailibility ? "hết hàng" : "còn hàng"}?`}
+                onConfirm={() =>
+                  handleSetAvailabilityDish(dish?._id, {
+                    isVailability: !dish?.isAvailibility,
+                  })
+                }
+                onCancel={() => {}}
+                okText="Có"
+                cancelText="Không"
+              >
+                {!dish?.isAvailibility ? (
+                  <Tooltip title="Phục vụ">
+                    <div className="favorite flex cursor-pointer text-2xl text-green-500">
+                      <BsCartPlus />
+                    </div>
+                  </Tooltip>
+                ) : (
+                  <Tooltip title="Không phục vụ">
+                    <div className="favorite flex cursor-pointer text-2xl text-red-500">
+                      <BsCartX />
+                    </div>
+                  </Tooltip>
+                )}
+              </Popconfirm>
+              <Popconfirm
+                title={`Xóa món ăn ${dish?.name}`}
+                description={`Bạn có chắc chắn muốn xóa món ăn này?`}
+                onConfirm={() => handleDeleteDish(dish?._id)}
+                onCancel={() => {}}
+                okText="Có"
+                cancelText="Không"
+              >
+                <Tooltip title="Xóa">
+                  <div className="favorite flex cursor-pointer text-2xl text-red-500">
+                    <RiDeleteBin6Line />
+                  </div>
+                </Tooltip>
+              </Popconfirm>
+            </div>
           </div>
         </div>
       </div>
