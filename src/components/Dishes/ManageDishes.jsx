@@ -1,21 +1,29 @@
 import DishList from "./DishList";
 import { MdAddCircleOutline, MdSearch } from "react-icons/md";
+import { MdOutlineDeleteSweep } from "react-icons/md";
 import { Pagination } from "antd";
 import { GrPowerReset } from "react-icons/gr";
 import ModalCreateDish from "./ModalCreateDish";
 import { useCallback, useEffect, useState } from "react";
 import ModalEditDish from "./ModalEditDish";
-import { deleteDish, getDishesByFilter } from "../../services/dishService";
+import {
+  deleteDish,
+  getDishesByFilter,
+  setAvailabilityDish,
+} from "../../services/dishService";
 import StatusCodes from "../../utils/StatusCodes";
 import ModalViewDish from "./ModalViewDish";
 import { toast } from "react-toastify";
 import FilterSort from "./FilterSort";
 import { debounce } from "lodash";
 import { getAllCagegory } from "../../services/categoryService";
+import ModalViewDeletedDish from "./ModalViewDeletedDish";
 const ManageDishes = () => {
   const [openModalCreateDish, setOpenModalCreateDish] = useState(false);
   const [openModalViewDish, setOpenModalViewDish] = useState(false);
   const [openModalEditDish, setOpenModalEditDish] = useState(false);
+  const [openModalViewDeletedDish, setOpenModalViewDeletedDish] =
+    useState(false);
 
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
@@ -114,6 +122,24 @@ const ManageDishes = () => {
     setIsLoading(false);
   };
 
+  const handleSetAvailabilityDish = async (id, data) => {
+    setIsLoading(true);
+    try {
+      console.log(data);
+      const res = await setAvailabilityDish(id, data);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        fetchDishes();
+        toast.success("Cập nhật trạng thái món ăn thành công");
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error("Cập nhật trạng thái món ăn thất bại");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
   const handleResetFilter = () => {
     setFilterCategory({ key: "", value: "Chọn danh mục" });
     setFilterSortBy({ key: "", value: "Chọn loại sắp xếp" });
@@ -168,6 +194,13 @@ const ManageDishes = () => {
             <span>Reset</span>
           </button>
           <button
+            onClick={() => setOpenModalViewDeletedDish(true)}
+            className="flex min-w-fit items-center justify-center gap-1.5 rounded-md bg-blue-500 px-2 py-2 text-white hover:bg-blue-500/90"
+          >
+            <MdOutlineDeleteSweep className="text-base" />
+            <span>Món đã xóa</span>
+          </button>
+          <button
             onClick={() => setOpenModalCreateDish(true)}
             className="flex min-w-fit items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-2 text-white hover:bg-blue-500/90"
           >
@@ -179,6 +212,7 @@ const ManageDishes = () => {
       <DishList
         isLoading={isLoading}
         handleDeleteDish={handleDeleteDish}
+        handleSetAvailabilityDish={handleSetAvailabilityDish}
         listDish={listDish}
         setDishDetail={setDishDetail}
         setOpenModalViewDish={setOpenModalViewDish}
@@ -228,6 +262,13 @@ const ManageDishes = () => {
         isLoading={isLoading}
         setIsLoading={setIsLoading}
         fetchDishes={fetchDishes}
+      />
+      <ModalViewDeletedDish
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        fetchDishes={fetchDishes}
+        openModalViewDeletedDish={openModalViewDeletedDish}
+        setOpenModalViewDeletedDish={setOpenModalViewDeletedDish}
       />
     </div>
   );
