@@ -118,7 +118,7 @@ const UserInfo = () => {
   };
 
   return (
-    <div className="!h-full !w-full flex-row !overflow-hidden bg-white p-6">
+    <div className="flex-row bg-white p-6">
       <div className="mb-12 mt-4 flex w-full flex-row items-center">
         <div className="relative ml-6 !h-fit !basis-3/12 !justify-start">
           <Avatar size={180} src={account.avatar} />
