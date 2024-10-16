@@ -70,7 +70,7 @@ const DishItem = ({
               setDishDetail(dish);
               setOpenModalViewDish(true);
             }}
-            className="name cursor-pointer truncate text-base font-bold text-tertiary duration-200 hover:text-yellow-600 sm:text-lg"
+            className="name cursor-pointer truncate text-base font-medium text-black duration-200 hover:text-yellow-500"
           >
             {dish?.name}
           </div>
@@ -86,13 +86,13 @@ const DishItem = ({
           </div>
           <div className="footer mt-1 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="rating flex items-center justify-center border-x-2 border-solid border-yellow-500 bg-yellow-200 p-1 text-yellow-600 sm:px-2">
+              <span className="rating flex items-center justify-center bg-transparent text-yellow-600">
                 <FaStar />
                 <span className="ml-1 text-xs font-bold">
                   {dish?.averageRating ?? 0}
                 </span>
               </span>
-              <span className="sold text-[10px] font-bold text-black sm:text-xs">
+              <span className="sold text-[10px] font-medium text-black sm:text-xs">
                 <span>{dish?.totalSold}</span>
                 <span className="ml-0.5">đã bán</span>
               </span>

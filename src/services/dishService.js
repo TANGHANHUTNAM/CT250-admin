@@ -1,5 +1,10 @@
 import axios from "../utils/axiosCustomize";
 
+export const getDeletedDishes = async (query) => {
+  const res = await axios.get(`/api/v1/dish/deleted?${query}`);
+  return res;
+};
+
 export const getDishesByFilter = async (query) => {
   const res = await axios.get(`/api/v1/dish/get?${query}`);
   return res;
