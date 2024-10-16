@@ -1,7 +1,4 @@
-import { Button, Dropdown, Layout, Tooltip } from "antd";
-import { MdTableRestaurant } from "react-icons/md";
-import { MdPermContactCalendar } from "react-icons/md";
-import { TiShoppingCart } from "react-icons/ti";
+import { Button, Dropdown, Layout } from "antd";
 const { Header } = Layout;
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -91,10 +88,20 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
     },
   ];
   return (
-    <Header className="sticky mx-5 flex justify-between bg-white p-0">
-      <div className="flex">
+    <>
+      <Header
+        style={{
+          position: "fixed",
+          zIndex: 1000,
+          width: `calc(100% - ${collapsed ? 80 : 200}px)`,
+          left: collapsed ? 80 : 200,
+          top: 0,
+        }}
+        className="ml-5 mr-52 flex min-w-fit justify-between bg-white pl-0 transition-all duration-300"
+      >
         <Button
           type="text"
+          hover
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           onClick={() => setCollapsed(!collapsed)}
           style={{
@@ -103,30 +110,31 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
             height: 64,
           }}
         />
-      </div>
-      <div className="flex items-center">
-        {/* New Icons for Cart, Order Table, and Contact */}
-        <Notifications />
-        <Language isAuth={isAuth} className="!self-center" />
-        {/* Dropdown Avatar */}
-        <div className="group">
-          <Dropdown
-            menu={{
-              items,
-            }}
-            className="w-fit"
-            trigger={["hover"]}
-          >
-            <a className="flex pr-2" onClick={(e) => e.preventDefault()}>
-              <Avatar size={40} src={avatar} className="mx-2 self-center" />
-              <span className="font-semibold text-black/80 opacity-80 group-hover:text-black">
-                {username}
-              </span>
-            </a>
-          </Dropdown>
+
+        <div className="flex items-center">
+          {/* New Icons for Cart, Order Table, and Contact */}
+          <Notifications />
+          <Language isAuth={isAuth} className="!self-center" />
+          {/* Dropdown Avatar */}
+          <div className="group">
+            <Dropdown
+              menu={{
+                items,
+              }}
+              className="w-fit"
+              trigger={["hover"]}
+            >
+              <a className="flex pr-2" onClick={(e) => e.preventDefault()}>
+                <Avatar size={40} src={avatar} className="mx-2 self-center" />
+                <span className="font-semibold text-black/80 opacity-80 group-hover:text-black">
+                  {username}
+                </span>
+              </a>
+            </Dropdown>
+          </div>
         </div>
-      </div>
-    </Header>
+      </Header>
+    </>
   );
 };
 
