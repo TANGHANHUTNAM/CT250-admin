@@ -41,6 +41,10 @@ const ManageDishes = () => {
     value: "Chọn loại sắp xếp",
   });
   const [filterPrice, setFilterPrice] = useState([]);
+  const [filterAvailability, setFilterAvailability] = useState({
+    key: "",
+    value: "Chọn trạng thái",
+  });
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -67,6 +71,7 @@ const ManageDishes = () => {
     if (filterCategory.key) query += `&category=${filterCategory.key}`;
     if (filterSortBy.key) query += `&sortBy=${filterSortBy.key}`;
     if (filterPrice.length > 0) query += `&price=${filterPrice.join(",")}`;
+    if (filterAvailability.key) query += `&available=${filterAvailability.key}`;
     try {
       const res = await getDishesByFilter(query);
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
@@ -86,7 +91,15 @@ const ManageDishes = () => {
     debounce(() => {
       fetchDishes();
     }, 300),
-    [page, limit, filterCategory, filterSortBy, filterPrice, search],
+    [
+      page,
+      limit,
+      filterCategory,
+      filterSortBy,
+      filterPrice,
+      filterAvailability,
+      search,
+    ],
   );
 
   useEffect(() => {
@@ -143,6 +156,7 @@ const ManageDishes = () => {
   const handleResetFilter = () => {
     setFilterCategory({ key: "", value: "Chọn danh mục" });
     setFilterSortBy({ key: "", value: "Chọn loại sắp xếp" });
+    setFilterAvailability({ key: "", value: "Chọn trạng thái" });
     setFilterPrice([]);
     setSearch("");
     setPage(1);
@@ -161,6 +175,8 @@ const ManageDishes = () => {
             setFilterSortBy={setFilterSortBy}
             filterPrice={filterPrice}
             setFilterPrice={setFilterPrice}
+            filterAvailability={filterAvailability}
+            setFilterAvailability={setFilterAvailability}
             setPage={setPage}
           />
         </div>

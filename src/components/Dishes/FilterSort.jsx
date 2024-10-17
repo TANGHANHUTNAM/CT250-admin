@@ -8,6 +8,8 @@ const FilterSort = ({
   setFilterSortBy,
   filterPrice,
   setFilterPrice,
+  filterAvailability,
+  setFilterAvailability,
   setPage,
   listCategory,
 }) => {
@@ -61,6 +63,16 @@ const FilterSort = ({
     },
   ];
 
+  const Availability = [
+    {
+      key: "available",
+      label: "Còn hàng",
+    },
+    {
+      key: "unavailable",
+      label: "Hết hàng",
+    },
+  ];
   return (
     <>
       {/* Filter Category */}
@@ -129,9 +141,27 @@ const FilterSort = ({
           ],
         }}
       >
-        <div className="flex h-full min-w-40 cursor-pointer items-center justify-start gap-1 rounded-md bg-blue-500 px-3 py-2 text-white">
+        <div className="flex h-full min-w-36 cursor-pointer items-center justify-start gap-1 rounded-md bg-blue-500 px-3 py-2 text-white">
           <MdFilterList className="text-lg" />
           <span className="ml-1">Chọn mức giá</span>
+        </div>
+      </Dropdown>
+      {/* Availability */}
+      <Dropdown
+        menu={{
+          items: Availability,
+          onClick: ({ key }) => {
+            const value = Availability.find((item) => item.key === key).label;
+            setFilterAvailability({ key, value: value });
+            setPage(1);
+          },
+          selectable: true,
+          selectedKeys: filterAvailability.key,
+        }}
+      >
+        <div className="flex h-full min-w-28 cursor-pointer items-center justify-start gap-1 rounded-md bg-blue-500 px-3 py-2 text-white">
+          <MdFilterList className="text-lg" />
+          <span className="ml-1">{filterAvailability?.value}</span>
         </div>
       </Dropdown>
     </>
