@@ -28,12 +28,13 @@ import Avatar from "../avatar/Avatar";
 import { toast } from "react-toastify";
 import { debounce } from "lodash";
 const ManageUser = () => {
+  const LIMIT = 6;
   // Modal
   const [openModalCreateEmployee, setOpenModalCreateEmployee] = useState(false);
   const [openModalViewUser, setOpenModalViewUser] = useState(false);
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(6);
+  const [pageSize, setPageSize] = useState(LIMIT);
   const [total, setTotal] = useState(0);
   // Table
   const [listUser, setListUser] = useState([]);
@@ -113,7 +114,7 @@ const ManageUser = () => {
   };
   const handleReset = () => {
     setCurrentPage(1);
-    setPageSize(6);
+    setPageSize(LIMIT);
     setFilterRole({ key: "", value: "Chọn vai trò" });
     setSearch("");
     setCheckedList(defaultCheckedList);

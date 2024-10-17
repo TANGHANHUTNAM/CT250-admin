@@ -1,90 +1,94 @@
-import React, { useEffect, useState } from "react";
-import { GrPowerReset } from "react-icons/gr";
-import {
-  Checkbox,
-  Col,
-  Dropdown,
-  Menu,
-  Popconfirm,
-  Row,
-  Space,
-  Table,
-} from "antd";
-import { IoMdAddCircleOutline } from "react-icons/io";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { MdOutlineBookmarkAdd } from "react-icons/md";
-import { IoSettingsSharp } from "react-icons/io5";
+import { Checkbox, Col, Dropdown, Menu, Row, Space, Table, Tag } from "antd";
+import { debounce } from "lodash";
+import { useCallback, useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
-import { MdDeleteOutline } from "react-icons/md";
+import { GrPowerReset } from "react-icons/gr";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { IoSettingsSharp } from "react-icons/io5";
+import { toast } from "react-toastify";
+import {
+  addCoupon,
+  getAllCouponWithFilter,
+  updateCoupon,
+} from "../../services/couponService";
+import { formatCurrency } from "../../utils/format";
+import StatusCodes from "../../utils/StatusCodes";
 import ModalCreateDiscount from "./ModalCreateDiscount";
-import ModalCreateTypeDiscount from "./ModalCreateTypeDiscount";
 import ModalEditDiscount from "./ModalEditDiscount";
-import ModalViewTypeDiscount from "./ModalViewTypeDiscount";
-import ModalViewDiscount from "./ModalViewDiscount";
 import SearchFilterInput from "./SearchFilterInput";
 
 const ManageDiscount = () => {
+  const LIMIT = 5;
   // Modal
-  const [openModalCreateTable, setOpenModalCreateTable] = useState(false);
-  const [openModalViewTable, setOpenModalViewTable] = useState(false);
-  const [openModalEditTable, setOpenModalEditTable] = useState(false);
-  const [openModalCreateTypeTable, setOpenModalCreateTypeTable] =
-    useState(false);
-  const [openModalViewTypeTable, setOpenModalViewTypeTable] = useState(false);
+  const [openModalCreateCoupon, setOpenModalCreateCoupon] = useState(false);
+  const [openModalEditCoupon, setOpenModalEditCoupon] = useState(false);
 
   // Table
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(1);
+  const [pageSize, setPageSize] = useState(LIMIT);
   const [total, setTotal] = useState(0);
-  const [listTable, setListTable] = useState([]);
+
+  const [listCoupon, setListCoupon] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [filterTypeTable, setFilterTypeTable] = useState({
+  const [sortBy, setSortBy] = useState({
     key: "",
-    value: "Chọn loại coupon",
+    value: "Chọn sắp xếp",
   });
-  const [filterStatusTable, setFilterStatusTable] = useState({
+  const [filterTypeCoupon, setFilterTypeCoupon] = useState({
+    key: "",
+    value: "Chọn loại giảm giá",
+  });
+  const [filterStatusCoupon, setFilterStatusCoupon] = useState({
     key: "",
     value: "Chọn trạng thái",
   });
-  const [dataSearch, setDataSearch] = useState("");
   const [search, setSearch] = useState("");
+  const [detailCoupon, setDetailCoupon] = useState(null);
 
-  const [detailTable, setDetailTable] = useState(null);
+  const debouncedFetchCoupon = useCallback(
+    debounce(() => {
+      fetchCoupon();
+    }, 300),
+    [
+      currentPage,
+      pageSize,
+      search,
+      sortBy,
+      filterTypeCoupon,
+      filterStatusCoupon,
+    ],
+  );
 
   useEffect(() => {
-    setListTable(data);
-    setTotal(data.length);
-  }, []);
+    debouncedFetchCoupon();
+    return () => {
+      debouncedFetchCoupon.cancel();
+    };
+  }, [debouncedFetchCoupon]);
 
-  useEffect(() => {
-    fetchListTable();
-  }, [currentPage, pageSize, filterTypeTable, filterStatusTable, search]);
-
-  const fetchListTable = async () => {
+  const fetchCoupon = async () => {
     setIsLoading(true);
-    setTimeout(() => {
-      let query = `page=${currentPage}&limit=${pageSize}`;
-      if (filterTypeTable.key) {
-        query += `&tableType=/${filterTypeTable.key}/i`;
+    let query = `page=${currentPage}&limit=${pageSize}`;
+    if (search) query += `&search=${search}`;
+    if (filterTypeCoupon.key) query += `&type=${filterTypeCoupon.key}`;
+    if (filterStatusCoupon.key) query += `&active=${filterStatusCoupon.key}`;
+    if (sortBy.key) query += `&sortBy=${sortBy.key}`;
+    try {
+      const res = await getAllCouponWithFilter(query);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        setListCoupon(res.DT.data);
+        setTotal(res.DT.totalData);
       }
-      if (filterStatusTable.key) {
-        query += `&tableStatus=/${filterStatusTable.key}/i`;
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
       }
-      if (search) {
-        query += `&tableNumber=/${search}/i`;
-      }
-
-      // Call API
-      console.log("localhost:8081/", query);
-
-      setIsLoading(false);
-    }, 500);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
   };
 
-  const handleDeleteTable = (_id) => {
-    console.log(_id);
-  };
-  const handleTableChange = (pagination, filters, sorter) => {
+  const handleChangeTable = (pagination) => {
     if (pagination.current !== currentPage) {
       setCurrentPage(pagination.current);
     }
@@ -93,28 +97,67 @@ const ManageDiscount = () => {
       setCurrentPage(1);
     }
   };
+
   const handleSearch = (value) => {
-    if (value === "") {
-      return;
-    }
     setSearch(value);
     setCurrentPage(1);
   };
+
   const handleReset = () => {
     setCurrentPage(1);
-    setPageSize(1);
-    setFilterTypeTable({
+    setPageSize(LIMIT);
+    setSortBy({
       key: "",
-      value: "Chọn loại bàn",
+      value: "Chọn sắp xếp",
     });
-    setFilterStatusTable({
+    setFilterTypeCoupon({
+      key: "",
+      value: "Chọn loại giảm giá",
+    });
+    setFilterStatusCoupon({
       key: "",
       value: "Chọn trạng thái",
     });
     setSearch("");
-    setDataSearch("");
     setCheckedList(defaultCheckedList);
   };
+
+  const handleCreateCoupon = async (data) => {
+    setIsLoading(true);
+    try {
+      const res = await addCoupon(data);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        toast.success("Thêm coupon thành công");
+        fetchCoupon();
+        setOpenModalCreateCoupon(false);
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
+  const handleEditCoupon = async (id, data) => {
+    setIsLoading(true);
+    try {
+      const res = await updateCoupon(id, data);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        toast.success("Cập nhật coupon thành công");
+        fetchCoupon();
+        setOpenModalEditCoupon(false);
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
   const columns = [
     {
       title: "STT",
@@ -128,74 +171,107 @@ const ManageDiscount = () => {
       ),
     },
     {
-      title: "Code",
-      dataIndex: "couponCode",
-      key: "couponCode",
-      render: (field) => {
-        return <span>{`Bàn số ${field}`}</span>;
+      title: "Mã code",
+      dataIndex: "code",
+      key: "code",
+      align: "center",
+      render: (code) => {
+        return <span className="font-medium">{code}</span>;
       },
     },
     {
       title: "Loại",
-      dataIndex: "couponType",
-      key: "couponType",
-      render: (field) => {
-        return <span>{field.name}</span>;
+      dataIndex: "type",
+      key: "type",
+      align: "center",
+      render: (type) => {
+        return (
+          <span>{type ? "Giảm giá theo %" : "Giảm giá theo giá VNĐ"}</span>
+        );
+      },
+    },
+    {
+      title: "Giá trị",
+      dataIndex: "value",
+      key: "value",
+      align: "center",
+      render: (value, record) => {
+        return (
+          <>
+            {record.type ? (
+              <Tag color={"green"}>{value}%</Tag>
+            ) : (
+              <Tag color={"red"}>{formatCurrency(value)}</Tag>
+            )}
+          </>
+        );
       },
     },
     {
       title: "Số lượng",
       dataIndex: "quantity",
       key: "quantity",
-      render: (field) => {
-        return (
-          <Space size="small">
-            <span>{field.name}</span>
-            <span>{`(${field.capacity} người)`}</span>
-          </Space>
-        );
+      align: "center",
+      render: (quantity) => {
+        return <span>{quantity}</span>;
+      },
+    },
+    {
+      title: "Giá thấp nhất để áp dụng",
+      dataIndex: "minimumPriceToUse",
+      key: "minimumPriceToUse",
+      align: "center",
+      render: (minimumPriceToUse) => {
+        return <span>{formatCurrency(minimumPriceToUse)}</span>;
       },
     },
     {
       title: "Ngày áp dụng",
       dataIndex: "startDate",
       key: "startDate",
-      render: (field) => {
-        return <span>{field.name}</span>;
+      align: "center",
+      render: (startDate) => {
+        return <span>{startDate}</span>;
       },
     },
     {
       title: "Ngày hết hạn",
       dataIndex: "endDate",
       key: "endDate",
-      render: (field) => {
-        return <span>{field.name}</span>;
-      },
-    },
-    {
-      title: "Minium price to use",
-      dataIndex: "minPrice",
-      key: "minPrice",
-      render: (field) => {
-        return (
-          <Space size="small">
-            <span>{field.name}</span>
-            <span>{`(${field.capacity} người)`}</span>
-          </Space>
-        );
+      align: "center",
+      render: (endDate) => {
+        return <span>{endDate}</span>;
       },
     },
     {
       title: "Trạng thái",
-      dataIndex: "couponStatus",
-      key: "couponStatus",
-      render: (field) => {
+      dataIndex: "active",
+      key: "active",
+      align: "center",
+      render: (active) => {
         return (
-          <Space size="small">
-            <span>{field.name}</span>
-            <span>{`(${field.capacity} người)`}</span>
-          </Space>
+          <Tag color={active ? "green" : "red"}>
+            {active ? "Active".toUpperCase() : "Inactive".toUpperCase()}
+          </Tag>
         );
+      },
+    },
+    {
+      title: "Ngày tạo",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      align: "center",
+      render: (createdAt) => {
+        return <span>{new Date(createdAt).toLocaleDateString("vi-VN")}</span>;
+      },
+    },
+    {
+      title: "Ngày cập nhật",
+      dataIndex: "updatedAt",
+      key: "updatedAt",
+      align: "center",
+      render: (updatedAt) => {
+        return <span>{new Date(updatedAt).toLocaleDateString("vi-VN")}</span>;
       },
     },
     {
@@ -206,78 +282,20 @@ const ManageDiscount = () => {
       render: (_, record) => {
         return (
           <Space size="middle" className="text-xl">
+            {/* Chỉnh sửa coupon */}
             <button
               onClick={() => {
-                setDetailTable(record);
-                setOpenModalViewTable(true);
+                setDetailCoupon(record);
+                setOpenModalEditCoupon(true);
               }}
-              className="text-blue-500"
-            >
-              <MdOutlineRemoveRedEye />
-            </button>
-            <button
-              onClick={() => setOpenModalEditTable(true)}
               className="text-yellow-500"
             >
               <CiEdit />
             </button>
-            <Popconfirm
-              title="Xóa bàn này?"
-              description="Bạn có chắc chắn muốn xóa bàn này?"
-              onConfirm={() => handleDeleteTable(record._id)}
-              onCancel={() => {}}
-              okText="Có"
-              cancelText="Không"
-            >
-              <button className="text-red-500">
-                <MdDeleteOutline />
-              </button>
-            </Popconfirm>
           </Space>
         );
       },
     },
-  ];
-  const data = [
-    // {
-    //   _id: "1",
-    //   tableNumber: "1",
-    //   couponStatus: {
-    //     _id: "1",
-    //     name: "Trống",
-    //   },
-    //   tableType: {
-    //     _id: "1",
-    //     name: "small",
-    //     capacity: 4,
-    //   },
-    // },
-    // {
-    //   _id: "2",
-    //   tableNumber: "2",
-    //   couponStatus: {
-    //     _id: "2",
-    //     name: "Đặt trước",
-    //   },
-    //   tableType: {
-    //     _id: "2",
-    //     name: "medium",
-    //     capacity: 6,
-    //   },
-    // },
-    // {
-    //   _id: "3",
-    //   tableNumber: "3",
-    //   couponStatus: {
-    //     _id: "3",
-    //     name: "Đang sử dụng",
-    //   },
-    //   tableType: {
-    //     _id: "3",
-    //     name: "large",
-    //     capacity: 8,
-    //   },
-    // },
   ];
 
   // Setting Table
@@ -328,20 +346,20 @@ const ManageDiscount = () => {
           <SearchFilterInput
             search={search}
             setSearch={setSearch}
-            dataSearch={dataSearch}
-            setDataSearch={setDataSearch}
             handleSearch={handleSearch}
-            filterTypeTable={filterTypeTable}
-            filterStatusTable={filterStatusTable}
-            setFilterStatusTable={setFilterStatusTable}
-            setFilterTypeTable={setFilterTypeTable}
+            filterTypeCoupon={filterTypeCoupon}
+            setFilterTypeCoupon={setFilterTypeCoupon}
+            filterStatusCoupon={filterStatusCoupon}
+            setFilterStatusCoupon={setFilterStatusCoupon}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
             setCurrentPage={setCurrentPage}
           />
         </div>
         {/* Button */}
         <div className="flex space-x-1.5">
           <button
-            onClick={() => setOpenModalCreateTable(true)}
+            onClick={() => setOpenModalCreateCoupon(true)}
             className="flex w-fit items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-1.5 text-primary hover:bg-blue-500/80"
           >
             <IoMdAddCircleOutline />
@@ -377,9 +395,9 @@ const ManageDiscount = () => {
             title={renderHeader}
             bordered
             columns={newColumns}
-            dataSource={listTable}
+            dataSource={listCoupon}
             rowKey={(record) => record._id}
-            onChange={handleTableChange}
+            onChange={handleChangeTable}
             loading={isLoading}
             pagination={{
               current: currentPage,
@@ -391,17 +409,17 @@ const ManageDiscount = () => {
         </Col>
       </Row>
       <ModalCreateDiscount
-        openModalCreateTable={openModalCreateTable}
-        setOpenModalCreateTable={setOpenModalCreateTable}
+        openModalCreateCoupon={openModalCreateCoupon}
+        setOpenModalCreateCoupon={setOpenModalCreateCoupon}
+        isLoading={isLoading}
+        handleCreateCoupon={handleCreateCoupon}
       />
       <ModalEditDiscount
-        openModalEditTable={openModalEditTable}
-        setOpenModalEditTable={setOpenModalEditTable}
-      />
-      <ModalViewDiscount
-        detailTable={detailTable}
-        openModalViewTable={openModalViewTable}
-        setOpenModalViewTable={setOpenModalViewTable}
+        detailCoupon={detailCoupon}
+        handleEditCoupon={handleEditCoupon}
+        isLoading={isLoading}
+        openModalEditCoupon={openModalEditCoupon}
+        setOpenModalEditCoupon={setOpenModalEditCoupon}
       />
     </div>
   );
