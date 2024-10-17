@@ -10,6 +10,11 @@ export const updateCoupon = async (id, data) => {
   return res;
 };
 
+export const changeStatusCoupon = async (id, data) => {
+  const res = await axios.put(`/api/v1/coupon/active/change/${id}`, data);
+  return res;
+};
+
 export const getAllCouponWithFilter = async (query) => {
   const res = await axios.get(`/api/v1/coupon/get?${query}`);
   return res;
