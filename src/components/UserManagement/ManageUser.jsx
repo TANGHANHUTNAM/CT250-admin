@@ -9,29 +9,34 @@ import {
   Table,
   Tag,
 } from "antd";
-import { IoMdAddCircleOutline } from "react-icons/io";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { IoSettingsSharp } from "react-icons/io5";
-import { MdDeleteOutline } from "react-icons/md";
-import { MdOutlineDeleteForever } from "react-icons/md";
+import { debounce } from "lodash";
 import { useCallback, useEffect, useState } from "react";
-import SearchFilterInput from "./SearchFilterInput";
 import { GrPowerReset } from "react-icons/gr";
-import ModalCreateEmployee from "./ModalCreateEmployee";
-import ModalViewUser from "./ModalViewUser";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { IoSettingsSharp } from "react-icons/io5";
+import {
+  MdDeleteOutline,
+  MdOutlineDeleteForever,
+  MdOutlineRemoveRedEye,
+} from "react-icons/md";
+import { TfiImport } from "react-icons/tfi";
+import { toast } from "react-toastify";
 import {
   deleteUserRoleStaff,
   getAllUserWithFilter,
 } from "../../services/accountService";
 import StatusCodes from "../../utils/StatusCodes";
 import Avatar from "../avatar/Avatar";
-import { toast } from "react-toastify";
-import { debounce } from "lodash";
+import ModalCreateEmployee from "./ModalCreateEmployee";
+import ModalImportFile from "./ModalImportFile";
+import ModalViewUser from "./ModalViewUser";
+import SearchFilterInput from "./SearchFilterInput";
 const ManageUser = () => {
   const LIMIT = 6;
   // Modal
   const [openModalCreateEmployee, setOpenModalCreateEmployee] = useState(false);
   const [openModalViewUser, setOpenModalViewUser] = useState(false);
+  const [openModalImportFile, setOpenModalImportFile] = useState(false);
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(LIMIT);
@@ -309,6 +314,13 @@ const ManageUser = () => {
         {/* Button */}
         <div className="flex space-x-1.5">
           <button
+            onClick={() => setOpenModalImportFile(true)}
+            className="flex w-fit items-center justify-center gap-2 rounded-md bg-blue-500 px-3 py-1.5 text-primary hover:bg-blue-500/80"
+          >
+            <TfiImport className="h-4 w-4" />
+            <span>Import</span>
+          </button>
+          <button
             onClick={() => setOpenModalCreateEmployee(true)}
             className="flex w-fit items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-1.5 text-primary hover:bg-blue-500/80"
           >
@@ -369,6 +381,10 @@ const ManageUser = () => {
         detailUser={detailUser}
         openModalViewUser={openModalViewUser}
         setOpenModalViewUser={setOpenModalViewUser}
+      />
+      <ModalImportFile
+        openModalImportFile={openModalImportFile}
+        setOpenModalImportFile={setOpenModalImportFile}
       />
     </div>
   );
