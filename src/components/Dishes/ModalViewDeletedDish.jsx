@@ -3,16 +3,15 @@ import { useEffect, useState } from "react";
 import { getDeletedDishes, recoverDish } from "../../services/dishService";
 import StatusCodes from "../../utils/StatusCodes";
 import { toast } from "react-toastify";
-import { set } from "lodash";
+
 const ModalViewDeletedDish = ({
   openModalViewDeletedDish,
   setOpenModalViewDeletedDish,
-  isLoading,
   setIsLoading,
   fetchDishes,
 }) => {
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(3);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [listDishDeleted, setListDishDeleted] = useState([]);
@@ -39,12 +38,14 @@ const ModalViewDeletedDish = ({
     }
     setLoading(false);
   };
+
   const handleRecoverDish = async (id) => {
     setIsLoading(true);
     setLoading(true);
     try {
       const res = await recoverDish(id);
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        setPage(1);
         fetchDishes();
         fetchDishesDeleted();
         toast.success("Khôi phục món ăn thành công");
@@ -72,20 +73,22 @@ const ModalViewDeletedDish = ({
     },
     {
       title: "Ảnh",
+      width: 150,
       dataIndex: "image",
-      render: (field) => <Image width={50} src={field} />,
+      align: "center",
+      render: (field) => <Image width={80} src={field} />,
     },
     {
       title: "Tên món ăn",
       dataIndex: "name",
     },
     {
-      title: "Danh mục level 1",
+      title: "Danh mục cấp 1",
       dataIndex: ["category", "1"],
       render: (field) => <span className="">{field?.name}</span>,
     },
     {
-      title: "Danh mục level 2",
+      title: "Danh mục cấp 2",
       dataIndex: ["category", "2"],
       render: (field) => <span className="">{field?.name}</span>,
     },
@@ -102,12 +105,11 @@ const ModalViewDeletedDish = ({
       ),
     },
     {
-      title: "Action",
+      title: "Hành động",
       key: "action",
       render: (_, record) => (
         <button
           onClick={() => {
-            setPage(1);
             handleRecoverDish(record._id);
           }}
           className="rounded-md bg-blue-500 px-2 py-1 text-white hover:bg-blue-500/90"
