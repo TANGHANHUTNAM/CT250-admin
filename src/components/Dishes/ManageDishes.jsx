@@ -19,6 +19,7 @@ import { debounce } from "lodash";
 import { getAllCagegory } from "../../services/categoryService";
 import ModalViewDeletedDish from "./ModalViewDeletedDish";
 const ManageDishes = () => {
+  const LIMIT = 5;
   const [openModalCreateDish, setOpenModalCreateDish] = useState(false);
   const [openModalViewDish, setOpenModalViewDish] = useState(false);
   const [openModalEditDish, setOpenModalEditDish] = useState(false);
@@ -26,7 +27,7 @@ const ManageDishes = () => {
     useState(false);
 
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(LIMIT);
   const [total, setTotal] = useState(0);
   const [listDish, setListDish] = useState([]);
   const [dishDetail, setDishDetail] = useState(null);
@@ -160,7 +161,7 @@ const ManageDishes = () => {
     setFilterPrice([]);
     setSearch("");
     setPage(1);
-    setLimit(5);
+    setLimit(LIMIT);
   };
   return (
     <div className="p-3">
