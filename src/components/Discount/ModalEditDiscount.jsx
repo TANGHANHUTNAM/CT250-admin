@@ -89,7 +89,7 @@ const ModalEditDiscount = ({
             },
           ]}
         >
-          <Select placeholder="Chọn loại coupon">
+          <Select disabled placeholder="Chọn loại coupon">
             {TypeCoupon.map((item) => (
               <Select.Option key={item.key} value={item.value}>
                 {item.title}
