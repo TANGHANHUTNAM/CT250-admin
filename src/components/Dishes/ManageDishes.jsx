@@ -165,6 +165,9 @@ const ManageDishes = () => {
   };
   return (
     <div className="p-3">
+      <div className="mb-4 p-2 text-3xl font-semibold uppercase text-blue-500">
+        Quản lý món ăn
+      </div>
       <div className="mb-3 flex w-full items-center justify-between px-2">
         <div className="flex w-1/2 gap-1.5">
           <FilterSort
