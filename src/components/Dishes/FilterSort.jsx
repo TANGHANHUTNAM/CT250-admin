@@ -92,7 +92,7 @@ const FilterSort = ({
           selectedKeys: filterCategory.key,
         }}
       >
-        <div className="flex h-full min-w-40 cursor-pointer items-center justify-start gap-1 rounded-md bg-blue-500 px-3 py-2 text-white">
+        <div className="flex h-full min-w-36 cursor-pointer items-center justify-start gap-1 rounded-md bg-blue-500 px-3 py-2 text-white">
           <MdFilterList className="text-lg" />
           <span className="ml-1">{filterCategory?.value}</span>
         </div>
@@ -141,7 +141,7 @@ const FilterSort = ({
           ],
         }}
       >
-        <div className="flex h-full min-w-36 cursor-pointer items-center justify-start gap-1 rounded-md bg-blue-500 px-3 py-2 text-white">
+        <div className="flex h-full min-w-fit cursor-pointer items-center justify-start gap-1 rounded-md bg-blue-500 px-3 py-2 text-white">
           <MdFilterList className="text-lg" />
           <span className="ml-1">Chọn mức giá</span>
         </div>
