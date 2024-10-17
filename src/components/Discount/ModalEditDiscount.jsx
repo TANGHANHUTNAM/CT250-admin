@@ -229,6 +229,15 @@ const ModalEditDiscount = ({
             style={{
               width: "100%",
             }}
+            disabled={
+              !dayjs(detailCoupon?.startDate, "DD/MM/YYYY").isAfter(
+                dayjs(),
+                "day",
+              )
+            }
+            disabledDate={(current) => {
+              return current && !current.isAfter(dayjs(), "day");
+            }}
             placeholder="Nhập ngày áp dụng"
           />
         </Form.Item>

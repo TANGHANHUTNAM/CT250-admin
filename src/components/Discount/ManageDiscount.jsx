@@ -1,4 +1,15 @@
-import { Checkbox, Col, Dropdown, Menu, Row, Space, Table, Tag } from "antd";
+import {
+  Checkbox,
+  Col,
+  Dropdown,
+  Menu,
+  Row,
+  Space,
+  Switch,
+  Table,
+  Tag,
+  Tooltip,
+} from "antd";
 import { debounce } from "lodash";
 import { useCallback, useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
@@ -8,6 +19,7 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import {
   addCoupon,
+  changeStatusCoupon,
   getAllCouponWithFilter,
   updateCoupon,
 } from "../../services/couponService";
@@ -158,6 +170,23 @@ const ManageDiscount = () => {
     setIsLoading(false);
   };
 
+  const handleActiveCoupon = async (id, data) => {
+    setIsLoading(true);
+    try {
+      const res = await changeStatusCoupon(id, data);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        toast.success("Thay đổi trạng thái coupon thành công");
+        fetchCoupon();
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
   const columns = [
     {
       title: "STT",
@@ -175,6 +204,7 @@ const ManageDiscount = () => {
       dataIndex: "code",
       key: "code",
       align: "center",
+      width: 150,
       render: (code) => {
         return <span className="font-medium">{code}</span>;
       },
@@ -292,6 +322,15 @@ const ManageDiscount = () => {
             >
               <CiEdit />
             </button>
+            <Tooltip title={record?.active ? "Tắt kích hoạt" : "Kích hoạt"}>
+              <Switch
+                size="small"
+                defaultChecked={record?.active}
+                onChange={(e) => {
+                  handleActiveCoupon(record?._id, { active: e });
+                }}
+              />
+            </Tooltip>
           </Space>
         );
       },
