@@ -1,8 +1,10 @@
-import { Modal, Table, Tooltip } from "antd";
+import { Button, Form, Input, Modal, Table, Tooltip } from "antd";
 import { useState } from "react";
 import { CiEdit } from "react-icons/ci";
 
 const ModalViewTypeTable = ({
+  isLoading,
+  handleUpdateTypeTable,
   listTypeTable,
   openModalViewTypeTable,
   setOpenModalViewTypeTable,
@@ -10,6 +12,9 @@ const ModalViewTypeTable = ({
   const LIMIT = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(LIMIT);
+
+  const [form] = Form.useForm();
+  const [detailTypeTable, setDetailTypeTable] = useState({});
 
   const columns = [
     {
@@ -57,8 +62,17 @@ const ModalViewTypeTable = ({
       align: "center",
       render: (_, record) => {
         return (
-          <Tooltip title="Chỉnh sửa bàn">
-            <button onClick={() => {}} className="text-yellow-500">
+          <Tooltip title="Chỉnh sửa loại bàn">
+            <button
+              onClick={() => {
+                form.setFieldsValue({
+                  name: record.name,
+                  capacity: record.capacity,
+                });
+                setDetailTypeTable(record);
+              }}
+              className="text-yellow-500"
+            >
               <CiEdit />
             </button>
           </Tooltip>
@@ -76,26 +90,84 @@ const ModalViewTypeTable = ({
         open={openModalViewTypeTable}
         onOk={() => setOpenModalViewTypeTable(false)}
         onCancel={() => setOpenModalViewTypeTable(false)}
-        width={800}
+        width={1100}
       >
-        <Table
-          bordered
-          columns={columns}
-          dataSource={listTypeTable}
-          size="middle"
-          rowKey={(record) => record._id}
-          pagination={{
-            current: currentPage,
-            pageSize: pageSize,
-            total: listTypeTable.length,
-            showSizeChanger: false,
-            showTotal: (total) => `Tổng ${total}`,
-            onChange: (page, pageSize) => {
-              setCurrentPage(page);
-              setPageSize(pageSize);
-            },
-          }}
-        />
+        <div className="flex w-full flex-row gap-2">
+          <Table
+            className="w-2/3"
+            bordered
+            loading={isLoading}
+            columns={columns}
+            dataSource={listTypeTable}
+            size="middle"
+            rowKey={(record) => record._id}
+            pagination={{
+              position: ["bottomCenter"],
+              current: currentPage,
+              pageSize: pageSize,
+              total: listTypeTable.length,
+              showSizeChanger: false,
+              showTotal: (total) => `Tổng ${total}`,
+              onChange: (page, pageSize) => {
+                setCurrentPage(page);
+                setPageSize(pageSize);
+              },
+            }}
+          />
+          <div className="w-1/3">
+            <Form
+              layout="vertical"
+              form={form}
+              name="form_eidt_type_table"
+              initialValues={{
+                modifier: "public",
+              }}
+              clearOnDestroy
+              onFinish={(data) => {
+                handleUpdateTypeTable(detailTypeTable?._id, data);
+                form.resetFields();
+                setDetailTypeTable({});
+              }}
+            >
+              <Form.Item
+                name="name"
+                label="Tên loại bàn"
+                rules={[
+                  {
+                    required: true,
+                    message: "Tên loại bàn không được để trống",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name="capacity"
+                label="Sức chứa"
+                rules={[
+                  {
+                    required: true,
+                    message: "Tên loại bàn không được để trống",
+                  },
+                  {
+                    pattern: /^[0-9]*$/,
+                    message: "Sức chứa phải là số",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Button
+                loading={isLoading}
+                htmlType="submit"
+                type="primary"
+                className="mt-3 w-full"
+              >
+                Lưu
+              </Button>
+            </Form>
+          </div>
+        </div>
       </Modal>
     </>
   );

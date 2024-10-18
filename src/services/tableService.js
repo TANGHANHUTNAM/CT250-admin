@@ -12,6 +12,10 @@ export const createTable = (data) => {
   return axios.post(`/api/v1/table/add`, data);
 };
 
+export const deleteTable = (id) => {
+  return axios.delete(`/api/v1/table/delete/${id}`);
+};
+
 export const updateTable = (id, data) => {
   return axios.put(`/api/v1/table/update/${id}`, data);
 };
@@ -22,4 +26,8 @@ export const getAllTypeTable = () => {
 
 export const createTypeTable = (data) => {
   return axios.post(`/api/v1/table-type/add`, data);
+};
+
+export const updateTypeTable = (id, data) => {
+  return axios.put(`/api/v1/table-type/update/${id}`, data);
 };
