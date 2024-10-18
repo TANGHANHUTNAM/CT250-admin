@@ -15,3 +15,7 @@ export const deleteUserRoleStaff = async (_id) => {
 export const createUserRoleStaff = async (data) => {
   return axios.post("/api/v1/account/add", data);
 };
+
+export const createMultipleUserRoleStaff = async (data) => {
+  return axios.post("/api/v1/account/add/multiples", data);
+};
