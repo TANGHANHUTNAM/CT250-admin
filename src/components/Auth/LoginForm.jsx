@@ -59,12 +59,12 @@ const LoginForm = () => {
     }
   }, [isAuth, navigate]);
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <div className="">
-        <img src={logo} className="mx-auto h-20 w-auto mb-5" alt="logo" />
-        <hr className="mb-5 " />
+        <img src={logo} className="mx-auto mb-5 h-20 w-auto" alt="logo" />
+        <hr className="mb-5" />
       </div>
-      <p className="text-center text-primary text-2xl font-semibold mb-6 uppercase !text-black">
+      <p className="mb-6 text-center text-2xl font-semibold uppercase !text-black text-primary">
         {t("Auth.login")}
       </p>
       <form
@@ -96,14 +96,14 @@ const LoginForm = () => {
       <div className="mt-8 w-full">
         <button
           form="login"
-          className="!text-black w-full bg-neutral-300 px-4 py-2.5 rounded-md font-semibold hover:bg-neutral-400"
+          className="w-full rounded-md bg-neutral-300 px-4 py-2.5 font-semibold !text-black hover:bg-neutral-400"
         >
           {t("Auth.login")}
         </button>
       </div>
-      <div className="!text-black mt-3 w-full flex items-center justify-center flex-col gap-y-4 mt-4">
+      <div className="mt-3 mt-4 flex w-full flex-col items-center justify-center gap-y-4 !text-black">
         <Language />
-        <span className="!text-black text-sm text-gray-200 cursor-pointer hover:text-tertiary">
+        <span className="cursor-pointer text-sm !text-black text-gray-200 hover:text-tertiary">
           {t("Auth.forgot_password")}
         </span>
       </div>
