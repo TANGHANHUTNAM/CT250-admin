@@ -19,3 +19,7 @@ export const createUserRoleStaff = async (data) => {
 export const countNewCustomerToday = async () => {
   return axios.get(`/api/v1/account/count/new-customer/today`);
 };
+  
+export const createMultipleUserRoleStaff = async (data) => {
+  return axios.post("/api/v1/account/add/multiples", data);
+};

@@ -5,15 +5,16 @@ import { useState } from "react";
 import * as xlsx from "xlsx";
 const { Dragger } = Upload;
 
-const ModalImportFile = ({ openModalImportFile, setOpenModalImportFile }) => {
+const ModalImportFile = ({
+  isLoading,
+  handleImportListStaff,
+  openModalImportFile,
+  setOpenModalImportFile,
+}) => {
   const [dataFile, setDataFile] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(2);
+  const [pageSize, setPageSize] = useState(3);
 
-  const handleImport = () => {
-    console.log(dataFile);
-    setOpenModalImportFile(false);
-  };
   const propsUploadFile = {
     name: "file",
     multiple: false,
@@ -155,14 +156,19 @@ const ModalImportFile = ({ openModalImportFile, setOpenModalImportFile }) => {
         title="Thêm danh sách nhân viên"
         okText="Import"
         cancelText="Hủy"
+        okButtonProps={{ disabled: dataFile.length === 0, loading: isLoading }}
         onCancel={() => setOpenModalImportFile(false)}
         destroyOnClose
         afterClose={() => setDataFile([])}
         maskClosable={false}
-        onOk={handleImport}
+        onOk={() => {
+          handleImportListStaff(dataFile);
+          setOpenModalImportFile(false);
+        }}
         width={1000}
       >
         <Dragger
+          disabled={isLoading}
           onRemove={() => setDataFile([])}
           customRequest={({ onSuccess }) => {
             setTimeout(() => {
@@ -179,6 +185,7 @@ const ModalImportFile = ({ openModalImportFile, setOpenModalImportFile }) => {
           </p>
         </Dragger>
         <Table
+          loading={isLoading}
           size="small"
           title={() => {
             return <span className="text-base">Dữ liệu của file:</span>;

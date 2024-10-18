@@ -22,6 +22,7 @@ import {
 import { TfiImport } from "react-icons/tfi";
 import { toast } from "react-toastify";
 import {
+  createMultipleUserRoleStaff,
   deleteUserRoleStaff,
   getAllUserWithFilter,
 } from "../../services/accountService";
@@ -98,6 +99,24 @@ const ManageUser = () => {
       }
       if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
         toast.error("Xóa tài khoản không thành công");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+  const handleImportListStaff = async (data) => {
+    setIsLoading(true);
+    console.log(data);
+    try {
+      const res = await createMultipleUserRoleStaff({ data });
+      console.log(res);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        fetchListUser();
+        toast.success("Import danh sách nhân viên thành công");
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
       }
     } catch (error) {
       console.log(error);
@@ -383,6 +402,8 @@ const ManageUser = () => {
         setOpenModalViewUser={setOpenModalViewUser}
       />
       <ModalImportFile
+        isLoading={isLoading}
+        handleImportListStaff={handleImportListStaff}
         openModalImportFile={openModalImportFile}
         setOpenModalImportFile={setOpenModalImportFile}
       />

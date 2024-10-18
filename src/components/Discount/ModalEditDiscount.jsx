@@ -48,7 +48,7 @@ const ModalEditDiscount = ({
     <>
       <Modal
         open={openModalEditCoupon}
-        title="Tạo mới mã giảm giá"
+        title={`Chỉnh sửa mã giảm giá ${detailCoupon?.code}`}
         okText="Lưu"
         cancelText="Cancel"
         okButtonProps={{

@@ -16,6 +16,7 @@ import {
   MdOutlineBookmarkAdd,
   MdOutlineRemoveRedEye,
 } from "react-icons/md";
+import { MdOutlineDeleteForever } from "react-icons/md";
 
 import { debounce } from "lodash";
 import { useCallback, useEffect, useState } from "react";
@@ -24,10 +25,12 @@ import { toast } from "react-toastify";
 import {
   createTable,
   createTypeTable,
+  deleteTable,
   getAllTableWithFilter,
   getAllTypeTable,
   getStatusTable,
   updateTable,
+  updateTypeTable,
 } from "../../services/tableService";
 import StatusCodes from "../../utils/StatusCodes";
 import ModalCreateTable from "./ModalCreateTable";
@@ -189,8 +192,42 @@ const ManageTable = () => {
     }
   };
 
-  const handleDeleteTable = (_id) => {
-    console.log(_id);
+  const handleDeleteTable = async (_id) => {
+    try {
+      const res = await deleteTable(_id);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        const newTotalTable = total - 1;
+        const newTotalPage = Math.ceil(newTotalTable / pageSize);
+        const newPage = Math.max(
+          currentPage > newTotalPage ? newTotalPage : currentPage,
+          1,
+        );
+        if (newPage === currentPage) fetchListTable();
+        setCurrentPage(newPage);
+        toast.success("Xóa bàn thành công!");
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUpdateTypeTable = async (id, data) => {
+    try {
+      const res = await updateTypeTable(id, data);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        toast.success("Cập nhật loại bàn thành công!");
+        fetchListTable();
+        fetchListTypeTable();
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleTableChange = (pagination) => {
@@ -283,6 +320,7 @@ const ManageTable = () => {
         );
       },
     },
+
     {
       title: "Ngày tạo",
       dataIndex: "createdAt",
@@ -302,6 +340,19 @@ const ManageTable = () => {
       },
     },
     {
+      title: "Hoạt động",
+      dataIndex: "deleted",
+      key: "deleted",
+      align: "center",
+      render: (deleted) => {
+        return (
+          <Tag color={deleted ? "red" : "green"}>
+            <span className="">{deleted ? "Đã xóa" : "Hoạt động"}</span>
+          </Tag>
+        );
+      },
+    },
+    {
       title: "Hành động",
       key: "action",
       width: "10% ",
@@ -309,18 +360,8 @@ const ManageTable = () => {
       render: (_, record) => {
         return (
           <Space size="middle" className="text-xl">
-            {/* <Tooltip title="Chỉnh sửa bàn">
-              <button
-                onClick={() => {
-                  setDetailTable(record);
-                  setOpenModalEditTable(true);
-                }}
-                className="text-yellow-500"
-              >
-                <CiEdit />
-              </button>
-            </Tooltip> */}
             <Popconfirm
+              disabled={record?.deleted}
               title={`Xóa bàn số ${record?.tableNumber} ?`}
               description="Bạn có chắc chắn muốn xóa bàn này?"
               onConfirm={() => handleDeleteTable(record._id)}
@@ -328,8 +369,12 @@ const ManageTable = () => {
               okText="Có"
               cancelText="Không"
             >
-              <button className="text-red-500">
-                <MdDeleteOutline />
+              <button disabled={record.deleted} className="text-red-500">
+                {record.deleted ? (
+                  <MdOutlineDeleteForever />
+                ) : (
+                  <MdDeleteOutline />
+                )}
               </button>
             </Popconfirm>
           </Space>
@@ -485,7 +530,9 @@ const ManageTable = () => {
         setOpenModalEditTable={setOpenModalEditTable}
       />
       <ModalViewTypeTable
+        isLoading={isLoading}
         listTypeTable={listTypeTable}
+        handleUpdateTypeTable={handleUpdateTypeTable}
         openModalViewTypeTable={openModalViewTypeTable}
         setOpenModalViewTypeTable={setOpenModalViewTypeTable}
       />
