@@ -3,13 +3,13 @@ import Sidebar from "../components/Dashboard/Sidebar";
 import HeaderBar from "../components/Header/HeaderBar";
 import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
-import { useNotifications } from "../hooks";
+import { useSSE } from "../hooks";
 const { Content } = Layout;
 
 const Main = () => {
   const [collapsed, setCollapsed] = useState(true);
 
-  useNotifications();
+  useSSE();
 
   return (
     <Layout hasSider className="box-content !h-full !w-full">
