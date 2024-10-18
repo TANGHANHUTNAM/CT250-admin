@@ -6,8 +6,13 @@ import { getReservationsByStatus } from "../services/reservationService";
 import StatusCodes from "../utils/StatusCodes";
 import { changedPendingContact } from "../redux/reducer/contactSlice";
 import { getAllContactsPending } from "../services/contactService";
+import {
+  changedReservation,
+  newCustomer,
+} from "../redux/reducer/dashboardSlice";
+import { countNewCustomerToday } from "../services/accountService";
 
-const useNotifications = () => {
+const useSSE = () => {
   const dispatch = useDispatch();
 
   // Gọi api lấy dữ liệu khởi tạo khi render lần đầu
@@ -18,6 +23,12 @@ const useNotifications = () => {
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
         dispatch(
           changedPendingReservation({
+            total: res.DT.length,
+            data: res.DT,
+          }),
+        );
+        dispatch(
+          changedReservation({
             total: res.DT.length,
             data: res.DT,
           }),
@@ -38,8 +49,17 @@ const useNotifications = () => {
       }
     };
 
+    const getInitialNewCustomer = async () => {
+      const res = await countNewCustomerToday();
+
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        dispatch(newCustomer({ count: res.DT.count }));
+      }
+    };
+
     getInitialReservation();
     getInitialContact();
+    getInitialNewCustomer();
   }, []);
 
   // Lắng nghe SSE events
@@ -54,6 +74,7 @@ const useNotifications = () => {
       const { isNew, totalItems, data } = payload;
 
       dispatch(changedPendingReservation({ total: totalItems, data }));
+      dispatch(changedReservation({ total: totalItems, data }));
       if (isNew === true) {
         toast.info("New reservation");
       }
@@ -68,7 +89,14 @@ const useNotifications = () => {
         toast.info("New reservation");
       }
     });
+
+    eventSource.addEventListener("new-customer", (event) => {
+      const payload = JSON.parse(event.data);
+      const { count } = payload;
+
+      dispatch(newCustomer({ count }));
+    });
   }, []);
 };
 
-export default useNotifications;
+export default useSSE;
