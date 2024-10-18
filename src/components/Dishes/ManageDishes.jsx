@@ -19,7 +19,7 @@ import { debounce } from "lodash";
 import { getAllCagegory } from "../../services/categoryService";
 import ModalViewDeletedDish from "./ModalViewDeletedDish";
 const ManageDishes = () => {
-  const LIMIT = 5;
+  const LIMIT = 10;
   const [openModalCreateDish, setOpenModalCreateDish] = useState(false);
   const [openModalViewDish, setOpenModalViewDish] = useState(false);
   const [openModalEditDish, setOpenModalEditDish] = useState(false);
@@ -247,7 +247,7 @@ const ManageDishes = () => {
         total={total}
         showTotal={(total) => `Số lượng: ${total}`}
         showSizeChanger
-        pageSizeOptions={[1, 5, 10, 20]}
+        pageSizeOptions={[5, 10, 20, 30, 40]}
         onShowSizeChange={(_, pageSize) => {
           setPage(1);
           setLimit(pageSize);
