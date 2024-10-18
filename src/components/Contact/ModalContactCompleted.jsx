@@ -72,14 +72,14 @@ const ModalContactCompleted = ({ isModalOpen, setIsModalOpen, contact }) => {
                 <div className="flex items-center justify-between text-xl font-semibold">
                   <span>{t("ModalContactComplete.employee")}</span>
                   <span>
-                    <Avatar src={contact?.staff?.avtar?.url} size={40} />
+                    <Avatar src={contact?.staff?.avatar?.url} size={40} />
                   </span>
                 </div>
                 <div className="">
                   <span className="font-semibold opacity-85">
                     {t("ModalContactComplete.employeeName")}
                   </span>
-                  <span className="ml-3">{contact?.staff?.fullName}</span>
+                  <span className="ml-3">{contact?.staff?.fullname}</span>
                 </div>
                 <div className="">
                   <span className="font-semibold opacity-85">Username:</span>
