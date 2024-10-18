@@ -7,27 +7,39 @@ import {
   Row,
   Space,
   Table,
+  Tag,
 } from "antd";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { IoSettingsSharp } from "react-icons/io5";
-import { CiEdit } from "react-icons/ci";
-import { MdDeleteOutline } from "react-icons/md";
+import {
+  MdDeleteOutline,
+  MdOutlineBookmarkAdd,
+  MdOutlineRemoveRedEye,
+} from "react-icons/md";
 
-import { useEffect, useState } from "react";
-import SearchFilterInput from "./SearchFilterInput";
+import { debounce } from "lodash";
+import { useCallback, useEffect, useState } from "react";
 import { GrPowerReset } from "react-icons/gr";
+import { toast } from "react-toastify";
+import {
+  createTable,
+  createTypeTable,
+  getAllTableWithFilter,
+  getAllTypeTable,
+  getStatusTable,
+  updateTable,
+} from "../../services/tableService";
+import StatusCodes from "../../utils/StatusCodes";
 import ModalCreateTable from "./ModalCreateTable";
 import ModalCreateTypeTable from "./ModalCreateTypeTable";
 import ModalEditTable from "./ModalEditTable";
 import ModalViewTypeTable from "./ModalViewTypeTable";
-import ModalViewTable from "./ModalViewTable";
+import SearchFilterInput from "./SearchFilterInput";
 
 const ManageTable = () => {
+  const LIMIT = 6;
   // Modal
   const [openModalCreateTable, setOpenModalCreateTable] = useState(false);
-  const [openModalViewTable, setOpenModalViewTable] = useState(false);
   const [openModalEditTable, setOpenModalEditTable] = useState(false);
   const [openModalCreateTypeTable, setOpenModalCreateTypeTable] =
     useState(false);
@@ -35,10 +47,8 @@ const ManageTable = () => {
 
   // Table
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(1);
+  const [pageSize, setPageSize] = useState(LIMIT);
   const [total, setTotal] = useState(0);
-  const [listTable, setListTable] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [filterTypeTable, setFilterTypeTable] = useState({
     key: "",
     value: "Chọn loại bàn",
@@ -47,45 +57,143 @@ const ManageTable = () => {
     key: "",
     value: "Chọn trạng thái",
   });
-  const [dataSearch, setDataSearch] = useState("");
   const [search, setSearch] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [detailTable, setDetailTable] = useState(null);
+  const [listTable, setListTable] = useState([]);
+  const [listTypeTable, setListTypeTable] = useState([]);
+  const [listStatusTable, setListStatusTable] = useState([]);
+  const [detailTable, setDetailTable] = useState({});
+
+  const debouncedFetchTable = useCallback(
+    debounce(() => {
+      fetchListTable();
+    }, 300),
+    [currentPage, pageSize, filterTypeTable, filterStatusTable, search],
+  );
 
   useEffect(() => {
-    setListTable(data);
-    setTotal(data.length);
-  }, []);
-
-  useEffect(() => {
-    fetchListTable();
-  }, [currentPage, pageSize, filterTypeTable, filterStatusTable, search]);
+    debouncedFetchTable();
+    return () => {
+      debouncedFetchTable.cancel();
+    };
+  }, [debouncedFetchTable]);
 
   const fetchListTable = async () => {
     setIsLoading(true);
-    setTimeout(() => {
-      let query = `page=${currentPage}&limit=${pageSize}`;
-      if (filterTypeTable.key) {
-        query += `&tableType=/${filterTypeTable.key}/i`;
+    let query = `page=${currentPage}&limit=${pageSize}`;
+    if (filterTypeTable.key) {
+      query += `&type=${filterTypeTable.key}`;
+    }
+    if (filterStatusTable.key) {
+      query += `&status=${filterStatusTable.key}`;
+    }
+    if (search) {
+      query += `&search=${search}`;
+    }
+    try {
+      const res = await getAllTableWithFilter(query);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        setListTable(res.DT.data);
+        setTotal(res.DT.totalData);
       }
-      if (filterStatusTable.key) {
-        query += `&tableStatus=/${filterStatusTable.key}/i`;
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
       }
-      if (search) {
-        query += `&tableNumber=/${search}/i`;
-      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
 
-      // Call API
-      console.log("localhost:8081/", query);
+  useEffect(() => {
+    fetchListTypeTable();
+    fetchListStatusTable();
+  }, []);
 
-      setIsLoading(false);
-    }, 500);
+  const fetchListTypeTable = async () => {
+    try {
+      const res = await getAllTypeTable();
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        setListTypeTable(res.DT);
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchListStatusTable = async () => {
+    try {
+      const res = await getStatusTable();
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        setListStatusTable(res.DT);
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCreateTable = async (data) => {
+    setIsLoading(true);
+    try {
+      const res = await createTable(data);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        toast.success("Thêm bàn thành công!");
+        fetchListTable();
+        setOpenModalCreateTable(false);
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
+  const handleUpdateTable = async (id, data) => {
+    try {
+      const res = await updateTable(id, data);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        toast.success("Cập nhật bàn thành công!");
+        setOpenModalEditTable(false);
+        fetchListTable();
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCreateTypeTable = async (data) => {
+    try {
+      const res = await createTypeTable(data);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        toast.success("Thêm loại bàn thành công!");
+        fetchListTypeTable();
+        setOpenModalCreateTypeTable(false);
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleDeleteTable = (_id) => {
     console.log(_id);
   };
-  const handleTableChange = (pagination, filters, sorter) => {
+
+  const handleTableChange = (pagination) => {
     if (pagination.current !== currentPage) {
       setCurrentPage(pagination.current);
     }
@@ -94,16 +202,15 @@ const ManageTable = () => {
       setCurrentPage(1);
     }
   };
+
   const handleSearch = (value) => {
-    if (value === "") {
-      return;
-    }
     setSearch(value);
     setCurrentPage(1);
   };
+
   const handleReset = () => {
     setCurrentPage(1);
-    setPageSize(1);
+    setPageSize(LIMIT);
     setFilterTypeTable({
       key: "",
       value: "Chọn loại bàn",
@@ -113,7 +220,6 @@ const ManageTable = () => {
       value: "Chọn trạng thái",
     });
     setSearch("");
-    setDataSearch("");
     setCheckedList(defaultCheckedList);
   };
   const columns = [
@@ -132,29 +238,67 @@ const ManageTable = () => {
       title: "Tên bàn",
       dataIndex: "tableNumber",
       key: "tableNumber",
-      render: (field) => {
-        return <span>{`Bàn số ${field}`}</span>;
+      align: "center",
+      render: (tableNumber) => {
+        return <span className="font-medium">{`Bàn số ${tableNumber}`}</span>;
+      },
+    },
+
+    {
+      title: "Loại bàn",
+      dataIndex: "type",
+      key: "type",
+      align: "center",
+      render: (type) => {
+        return <span>{type}</span>;
+      },
+    },
+    {
+      title: "Sức chứa",
+      dataIndex: "capacity",
+      key: "capacity",
+      align: "center",
+      render: (capacity) => {
+        return <span>{capacity}</span>;
       },
     },
     {
       title: "Trạng thái",
-      dataIndex: "tableStatus",
-      key: "tableStatus",
-      render: (field) => {
-        return <span>{field.name}</span>;
+      dataIndex: "status",
+      key: "status",
+      align: "center",
+      render: (status) => {
+        return (
+          <Tag
+            color={
+              status === "Đang sử dụng"
+                ? "blue"
+                : status === "Đặt trước"
+                  ? "green"
+                  : "red"
+            }
+          >
+            {status}
+          </Tag>
+        );
       },
     },
     {
-      title: "Loại bàn",
-      dataIndex: "tableType",
-      key: "tableType",
-      render: (field) => {
-        return (
-          <Space size="small">
-            <span>{field.name}</span>
-            <span>{`(${field.capacity} người)`}</span>
-          </Space>
-        );
+      title: "Ngày tạo",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      align: "center",
+      render: (createdAt) => {
+        return <span>{new Date(createdAt).toLocaleDateString("vi-VN")}</span>;
+      },
+    },
+    {
+      title: "Ngày cập nhật",
+      dataIndex: "updatedAt",
+      key: "updatedAt",
+      align: "center",
+      render: (updatedAt) => {
+        return <span>{new Date(updatedAt).toLocaleDateString("vi-VN")}</span>;
       },
     },
     {
@@ -165,23 +309,19 @@ const ManageTable = () => {
       render: (_, record) => {
         return (
           <Space size="middle" className="text-xl">
-            <button
-              onClick={() => {
-                setDetailTable(record);
-                setOpenModalViewTable(true);
-              }}
-              className="text-blue-500"
-            >
-              <MdOutlineRemoveRedEye />
-            </button>
-            <button
-              onClick={() => setOpenModalEditTable(true)}
-              className="text-yellow-500"
-            >
-              <CiEdit />
-            </button>
+            {/* <Tooltip title="Chỉnh sửa bàn">
+              <button
+                onClick={() => {
+                  setDetailTable(record);
+                  setOpenModalEditTable(true);
+                }}
+                className="text-yellow-500"
+              >
+                <CiEdit />
+              </button>
+            </Tooltip> */}
             <Popconfirm
-              title="Xóa bàn này?"
+              title={`Xóa bàn số ${record?.tableNumber} ?`}
               description="Bạn có chắc chắn muốn xóa bàn này?"
               onConfirm={() => handleDeleteTable(record._id)}
               onCancel={() => {}}
@@ -194,47 +334,6 @@ const ManageTable = () => {
             </Popconfirm>
           </Space>
         );
-      },
-    },
-  ];
-  const data = [
-    {
-      _id: "1",
-      tableNumber: "1",
-      tableStatus: {
-        _id: "1",
-        name: "Trống",
-      },
-      tableType: {
-        _id: "1",
-        name: "small",
-        capacity: 4,
-      },
-    },
-    {
-      _id: "2",
-      tableNumber: "2",
-      tableStatus: {
-        _id: "2",
-        name: "Đặt trước",
-      },
-      tableType: {
-        _id: "2",
-        name: "medium",
-        capacity: 6,
-      },
-    },
-    {
-      _id: "3",
-      tableNumber: "3",
-      tableStatus: {
-        _id: "3",
-        name: "Đang sử dụng",
-      },
-      tableType: {
-        _id: "3",
-        name: "large",
-        capacity: 8,
       },
     },
   ];
@@ -287,13 +386,13 @@ const ManageTable = () => {
           <SearchFilterInput
             search={search}
             setSearch={setSearch}
-            dataSearch={dataSearch}
-            setDataSearch={setDataSearch}
             handleSearch={handleSearch}
             filterTypeTable={filterTypeTable}
             filterStatusTable={filterStatusTable}
             setFilterStatusTable={setFilterStatusTable}
             setFilterTypeTable={setFilterTypeTable}
+            listStatusTable={listStatusTable}
+            listTypeTable={listTypeTable}
             setCurrentPage={setCurrentPage}
           />
         </div>
@@ -364,23 +463,29 @@ const ManageTable = () => {
         </Col>
       </Row>
       <ModalCreateTable
+        isLoading={isLoading}
+        listTypeTable={listTypeTable}
+        handleCreateTable={handleCreateTable}
         openModalCreateTable={openModalCreateTable}
         setOpenModalCreateTable={setOpenModalCreateTable}
       />
       <ModalCreateTypeTable
+        isLoading={isLoading}
+        handleCreateTypeTable={handleCreateTypeTable}
         openModalCreateTypeTable={openModalCreateTypeTable}
         setOpenModalCreateTypeTable={setOpenModalCreateTypeTable}
       />
       <ModalEditTable
+        isLoading={isLoading}
+        detailTable={detailTable}
+        setDetailTable={setDetailTable}
+        listTypeTable={listTypeTable}
+        handleUpdateTable={handleUpdateTable}
         openModalEditTable={openModalEditTable}
         setOpenModalEditTable={setOpenModalEditTable}
       />
-      <ModalViewTable
-        detailTable={detailTable}
-        openModalViewTable={openModalViewTable}
-        setOpenModalViewTable={setOpenModalViewTable}
-      />
       <ModalViewTypeTable
+        listTypeTable={listTypeTable}
         openModalViewTypeTable={openModalViewTypeTable}
         setOpenModalViewTypeTable={setOpenModalViewTypeTable}
       />
