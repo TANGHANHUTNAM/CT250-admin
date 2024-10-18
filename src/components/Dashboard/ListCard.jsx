@@ -2,70 +2,89 @@ import { useCountup } from "../../hooks/useCountup";
 import { useVNDCountup } from "../../hooks/useCountup";
 import { useTranslation } from "react-i18next";
 import { LineChart1, LineChart2, LineChart3, BarChart1 } from "./Chart";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+
 const ListCard = () => {
-  const ordersCountRef = useCountup(40);
-  const tableOrdersCountRef = useCountup(10);
+  const {
+    customer,
+    reservation: { count: reservationCount },
+  } = useSelector((state) => state.dashboard);
+
+  const { countUpRef: ordersCountRef } = useCountup(40);
+  const { countUpRef: tableOrdersCountRef, update: updateReservationCount } =
+    useCountup(reservationCount);
   const incomeCountRef = useVNDCountup(1500000);
-  const newCustomersCountRef = useCountup(8);
+  const { countUpRef: newCustomersCountRef, update: updateNewCustomerCount } =
+    useCountup(customer);
+
+  useEffect(() => {
+    updateNewCustomerCount(customer);
+    updateReservationCount(reservationCount);
+  }, [reservationCount, customer]);
+
   const { t } = useTranslation();
+
   return (
-    <div className="flex flex-wrap mb-4 text-white">
+    <div className="mb-4 flex flex-wrap text-white">
       {/* Card item */}
-      <div className="p-2 w-full sm:w-1/2 lg:w-1/4">
-        <div className="bg-[rgb(103,97,217)] flex flex-col rounded-md h-full">
-          <div className="p-4 pb-0 flex flex-col gap-1">
+      <div className="w-full p-2 sm:w-1/2 lg:w-1/4">
+        <div className="flex h-full flex-col rounded-md bg-[rgb(103,97,217)]">
+          <div className="flex flex-col gap-1 p-4 pb-0">
             <span
               ref={ordersCountRef}
               className="total text-2xl font-semibold"
             ></span>
-            <span className="des text-lg w-full">{t("ListCard.orderToday")}</span>
+            <span className="des w-full text-lg">
+              {t("ListCard.orderToday")}
+            </span>
           </div>
-          <div className="p-4 h-28 flex justify-center">
+          <div className="flex h-28 justify-center p-4">
             <LineChart1 />
           </div>
         </div>
       </div>
       {/* Card item */}
-      <div className="p-2 w-full sm:w-1/2 lg:w-1/4">
-        <div className="bg-[#2C89DB] flex flex-col rounded-md h-full">
-          <div className="p-4 pb-0 flex flex-col gap-1">
+      <div className="w-full p-2 sm:w-1/2 lg:w-1/4">
+        <div className="flex h-full flex-col rounded-md bg-[#2C89DB]">
+          <div className="flex flex-col gap-1 p-4 pb-0">
             <span
               ref={tableOrdersCountRef}
               className="total text-2xl font-semibold"
             ></span>
             <span className="des text-lg">{t("ListCard.orderTableToday")}</span>
           </div>
-          <div className="p-4 h-28 flex justify-center">
+          <div className="flex h-28 justify-center p-4">
             <LineChart2 />
           </div>
         </div>
       </div>
       {/* Card item */}
-      <div className="p-2 w-full sm:w-1/2 lg:w-1/4">
-        <div className="bg-[#F79F0E] flex flex-col rounded-md h-full">
-          <div className="p-4 pb-0 flex flex-col gap-1">
+      <div className="w-full p-2 sm:w-1/2 lg:w-1/4">
+        <div className="flex h-full flex-col rounded-md bg-[#F79F0E]">
+          <div className="flex flex-col gap-1 p-4 pb-0">
             <span
               ref={incomeCountRef}
               className="total text-2xl font-semibold"
             ></span>
             <span className="des text-lg">{t("ListCard.incomeToday")}</span>
           </div>
-          <div className="p-4 h-28 flex justify-center">
+          <div className="flex h-28 justify-center p-4">
             <LineChart3 />
           </div>
         </div>
       </div>
       {/* Card item */}
-      <div className="p-2 w-full sm:w-1/2 lg:w-1/4">
-        <div className="bg-[#DE4242] flex flex-col rounded-md h-full">
-          <div className="p-4 pb-0 flex flex-col gap-1">
+      <div className="w-full p-2 sm:w-1/2 lg:w-1/4">
+        <div className="flex h-full flex-col rounded-md bg-[#DE4242]">
+          <div className="flex flex-col gap-1 p-4 pb-0">
             <span
               ref={newCustomersCountRef}
               className="total text-2xl font-semibold"
             ></span>
             <span className="des text-lg">{t("ListCard.newCustomer")}</span>
           </div>
-          <div className="p-4 h-28 flex justify-center">
+          <div className="flex h-28 justify-center p-4">
             <BarChart1 />
           </div>
         </div>
