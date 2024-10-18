@@ -1,4 +1,4 @@
-import { DatePicker, Form, Input, Modal, Select } from "antd";
+import { DatePicker, Form, Input, InputNumber, Modal, Select } from "antd";
 import dayjs from "dayjs";
 
 const ModalCreateDiscount = ({
@@ -15,6 +15,7 @@ const ModalCreateDiscount = ({
       startDate: dayjs(values.startDate).format("YYYY-MM-DD"),
       endDate: dayjs(values.endDate).format("YYYY-MM-DD"),
     };
+    console.log(data);
     handleCreateCoupon(data);
   };
 
@@ -124,7 +125,21 @@ const ModalCreateDiscount = ({
             },
           ]}
         >
-          <Input placeholder="Nhập giá trị" />
+          <InputNumber
+            min={0}
+            style={{ width: "100%" }}
+            placeholder="Nhập giá trị"
+            formatter={(value) =>
+              form.getFieldValue("type")
+                ? `${value}%`
+                : `${value} đ`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }
+            parser={(value) =>
+              form.getFieldValue("type")
+                ? value?.replace("%", "")
+                : value?.replace(/đ\s?|(,*)/g, "")
+            }
+          />
         </Form.Item>
         <Form.Item
           tooltip="Số lượng coupon cần tạo (tối đa 100 coupon)"
@@ -149,12 +164,18 @@ const ModalCreateDiscount = ({
             },
           ]}
         >
-          <Input placeholder="Nhập giá trị" />
+          <InputNumber
+            style={{
+              width: "100%",
+            }}
+            placeholder="Nhập số lượng"
+          />
         </Form.Item>
         <Form.Item
           tooltip="Giá tối thiểu để sử dụng coupon phải lớn hơn 100.000đ"
           name="minimumPriceToUse"
           label="Giá tối thiểu để sử dụng coupon (VNĐ)"
+          initialValue={100000}
           rules={[
             {
               required: true,
@@ -179,7 +200,15 @@ const ModalCreateDiscount = ({
             },
           ]}
         >
-          <Input placeholder="Nhập giá trị" />
+          <InputNumber
+            defaultValue={100000}
+            formatter={(value) =>
+              `${value} đ`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }
+            parser={(value) => value?.replace(/\đ\s?|(,*)/g, "")}
+            style={{ width: "100%" }}
+            placeholder="Nhập giá trị"
+          />
         </Form.Item>
         <Form.Item
           name="startDate"
@@ -212,6 +241,13 @@ const ModalCreateDiscount = ({
             format={"DD/MM/YYYY"}
             style={{
               width: "100%",
+            }}
+            disabledDate={(current) => {
+              return (
+                current &&
+                (current.isBefore(dayjs(), "day") ||
+                  current.isSame(dayjs(), "day"))
+              );
             }}
             placeholder="Nhập ngày áp dụng"
           />
@@ -249,6 +285,14 @@ const ModalCreateDiscount = ({
             format={"DD/MM/YYYY"}
             style={{
               width: "100%",
+            }}
+            disabledDate={(current) => {
+              const startDate = form.getFieldValue("startDate");
+              return (
+                current &&
+                (!current.isAfter(dayjs(), "day") ||
+                  !current.isAfter(dayjs(startDate), "day"))
+              );
             }}
             placeholder="Nhập ngày kết thúc"
           />

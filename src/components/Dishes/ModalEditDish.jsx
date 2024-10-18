@@ -1,6 +1,15 @@
 import { PlusOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import { DatePicker, Form, Image, Input, Modal, Select, Upload } from "antd";
+import {
+  DatePicker,
+  Form,
+  Image,
+  Input,
+  InputNumber,
+  Modal,
+  Select,
+  Upload,
+} from "antd";
 import ImgCrop from "antd-img-crop";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -173,6 +182,12 @@ const ModalEditDish = ({
               name="categoryIdParent"
               label="Danh mục level 1"
               initialValue={selectCagetoryLevel1}
+              rules={[
+                {
+                  required: true,
+                  message: "Danh mục không được để trống!",
+                },
+              ]}
             >
               <Select
                 onChange={(value) => {
@@ -244,7 +259,13 @@ const ModalEditDish = ({
                 },
               ]}
             >
-              <Input />
+              <InputNumber
+                formatter={(value) =>
+                  `${value} đ`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                parser={(value) => value?.replace(/đ\s?|(,*)/g, "")}
+                style={{ width: "100%" }}
+              />
             </Form.Item>
             <Form.Item
               name="servingSize"
@@ -310,7 +331,11 @@ const ModalEditDish = ({
                 },
               ]}
             >
-              <Input />
+              <InputNumber
+                style={{ width: "100%" }}
+                formatter={(value) => `${value}%`}
+                parser={(value) => value?.replace("%", "")}
+              />
             </Form.Item>
             <Form.Item
               name="discountStartDate"
@@ -354,6 +379,12 @@ const ModalEditDish = ({
                 style={{ width: "100%" }}
                 format={"DD/MM/YYYY"}
                 placeholder="Chọn ngày"
+                disabledDate={(current) => {
+                  return current && !current.isAfter(dayjs(), "day");
+                }}
+                disabled={
+                  !form.getFieldValue("discountStartDate")?.isAfter(dayjs())
+                }
               />
             </Form.Item>
             <Form.Item
@@ -412,6 +443,14 @@ const ModalEditDish = ({
                 style={{ width: "100%" }}
                 format={"DD/MM/YYYY"}
                 placeholder="Chọn ngày"
+                disabledDate={(current) => {
+                  const startDate = form.getFieldValue("discountStartDate");
+                  return (
+                    current &&
+                    (!current.isAfter(dayjs(startDate), "day") ||
+                      !current.isAfter(dayjs(), "day"))
+                  );
+                }}
               />
             </Form.Item>
             <Form.Item

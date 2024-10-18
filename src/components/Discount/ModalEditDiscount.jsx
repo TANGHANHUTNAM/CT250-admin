@@ -1,4 +1,4 @@
-import { DatePicker, Form, Input, Modal, Select } from "antd";
+import { DatePicker, Form, Input, InputNumber, Modal, Select } from "antd";
 import dayjs from "dayjs";
 
 const ModalEditDiscount = ({
@@ -128,7 +128,21 @@ const ModalEditDiscount = ({
             },
           ]}
         >
-          <Input placeholder="Nhập giá trị" />
+          <InputNumber
+            min={1}
+            style={{ width: "100%" }}
+            placeholder="Nhập giá trị"
+            formatter={(value) =>
+              form.getFieldValue("type")
+                ? `${value}%`
+                : `${value} đ`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }
+            parser={(value) =>
+              form.getFieldValue("type")
+                ? value?.replace("%", "")
+                : value?.replace(/đ\s?|(,*)/g, "")
+            }
+          />
         </Form.Item>
         <Form.Item
           tooltip="Số lượng coupon cần tạo (tối đa 100 coupon)"
@@ -185,7 +199,14 @@ const ModalEditDiscount = ({
             },
           ]}
         >
-          <Input placeholder="Nhập giá trị" />
+          <InputNumber
+            style={{ width: "100%" }}
+            placeholder="Nhập giá trị"
+            formatter={(value) =>
+              `${value} đ`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }
+            parser={(value) => value?.replace(/đ\s?|(,*)/g, "")}
+          />
         </Form.Item>
         <Form.Item
           name="startDate"
@@ -281,6 +302,14 @@ const ModalEditDiscount = ({
             format={"DD/MM/YYYY"}
             style={{
               width: "100%",
+            }}
+            disabledDate={(current) => {
+              const startDate = form.getFieldValue("startDate");
+              return (
+                current &&
+                (!current.isAfter(dayjs(startDate), "day") ||
+                  !current.isAfter(dayjs(), "day"))
+              );
             }}
             placeholder="Nhập ngày kết thúc"
           />
