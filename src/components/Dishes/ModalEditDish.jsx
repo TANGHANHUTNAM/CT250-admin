@@ -431,9 +431,10 @@ const ModalEditDish = ({
                 disabledDate={(current) => {
                   return current && !current.isAfter(dayjs(), "day");
                 }}
-                // disabled={
-                //   !form.getFieldValue("discountStartDate")?.isAfter(dayjs())
-                // }
+                disabled={
+                  form.getFieldValue("discountStartDate") &&
+                  !form.getFieldValue("discountStartDate")?.isAfter(dayjs())
+                }
               />
             </Form.Item>
             <Form.Item
