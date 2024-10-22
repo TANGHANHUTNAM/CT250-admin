@@ -1,125 +1,159 @@
-import { Space, Table } from "antd";
-import useFormatPrice from "../../hooks/useFormatPrice";
+import { Table } from "antd";
 import { useTranslation } from "react-i18next";
-
-const FormattedPrice = ({ price }) => {
-  const formattedPrice = useFormatPrice(price);
-  return <>{formattedPrice}</>;
-};
+import { formatCurrency } from "../../utils/format";
 
 const OrderPending = () => {
   const { t } = useTranslation();
   const columns = [
     {
-      title: t("OrderPending.title"),
-      dataIndex: "username",
-      key: "username",
-      render: (_, user) => (
-        <Space size="middle">
-          <span>{user.avatar}</span>
-          <span>{user.username}</span>
-        </Space>
-      ),
+      title: "ID đơn hàng",
+      dataIndex: "_id",
+      align: "center",
+      render: (_id) => <span className="font-medium">#{_id}</span>,
     },
     {
-      title: t("OrderPending.id"),
-      dataIndex: "order_id",
-      key: "order_id",
-      render: (order_id) => {
-        return <>#{order_id}</>;
+      title: "Khách hàng",
+      dataIndex: "receiverName",
+      align: "center",
+      render: (receiverName) => {
+        return <span>{receiverName}</span>;
       },
     },
     {
-      title: t("OrderPending.finalPrice"),
-      dataIndex: "FinalPrice",
-      key: "FinalPrice",
-      render: (FinalPrice) => {
-        return <FormattedPrice price={FinalPrice} />;
+      title: "Số điện thoại",
+      dataIndex: "receiverPhone",
+      align: "center",
+      render: (receiverPhone) => {
+        return <span>{receiverPhone}</span>;
       },
     },
     {
-      title: t("OrderPending.paymentMethod"),
-      dataIndex: "idPayment_method",
-      key: "idPayment_method",
-      render: (idPayment_method) => {
-        return idPayment_method === "1"
-          ? t("OrderPending.paymentMethodCate.paymentMethod1")
-          : t("OrderPending.paymentMethodCate.paymentMethod2");
+      title: "Tổng thanh toán",
+      dataIndex: "orderTotal",
+      align: "center",
+      render: (orderTotal) => {
+        return <span>{formatCurrency(orderTotal)}</span>;
       },
     },
     {
-      title: t("OrderPending.orderDate"),
-      dataIndex: "order_date",
-      key: "order_date",
+      title: "Phương thức thanh toán",
+      dataIndex: "paymentMethod",
+      align: "center",
+      render: (paymentMethod) => {
+        return <span>{paymentMethod}</span>;
+      },
     },
     {
-      title: t("OrderPending.status"),
-      dataIndex: "status_order",
-      key: "status_order",
+      title: "Trạng thái thanh toán",
+      dataIndex: "paymentStatus",
+      align: "center",
+      render: (paymentStatus) => {
+        return (
+          <span>{paymentStatus ? "Đã thanh toán" : "Chưa thanh toán"}</span>
+        );
+      },
+    },
+    {
+      title: "Trạng thái đơn hàng",
+      dataIndex: "orderStatus",
+      align: "center",
+      render: (orderStatus) => {
+        return <span>{orderStatus}</span>;
+      },
+    },
+    {
+      title: "Thời gian đặt hàng",
+      dataIndex: "createdAt",
+      align: "center",
+      render: (createdAt) => {
+        return (
+          <span>
+            {new Date(createdAt).toLocaleString("vi-VN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </span>
+        );
+      },
+    },
+    {
+      title: "Thời gian cập nhật",
+      dataIndex: "updatedAt",
+      align: "center",
+      render: (updatedAt) => {
+        return (
+          <span>
+            {new Date(updatedAt).toLocaleString("vi-VN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </span>
+        );
+      },
     },
   ];
   const data = [
     {
-      avatar: "avatar",
-      username: "Admin",
-      order_id: "123456",
-      FinalPrice: 1000000,
-      idPayment_method: "1",
-      order_date: "2021-09-01",
-      status_order: "Đang chờ xử lý",
+      _id: "67168335bd30f9ba5b3245e3",
+      receiverName: "Trường Toàn",
+      receiverPhone: "0123456789",
+      receiverAddress: {
+        province: "Cần Thơ",
+        district: "Quận Ninh Kiều",
+        ward: "Phường Xuân Khánh",
+        details: "Nguyễn Văn Cừ",
+      },
+      note: "",
+      orderDate: "2024-10-21T16:37:08.057Z",
+      deliverDate: null,
+      shippingFee: 15500,
+      orderTotal: 204500,
+      createdAt: "2024-10-21T16:37:09.341Z",
+      updatedAt: "2024-10-21T16:37:09.341Z",
+      orderStatus: "Chờ xác nhận",
+      coupon: 6000,
+      couponType: false,
+      paymentMethod: "Chuyển khoản qua VNPay",
+      paymentStatus: true,
     },
     {
-      avatar: "avatar",
-      username: "Admin",
-      order_id: "123456",
-      FinalPrice: 1000000,
-      idPayment_method: "2",
-      order_date: "2021-09-01",
-      status_order: "Đang chờ xử lý",
-    },
-    {
-      avatar: "avatar",
-      username: "Admin",
-      order_id: "123456",
-      FinalPrice: 1000000,
-      idPayment_method: "1",
-      order_date: "2021-09-01",
-      status_order: "Đã xác nhận",
-    },
-    {
-      avatar: "avatar",
-      username: "Admin",
-      order_id: "123456",
-      FinalPrice: 1000000,
-      idPayment_method: "1",
-      order_date: "2021-09-01",
-      status_order: "Đã xác nhận",
-    },
-    {
-      avatar: "avatar",
-      username: "Admin",
-      order_id: "123456",
-      FinalPrice: 1000000,
-      idPayment_method: "1",
-      order_date: "2021-09-01",
-      status_order: "Đã xác nhận",
-    },
-    {
-      avatar: "avatar",
-      username: "Admin",
-      order_id: "123456",
-      FinalPrice: 1000000,
-      idPayment_method: "2",
-      order_date: "2021-09-01",
-      status_order: "Đã xác nhận",
+      _id: "67168335bd30f9ba5b3245e4",
+      receiverName: "Trường Toàn",
+      receiverPhone: "0123456789",
+      receiverAddress: {
+        province: "Cần Thơ",
+        district: "Quận Ninh Kiều",
+        ward: "Phường Xuân Khánh",
+        details: "Nguyễn Văn Cừ",
+      },
+      note: "",
+      orderDate: "2024-10-21T16:37:08.057Z",
+      deliverDate: null,
+      shippingFee: 15500,
+      orderTotal: 204500,
+      createdAt: "2024-10-21T16:37:09.341Z",
+      updatedAt: "2024-10-21T16:37:09.341Z",
+      orderStatus: "Chờ xác nhận",
+      coupon: 6000,
+      couponType: false,
+      paymentMethod: "Chuyển khoản qua VNPay",
+      paymentStatus: true,
     },
   ];
   return (
-    <div className="p-2 mb-6">
-      <div className="text-xl font-semibold mb-5 ml-3 text-black/85">
+    <div className="mb-6 p-2">
+      <div className="mb-5 ml-3 text-xl font-semibold text-black/85">
         {t("OrderPending.currentOrder")}
       </div>
       <Table
+        size="small"
+        bordered
         columns={columns}
         dataSource={data}
         rowKey={(record) => record.order_id}
