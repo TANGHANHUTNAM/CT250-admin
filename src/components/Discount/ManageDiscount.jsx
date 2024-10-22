@@ -325,6 +325,7 @@ const ManageDiscount = () => {
             <Tooltip title={record?.active ? "Tắt kích hoạt" : "Kích hoạt"}>
               <Switch
                 size="small"
+                checked={record?.active}
                 defaultChecked={record?.active}
                 onChange={(e) => {
                   handleActiveCoupon(record?._id, { active: e });
