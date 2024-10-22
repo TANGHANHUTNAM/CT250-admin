@@ -5,7 +5,7 @@ const OrderTablePending = () => {
     {
       title: "ID Đơn đặt bàn",
       dataIndex: "_id",
-      align: "center",
+
       render: (_id) => {
         return <span className="font-medium">#{_id}</span>;
       },
@@ -13,13 +13,13 @@ const OrderTablePending = () => {
     {
       title: "Khách hàng",
       dataIndex: "customerName",
-      align: "center",
+
       render: (customerName) => <span>{customerName}</span>,
     },
     {
       title: "Email",
       dataIndex: "customerEmail",
-      align: "center",
+
       render: (customerEmail) => {
         return <span>{customerEmail}</span>;
       },
@@ -27,7 +27,7 @@ const OrderTablePending = () => {
     {
       title: "Số điện thoại",
       dataIndex: "customerPhone",
-      align: "center",
+
       render: (customerPhone) => {
         return <span>{customerPhone}</span>;
       },
@@ -36,7 +36,7 @@ const OrderTablePending = () => {
     {
       title: "Trạng thái đơn",
       dataIndex: "status",
-      align: "center",
+
       render: (status) => {
         return <Tag color={"blue"}>{status}</Tag>;
       },
@@ -44,29 +44,11 @@ const OrderTablePending = () => {
     {
       title: "Thời gian đặt bàn",
       dataIndex: "updatedAt",
-      align: "center",
+
       render: (updatedAt) => {
         return (
           <span>
             {new Date(updatedAt).toLocaleString("vi-VN", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </span>
-        );
-      },
-    },
-    {
-      title: "Thời gian cập nhật",
-      dataIndex: "createdAt",
-      align: "center",
-      render: (createdAt) => {
-        return (
-          <span>
-            {new Date(createdAt).toLocaleString("vi-VN", {
               day: "2-digit",
               month: "2-digit",
               year: "numeric",

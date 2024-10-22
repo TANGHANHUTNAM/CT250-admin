@@ -8,29 +8,21 @@ const OrderPending = () => {
     {
       title: "ID đơn hàng",
       dataIndex: "_id",
-      align: "center",
+
       render: (_id) => <span className="font-medium">#{_id}</span>,
     },
     {
       title: "Khách hàng",
       dataIndex: "receiverName",
-      align: "center",
+
       render: (receiverName) => {
         return <span>{receiverName}</span>;
       },
     },
     {
-      title: "Số điện thoại",
-      dataIndex: "receiverPhone",
-      align: "center",
-      render: (receiverPhone) => {
-        return <span>{receiverPhone}</span>;
-      },
-    },
-    {
       title: "Tổng thanh toán",
       dataIndex: "orderTotal",
-      align: "center",
+
       render: (orderTotal) => {
         return <span>{formatCurrency(orderTotal)}</span>;
       },
@@ -38,7 +30,7 @@ const OrderPending = () => {
     {
       title: "Phương thức thanh toán",
       dataIndex: "paymentMethod",
-      align: "center",
+
       render: (paymentMethod) => {
         return <span>{paymentMethod}</span>;
       },
@@ -46,7 +38,7 @@ const OrderPending = () => {
     {
       title: "Trạng thái thanh toán",
       dataIndex: "paymentStatus",
-      align: "center",
+
       render: (paymentStatus) => {
         return (
           <span>{paymentStatus ? "Đã thanh toán" : "Chưa thanh toán"}</span>
@@ -56,7 +48,7 @@ const OrderPending = () => {
     {
       title: "Trạng thái đơn hàng",
       dataIndex: "orderStatus",
-      align: "center",
+
       render: (orderStatus) => {
         return <span>{orderStatus}</span>;
       },
@@ -64,29 +56,11 @@ const OrderPending = () => {
     {
       title: "Thời gian đặt hàng",
       dataIndex: "createdAt",
-      align: "center",
+
       render: (createdAt) => {
         return (
           <span>
             {new Date(createdAt).toLocaleString("vi-VN", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </span>
-        );
-      },
-    },
-    {
-      title: "Thời gian cập nhật",
-      dataIndex: "updatedAt",
-      align: "center",
-      render: (updatedAt) => {
-        return (
-          <span>
-            {new Date(updatedAt).toLocaleString("vi-VN", {
               day: "2-digit",
               month: "2-digit",
               year: "numeric",
