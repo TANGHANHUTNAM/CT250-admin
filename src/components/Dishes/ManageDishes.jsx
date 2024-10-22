@@ -267,16 +267,16 @@ const ManageDishes = () => {
         fetchDishes={fetchDishes}
       />
       <ModalViewDish
-        dishDetail={dishDetail}
-        setDishDetail={setDishDetail}
+        dishDetailItem={dishDetail}
+        setDishDetailItem={setDishDetail}
         openModalViewDish={openModalViewDish}
         setOpenModalViewDish={setOpenModalViewDish}
       />
       <ModalEditDish
         setListCategory={setListCategory}
         listCategory={listCategory}
-        dishDetail={dishDetail}
-        setDishDetail={setDishDetail}
+        dishDetailList={dishDetail}
+        setDishDetailList={setDishDetail}
         openModalEditDish={openModalEditDish}
         setOpenModalEditDish={setOpenModalEditDish}
         isLoading={isLoading}

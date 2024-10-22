@@ -13,13 +13,13 @@ import {
 import ImgCrop from "antd-img-crop";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { updateDish } from "../../services/dishService";
+import { getDishAdminById, updateDish } from "../../services/dishService";
 import StatusCodes from "../../utils/StatusCodes";
 import { getAllCategoryLevel2ByLevel1 } from "../../services/categoryService";
 
 const ModalEditDish = ({
-  dishDetail,
-  setDishDetail,
+  dishDetailList,
+  setDishDetailList,
   openModalEditDish,
   setOpenModalEditDish,
   listCategory,
@@ -34,6 +34,35 @@ const ModalEditDish = ({
   const [listCategoryLevel2, setListCategoryLevel2] = useState([]);
   const [selectCagetoryLevel1, setSelectCagetoryLevel1] = useState(null);
   const [selectCagetoryLevel2, setSelectCagetoryLevel2] = useState(null);
+  const [dishDetail, setDishDetail] = useState(null);
+  const [loadingDishDetail, setLoadingDishDetail] = useState(false);
+
+  useEffect(() => {
+    if (!dishDetailList) setLoadingDishDetail(true);
+  }, [dishDetailList]);
+
+  const fetchDisheDetail = async () => {
+    setLoadingDishDetail(true);
+    try {
+      const res = await getDishAdminById(dishDetailList?._id);
+      console.log(res);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        setDishDetail(res.DT);
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        setDishDetail(null);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoadingDishDetail(false);
+  };
+
+  const handleAfterOpen = (open) => {
+    if (open) {
+      fetchDisheDetail();
+    }
+  };
 
   const fetchCategoryLevel2 = async () => {
     try {
@@ -65,6 +94,24 @@ const ModalEditDish = ({
       ]);
       setSelectCagetoryLevel1(dishDetail?.category[1]?._id);
       setSelectCagetoryLevel2(dishDetail?.category[2]?._id);
+      form.setFieldsValue({
+        name: dishDetail?.name,
+        categoryIdParent: dishDetail?.category[1]?._id,
+        categoryId: dishDetail?.category[2]?._id,
+        ingredients: dishDetail?.ingredients,
+        price: dishDetail?.price,
+        servingSize: dishDetail?.servingSize,
+        preparationTime: dishDetail?.preparationTime,
+        description: dishDetail?.description,
+        discount: dishDetail?.discount,
+        discountStartDate:
+          dishDetail?.discount > 0
+            ? dayjs(dishDetail?.discountStartDate)
+            : null,
+        discountEndDate:
+          dishDetail?.discount > 0 ? dayjs(dishDetail?.discountEndDate) : null,
+        image: dishDetail?.image,
+      });
     }
   }, [dishDetail]);
 
@@ -126,7 +173,7 @@ const ModalEditDish = ({
       <Modal
         open={openModalEditDish}
         style={{ top: 50 }}
-        title={`Chỉnh sửa món ăn ${dishDetail?.name}`}
+        title={`Chỉnh sửa món ăn ${dishDetail?.name ? dishDetail?.name : ""}`}
         okText="Lưu"
         cancelText="Hủy"
         okButtonProps={{
@@ -135,15 +182,17 @@ const ModalEditDish = ({
           loading: isLoading,
           disabled: isLoading,
         }}
-        loading={isLoading}
+        loading={isLoading || loadingDishDetail}
         maskClosable={false}
         cancelButtonProps={{
           danger: true,
-          loading: isLoading,
-          disabled: isLoading,
         }}
+        afterOpenChange={(open) => handleAfterOpen(open)}
         afterClose={() => {
           setDishDetail(null);
+          setDishDetailList(null);
+          setSelectCagetoryLevel1(null);
+          setSelectCagetoryLevel2(null);
         }}
         onCancel={() => setOpenModalEditDish(false)}
         destroyOnClose
@@ -382,9 +431,9 @@ const ModalEditDish = ({
                 disabledDate={(current) => {
                   return current && !current.isAfter(dayjs(), "day");
                 }}
-                disabled={
-                  !form.getFieldValue("discountStartDate")?.isAfter(dayjs())
-                }
+                // disabled={
+                //   !form.getFieldValue("discountStartDate")?.isAfter(dayjs())
+                // }
               />
             </Form.Item>
             <Form.Item

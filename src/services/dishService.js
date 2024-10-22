@@ -1,5 +1,9 @@
 import axios from "../utils/axiosCustomize";
 
+export const getDishAdminById = async (id) => {
+  return await axios.get(`/api/v1/dish/full-information/${id}`);
+};
+
 export const getDeletedDishes = async (query) => {
   const res = await axios.get(`/api/v1/dish/deleted?${query}`);
   return res;

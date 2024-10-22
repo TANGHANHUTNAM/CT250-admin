@@ -1,16 +1,54 @@
 import { Modal } from "antd";
 import { formatCurrency } from "../../utils/format";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import { getDishAdminById } from "../../services/dishService";
+import StatusCodes from "../../utils/StatusCodes";
 const ModalViewDish = ({
-  dishDetail,
-  setDishDetail,
+  dishDetailItem,
+  setDishDetailItem,
   openModalViewDish,
   setOpenModalViewDish,
 }) => {
+  const [dishDetail, setDishDetail] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!dishDetailItem) {
+      setLoading(true);
+    }
+  }, [dishDetailItem]);
+
+  const fetchDisheDetail = async () => {
+    setLoading(true);
+    try {
+      const res = await getDishAdminById(dishDetailItem?._id);
+      console.log(res);
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        setDishDetail(res.DT);
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        setDishDetail(null);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
+  const handleAfterOpenChange = (open) => {
+    if (open) {
+      fetchDisheDetail();
+    }
+  };
   return (
     <>
       <Modal
-        afterClose={() => setDishDetail(null)}
+        afterClose={() => {
+          setDishDetail(null);
+          setDishDetailItem(null);
+        }}
+        loading={loading}
+        afterOpenChange={(open) => handleAfterOpenChange(open)}
         title="XEM CHI TIẾT MÓN ĂN"
         open={openModalViewDish}
         onOk={() => setOpenModalViewDish(false)}
@@ -66,12 +104,19 @@ const ModalViewDish = ({
                   </p>
                   {dishDetail?.discount > 0 && (
                     <p className="mb-2 text-gray-700">
-                      <strong>Giá sau giảm:</strong>{" "}
+                      <strong>Giá sau giảm hiện tại:</strong>{" "}
                       <span className="font-medium text-red-500">
                         {formatCurrency(dishDetail?.discountedPrice)}
                       </span>
                     </p>
                   )}
+                  <p className="mb-2 text-gray-700">
+                    <strong>Phần trăm giảm giá:</strong>{" "}
+                    <span className="font-medium text-red-400">
+                      {dishDetail?.discount}%
+                    </span>
+                  </p>
+
                   {dishDetail?.discount > 0 && (
                     <p className="mb-2 text-gray-700">
                       <strong>Ngày bắt đầu giảm giá:</strong>{" "}
