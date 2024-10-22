@@ -68,7 +68,7 @@ const ReservationLayout = () => {
   };
 
   return (
-    <div className="flex h-full flex-col gap-5 bg-[#f5f5f5] lg:flex-row">
+    <div className="flex h-full flex-col gap-5 bg-[#f5f5f5] pt-5 lg:flex-row">
       <div className="flex h-full w-2/5 shrink-0 flex-col gap-5">
         <Progress
           status={Object.values(status)}
