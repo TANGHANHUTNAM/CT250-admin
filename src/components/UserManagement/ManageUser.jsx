@@ -14,6 +14,7 @@ import { useCallback, useEffect, useState } from "react";
 import { GrPowerReset } from "react-icons/gr";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoSettingsSharp } from "react-icons/io5";
+import { CiExport } from "react-icons/ci";
 import {
   MdDeleteOutline,
   MdOutlineDeleteForever,
@@ -24,6 +25,7 @@ import { toast } from "react-toastify";
 import {
   createMultipleUserRoleStaff,
   deleteUserRoleStaff,
+  getAllStaff,
   getAllUserWithFilter,
 } from "../../services/accountService";
 import StatusCodes from "../../utils/StatusCodes";
@@ -32,6 +34,7 @@ import ModalCreateEmployee from "./ModalCreateEmployee";
 import ModalImportFile from "./ModalImportFile";
 import ModalViewUser from "./ModalViewUser";
 import SearchFilterInput from "./SearchFilterInput";
+import * as xlsx from "xlsx";
 const ManageUser = () => {
   const LIMIT = 6;
   // Modal
@@ -122,6 +125,46 @@ const ManageUser = () => {
       console.log(error);
     }
     setIsLoading(false);
+  };
+
+  const handleExportListStaff = async () => {
+    try {
+      const res = await getAllStaff();
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        // Chuyển đổi dữ liệu thành worksheet
+        const worksheet = xlsx.utils.json_to_sheet(res.DT);
+
+        // Thêm hàng tiêu đề tùy chỉnh
+        xlsx.utils.sheet_add_aoa(
+          worksheet,
+          [
+            [
+              "Avatar",
+              "ID",
+              "Username",
+              "Email",
+              "Họ tên",
+              "Ngày sinh",
+              "Giới tính",
+              "Số điện thoại",
+              "Địa chỉ",
+              "Vai trò",
+            ],
+          ],
+          { origin: "A1" },
+        );
+
+        const workbook = xlsx.utils.book_new();
+        xlsx.utils.book_append_sheet(workbook, worksheet, "Staff List");
+
+        xlsx.writeFile(workbook, "Staff_List.xlsx");
+      }
+      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleChangeUserTable = (pagination) => {
     if (pagination.current !== currentPage) {
@@ -338,6 +381,13 @@ const ManageUser = () => {
           >
             <TfiImport className="h-4 w-4" />
             <span>Import</span>
+          </button>
+          <button
+            onClick={() => handleExportListStaff()}
+            className="flex w-fit items-center justify-center gap-2 rounded-md bg-blue-500 px-3 py-1.5 text-primary hover:bg-blue-500/80"
+          >
+            <CiExport className="h-5 w-5" />
+            <span>Export</span>
           </button>
           <button
             onClick={() => setOpenModalCreateEmployee(true)}
