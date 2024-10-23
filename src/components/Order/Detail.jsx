@@ -138,17 +138,18 @@ const Detail = ({
           <div className="flex items-center justify-between py-6">
             <div>
               <div className="mb-1 text-lg font-medium">
-                Order <span className="text-blue-500">#{order?._id}</span>
+                {t("Order.order")}{" "}
+                <span className="text-blue-500">#{order?._id}</span>
               </div>
               <div className="text-md mb-1 text-neutral-500">
-                Ngày đặt:{" "}
+                {t("Order.orderDate")}:{" "}
                 <span className="text-gray-800">
                   {new Date(order?.orderDate).toLocaleString("vi-VN")}
                 </span>
               </div>
               {order?.orderStatus === validStatus.canceled && (
                 <div className="text-md text-neutral-500">
-                  Ngày hủy:{" "}
+                  {t("Order.cancelDate")}:{" "}
                   <span className="text-gray-800">
                     {new Date(order?.updatedAt).toLocaleString("vi-VN")}
                   </span>
@@ -157,7 +158,7 @@ const Detail = ({
               {order?.orderStatus === validStatus.completed &&
                 order?.deliveryDate && (
                   <div className="text-md text-neutral-500">
-                    Ngày giao:{" "}
+                    {t("Order.deliveryDate")}:{" "}
                     <span className="text-gray-800">
                       {new Date(order?.deliveryDate).toLocaleString("vi-VN")}
                     </span>
@@ -219,27 +220,31 @@ const Detail = ({
           </div>
           <div className="py-2">
             <div className="flex items-center justify-between py-3">
-              <div className="text-sm text-gray-800">Tổng cộng</div>
+              <div className="text-sm text-gray-800">{t("Order.total")}</div>
               <div className="text-base font-medium">
                 {formatCurrency(order?.totalPrice)}
               </div>
             </div>
             <div className="flex items-center justify-between py-3">
-              <div className="text-sm text-gray-800">Phí vận chuyển</div>
+              <div className="text-sm text-gray-800">
+                {t("Order.shippingFee")}
+              </div>
               <div className="text-base font-medium">
                 {formatCurrency(order?.shippingFee)}
               </div>
             </div>
             {order?.coupon && order?.discountedAmount && (
               <div className="flex items-center justify-between py-3">
-                <div className="text-sm text-gray-800">Giảm giá</div>
+                <div className="text-sm text-gray-800">{t("Order.coupon")}</div>
                 <div className="text-base font-medium">
                   {formatCurrency(order?.discountedAmount)}
                 </div>
               </div>
             )}
             <div className="flex items-center justify-between py-3">
-              <div className="text-sm text-gray-800">Thành tiền</div>
+              <div className="text-sm text-gray-800">
+                {t("Order.orderTotal")}
+              </div>
               <div className="text-2xl font-semibold text-blue-600">
                 {formatCurrency(order?.orderTotal)}
               </div>
@@ -273,8 +278,7 @@ const Detail = ({
 
               {order?.orderStatus === validStatus.preparing && (
                 <LoadingButton
-                  // label={t("Order.action.action1")}
-                  label="Hoàn thành chuẩn bị"
+                  label={t("Order.action.action3")}
                   loading={loading}
                   buttonClass="rounded-lg bg-blue-600 p-3 px-6 font-semibold text-white hover:bg-blue-700"
                   onClick={handleCompletePreparation}
@@ -283,8 +287,7 @@ const Detail = ({
 
               {order?.orderStatus === validStatus.delivering && (
                 <LoadingButton
-                  // label={t("Order.action.action1")}
-                  label="Hoàn thành đơn hàng"
+                  label={t("Order.action.action4")}
                   loading={loading}
                   buttonClass="rounded-lg bg-blue-600 p-3 px-6 font-semibold text-white hover:bg-blue-700"
                   onClick={handleCompleteOrder}
@@ -295,7 +298,7 @@ const Detail = ({
         </div>
       ) : (
         <div className="my-6 rounded-md bg-blue-50 p-3 text-blue-700">
-          {t("Reservation.noSelected")}
+          {t("Order.noSelected")}
         </div>
       )}
     </div>

@@ -9,6 +9,7 @@ import StatusCodes from "../utils/StatusCodes";
 import { toast } from "react-toastify";
 import _ from "lodash";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const status = {
   pending: { key: "pending", trans: "Order.status.status1" },
@@ -22,6 +23,7 @@ const PAGE_LIMIT = 6;
 
 const OrderLayout = () => {
   useDynamicTitle("Quản lý đơn hàng");
+  const { t } = useTranslation();
 
   const [activeStatus, setActiveStatus] = useState(status.pending.key);
   const [orders, setOrders] = useState(null);
@@ -86,7 +88,7 @@ const OrderLayout = () => {
               <input
                 type="search"
                 className="w-full rounded-s-sm px-4 py-2.5 outline-none"
-                placeholder="Mã đơn, tên khách hàng, số điện thoại..."
+                placeholder={t("Order.inputPlaceholder")}
                 spellCheck={false}
                 value={searchKey}
                 onChange={(e) => setSearchKey(e.target.value)}

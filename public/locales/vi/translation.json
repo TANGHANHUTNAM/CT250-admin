@@ -147,7 +147,9 @@
     "paymentStatus": "Trạng thái thanh toán",
     "action": {
       "action1": "Chấp nhận đơn hàng",
-      "action2": "Từ chối đơn hàng"
+      "action2": "Từ chối đơn hàng",
+      "action3": "Hoàn thành chuẩn bị",
+      "action4": "Hoàn thành đơn hàng"
     },
     "menutitle": "Tóm tắt đơn hàng",
     "total": "Tổng cộng",
@@ -157,7 +159,18 @@
       "status3": "Đang vận chuyển",
       "status4": "Hoàn thành",
       "status5": "Đã hủy"
-    }
+    },
+    "inputPlaceholder": "Mã đơn, tên khách hàng, số điện thoại...",
+    "noSelected": "Chọn một đơn hàng để xem thông tin chi tiết.",
+    "order": "Đơn hàng",
+    "orderDate": "Ngày đặt",
+    "cancelDate": "Ngày hủy",
+    "deliveryDate": "Ngày giao",
+    "shippingFee": "Phí vận chuyển",
+    "coupon": "Giảm giá",
+    "orderTotal": "Thành tiền",
+    "deleted": "Đã xóa",
+    "outOfDishes": "Hết món"
   },
   "Reservation": {
     "title": "Thông tin đặt bàn",

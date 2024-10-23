@@ -146,7 +146,9 @@
     "paymentStatus": "Payment status",
     "action": {
       "action1": "Accept order",
-      "action2": "Reject order"
+      "action2": "Reject order",
+      "action3": "Complete preparation",
+      "action4": "Complete order"
     },
     "menutitle": "Order menu",
     "total": "Total",
@@ -156,7 +158,18 @@
       "status3": "To Ship",
       "status4": "Completed",
       "status5": "Canceled"
-    }
+    },
+    "inputPlaceholder": "Order code, customer name, phone number...",
+    "noSelected": "Select a order to view detailed information.",
+    "order": "Order",
+    "orderDate": "Order date",
+    "cancelDate": "Cancel date",
+    "deliveryDate": "Delivery date",
+    "shippingFee": "Shipping fee",
+    "coupon": "Coupon applied",
+    "orderTotal": "Order total",
+    "deleted": "Deleted",
+    "outOfDishes": "Out of dishes"
   },
   "Reservation": {
     "title": "Reservation details",

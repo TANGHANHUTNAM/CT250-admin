@@ -28,11 +28,11 @@ const OrderMenu = ({ dishes = [] }) => {
                     </span>
                     {item?.deleted === true ? (
                       <span className="ml-4 rounded-full bg-red-500 px-3 py-1.5 text-sm font-semibold text-white">
-                        Đã xóa
+                        {t("Order.deleted")}
                       </span>
                     ) : item?.available === false ? (
                       <span className="ml-4 rounded-full bg-red-500 px-3 py-1.5 text-sm font-semibold text-white">
-                        Hết món
+                        {t("Order.outOfDishes")}
                       </span>
                     ) : (
                       <></>
