@@ -16,7 +16,7 @@ export const dashboardSlice = createSlice({
       const newState = _.cloneDeep(state);
 
       newState.reservation = {
-        count: action?.payload?.total ?? 0,
+        count: action?.payload?.count ?? 0,
         data: action?.payload?.data ?? [],
       };
       return newState;
@@ -25,7 +25,7 @@ export const dashboardSlice = createSlice({
       const newState = _.cloneDeep(state);
 
       newState.order = {
-        count: action?.payload?.total ?? 0,
+        count: action?.payload?.count ?? 0,
         data: action?.payload?.data ?? [],
       };
       return newState;
@@ -39,7 +39,7 @@ export const dashboardSlice = createSlice({
     changedIncome: (state, action) => {
       const newState = _.cloneDeep(state);
 
-      newState.income = action?.payload?.total ?? 0;
+      newState.income = action?.payload?.income ?? 0;
       return newState;
     },
   },

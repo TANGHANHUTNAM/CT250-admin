@@ -24,6 +24,12 @@ const getPendingReservationsWithPagination = (page = 1, limit = 10) => {
   return axios.get(`/api/v1/reservation/pending?page=${page}&limit=${limit}`);
 };
 
+const getNewAndRecentReservation = (limit = 6) => {
+  return axios.get(`/api/v1/reservation/get/new-and-recent-reservation`, {
+    params: { limit },
+  });
+};
+
 export {
   getReservationsByStatus,
   getAvailableTables,
@@ -31,4 +37,5 @@ export {
   rejectReservation,
   completeReservation,
   getPendingReservationsWithPagination,
+  getNewAndRecentReservation,
 };
