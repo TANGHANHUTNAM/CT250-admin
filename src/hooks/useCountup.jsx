@@ -15,7 +15,7 @@ export const useCountup = (end) => {
 export const useVNDCountup = (end) => {
   const countUpRef = useRef(null);
 
-  useCountUp({
+  const { update } = useCountUp({
     ref: countUpRef,
     end,
     formattingFn: (value) => {
@@ -26,5 +26,5 @@ export const useVNDCountup = (end) => {
     },
   });
 
-  return countUpRef;
+  return { countUpRef, update };
 };

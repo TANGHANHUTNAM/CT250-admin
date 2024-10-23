@@ -9,19 +9,25 @@ const ListCard = () => {
   const {
     customer,
     reservation: { count: reservationCount },
+    order: { count: orderCount },
+    income,
   } = useSelector((state) => state.dashboard);
 
-  const { countUpRef: ordersCountRef } = useCountup(40);
+  const { countUpRef: ordersCountRef, update: updateOrderCount } =
+    useCountup(orderCount);
   const { countUpRef: tableOrdersCountRef, update: updateReservationCount } =
     useCountup(reservationCount);
-  const incomeCountRef = useVNDCountup(1500000);
+  const { countUpRef: incomeCountRef, update: updateIncome } =
+    useVNDCountup(income);
   const { countUpRef: newCustomersCountRef, update: updateNewCustomerCount } =
     useCountup(customer);
 
   useEffect(() => {
     updateNewCustomerCount(customer);
     updateReservationCount(reservationCount);
-  }, [reservationCount, customer]);
+    updateOrderCount(orderCount);
+    updateIncome(income);
+  }, [reservationCount, customer, orderCount]);
 
   const { t } = useTranslation();
 

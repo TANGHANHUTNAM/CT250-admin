@@ -135,7 +135,7 @@ const Detail = ({
       <div className="text-xl font-semibold">{t("Order.title")}</div>
       {order ? (
         <div className="divide-y divide-gray-300">
-          <div className="flex items-center justify-between py-3 py-6">
+          <div className="flex items-center justify-between py-6">
             <div>
               <div className="mb-1 text-lg font-medium">
                 Order <span className="text-blue-500">#{order?._id}</span>

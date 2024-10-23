@@ -14,6 +14,7 @@ import userReducer from "./reducer/userSlice";
 import contactReducer from "./reducer/contactSlice";
 import reservationReducer from "./reducer/reservationSlice";
 import dashboardReducer from "./reducer/dashboardSlice";
+import orderReducer from "./reducer/orderSlice";
 
 const persistConfig = {
   key: "root",
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   contact: contactReducer,
   reservation: reservationReducer,
   dashboard: dashboardReducer,
+  order: orderReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

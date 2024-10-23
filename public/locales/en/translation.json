@@ -336,6 +336,10 @@
       "new": "You have {{total}} new reservations",
       "seeAllOrder": "See all orders"
     },
+    "order": {
+      "new": "You have {{total}} new order",
+      "seeAllOrder": "See all orders"
+    },
     "contacts": {
       "new": "You have {{totalContactPending}} new contacts",
       "seeAllContact": "See all contacts"

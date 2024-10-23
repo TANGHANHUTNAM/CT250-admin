@@ -8,6 +8,7 @@ import { getOrdersWIthFilter } from "../services/orderService";
 import StatusCodes from "../utils/StatusCodes";
 import { toast } from "react-toastify";
 import _ from "lodash";
+import { useSelector } from "react-redux";
 
 const status = {
   pending: { key: "pending", trans: "Order.status.status1" },
@@ -27,6 +28,14 @@ const OrderLayout = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKey, setSearchKey] = useState("");
   const [selectedOrder, setSelectedOrder] = useState(null);
+
+  const pendingOrderFromRedux = useSelector((state) => state.order);
+
+  useEffect(() => {
+    if (activeStatus === status.pending.key) {
+      setOrders(pendingOrderFromRedux);
+    }
+  }, [pendingOrderFromRedux]);
 
   const getOrders = async (status, search, page, limit) => {
     const res = await getOrdersWIthFilter({

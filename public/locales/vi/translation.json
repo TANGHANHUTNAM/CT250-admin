@@ -336,6 +336,10 @@
       "new": "Bạn có {{total}} đơn đặt bàn mới",
       "seeAllOrder": "Xem tất cả đơn"
     },
+    "order": {
+      "new": "Bạn có {{total}} đơn hàng mới",
+      "seeAllOrder": "Xem tất cả đơn"
+    },
     "contacts": {
       "new": "Bạn có {{totalContactPending}} liên hệ mới",
       "seeAllContact": "Xem tất cả liên hệ"

@@ -1,4 +1,5 @@
 import { Table, Tag } from "antd";
+import { useSelector } from "react-redux";
 
 const OrderTablePending = () => {
   const columns = [
@@ -61,38 +62,7 @@ const OrderTablePending = () => {
     },
   ];
 
-  const data = [
-    {
-      _id: "67121013be2304379808a127",
-      accountId: "670b7a995ce01e34a9cad62d",
-      customerEmail: "namtanghanhut@gmail.com",
-      customerName: "Nam Tăng",
-      customerPhone: "0363655371",
-      arrivalDate: "2024-10-18T17:00:00.000Z",
-      arrivalTime: "03:37",
-      peopleNumber: 5,
-      note: "",
-      createdAt: "2024-10-18T07:36:51.074Z",
-      updatedAt: "2024-10-18T07:36:51.074Z",
-      status: "Chờ xác nhận",
-      tables: [],
-    },
-    {
-      _id: "67120f0cbe2304379808a0bc",
-      accountId: "670b7a995ce01e34a9cad62d",
-      customerEmail: "namtanghanhut83@gmail.com",
-      customerName: "Nhựt Nam",
-      customerPhone: "0363655371",
-      arrivalDate: "2024-10-18T17:00:00.000Z",
-      arrivalTime: "15:32",
-      peopleNumber: 4,
-      note: "",
-      createdAt: "2024-10-18T07:32:28.982Z",
-      updatedAt: "2024-10-18T07:34:35.238Z",
-      status: "Hoàn thành",
-      tables: [3, 4],
-    },
-  ];
+  const { data } = useSelector((state) => state.dashboard.reservation);
 
   return (
     <div className="p-2">
