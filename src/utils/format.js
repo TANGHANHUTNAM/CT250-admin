@@ -30,3 +30,13 @@ export const formatQuantity = (number, decimalPlaces = 1) => {
       .replace(new RegExp(`\\.0{1,${decimalPlaces}}$`), ""); // Số nhỏ hơn 1000
   }
 };
+
+export const formatAddress = ({
+  details = "",
+  ward = "",
+  district = "",
+  province = "",
+}) => {
+  const parts = [details, ward, district, province]; // Tạo mảng chứa các thành phần của địa chỉ
+  return parts.filter((part) => part).join(", "); // Lọc ra các phần không rỗng và nối lại thành chuỗi
+};

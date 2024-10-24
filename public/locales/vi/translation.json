@@ -1,29 +1,28 @@
-{ 
+{
   "HeaderBarDropdown": {
     "personalPage": "Trang cá nhân",
     "setting": "Cài đặt",
     "signout": "Đăng xuất",
     "position": {
-      "position1": "Nhân viên",      
+      "position1": "Nhân viên",
       "position2": "Quản trị viên"
     },
-    "notificationsMenu":""
-
+    "notificationsMenu": ""
   },
   "Sidebar": {
-      "dashboard": "Dashboard",      
-      "statistical": "Thống kê",
-      "manageEmloyee": "Nhân viên",      
-      "manageCustomer": "Khách hàng",
-      "tableOrder": "Đơn đặt bàn",      
-      "manageTable": "Quản lý bàn",
-      "dishesOrder": "Đơn hàng",      
-      "manageDishes": "Quản lý món ăn",
-      "manageCategory": "Quản lý danh mục",      
-      "manageDiscount": "Giảm giá", 
-      "manageContact": "Liên hệ",
-      "manageNews": "Tin tức", 
-      "logout": "Đăng xuất"
+    "dashboard": "Dashboard",
+    "statistical": "Thống kê",
+    "manageEmloyee": "Nhân viên",
+    "manageCustomer": "Khách hàng",
+    "tableOrder": "Đơn đặt bàn",
+    "manageTable": "Quản lý bàn",
+    "dishesOrder": "Đơn hàng",
+    "manageDishes": "Quản lý món ăn",
+    "manageCategory": "Quản lý danh mục",
+    "manageDiscount": "Giảm giá",
+    "manageContact": "Liên hệ",
+    "manageNews": "Tin tức",
+    "logout": "Đăng xuất"
   },
   "PaymentPolicy": {
     "title_page": "Chính sách thanh toán",
@@ -142,21 +141,36 @@
   },
   "Order": {
     "title": "Chi tiết đơn hàng",
-    "delivery": "Địa chỉ giao hàng",
+    "delivery": "Thông tin giao hàng",
     "time": "Thời gian dự kiến",
     "payment": "Phương thức thanh toán",
+    "paymentStatus": "Trạng thái thanh toán",
     "action": {
       "action1": "Chấp nhận đơn hàng",
-      "action2": "Từ chối đơn hàng"
+      "action2": "Từ chối đơn hàng",
+      "action3": "Hoàn thành chuẩn bị",
+      "action4": "Hoàn thành đơn hàng"
     },
     "menutitle": "Tóm tắt đơn hàng",
     "total": "Tổng cộng",
     "status": {
-      "status1": "Xác nhận",
-      "status2": "Chuẩn bị",
-      "status3": "Đang giao",
-      "status4": "Đã giao"
-    }
+      "status1": "Chờ xác nhận",
+      "status2": "Đang chuẩn bị",
+      "status3": "Đang vận chuyển",
+      "status4": "Hoàn thành",
+      "status5": "Đã hủy"
+    },
+    "inputPlaceholder": "Mã đơn, tên khách hàng, số điện thoại...",
+    "noSelected": "Chọn một đơn hàng để xem thông tin chi tiết.",
+    "order": "Đơn hàng",
+    "orderDate": "Ngày đặt",
+    "cancelDate": "Ngày hủy",
+    "deliveryDate": "Ngày giao",
+    "shippingFee": "Phí vận chuyển",
+    "coupon": "Giảm giá",
+    "orderTotal": "Thành tiền",
+    "deleted": "Đã xóa",
+    "outOfDishes": "Hết món"
   },
   "Reservation": {
     "title": "Thông tin đặt bàn",
@@ -306,15 +320,15 @@
     "feedbackContent": "Nội dung phản hồi",
     "placeholder": "Nhập nội dung phản hồi..."
   },
-  "ModalConfirm":{
-    "title":"Xóa liên hệ",
-    "description":"Bạn có chắc chắn muốn xóa liên hệ này không?",
+  "ModalConfirm": {
+    "title": "Xóa liên hệ",
+    "description": "Bạn có chắc chắn muốn xóa liên hệ này không?",
     "okText": "Có",
     "cancelText": "Không",
-    "closeButton":"Xóa"
+    "closeButton": "Xóa"
   },
   "NotPermitted": {
-    "subTitle":"Xin lỗi, bạn không được phép truy cập trang này."
+    "subTitle": "Xin lỗi, bạn không được phép truy cập trang này."
   },
   "EmployeeList": {
     "employeeName": "Họ tên",
@@ -333,6 +347,10 @@
     "content6": "Máy chủ quá tải",
     "reservation": {
       "new": "Bạn có {{total}} đơn đặt bàn mới",
+      "seeAllOrder": "Xem tất cả đơn"
+    },
+    "order": {
+      "new": "Bạn có {{total}} đơn hàng mới",
       "seeAllOrder": "Xem tất cả đơn"
     },
     "contacts": {

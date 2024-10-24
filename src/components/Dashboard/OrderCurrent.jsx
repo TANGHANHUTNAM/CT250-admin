@@ -1,9 +1,11 @@
 import { Table } from "antd";
 import { useTranslation } from "react-i18next";
 import { formatCurrency } from "../../utils/format";
+import { useSelector } from "react-redux";
 
 const OrderPending = () => {
   const { t } = useTranslation();
+
   const columns = [
     {
       title: "ID đơn hàng",
@@ -72,54 +74,9 @@ const OrderPending = () => {
       },
     },
   ];
-  const data = [
-    {
-      _id: "67168335bd30f9ba5b3245e3",
-      receiverName: "Trường Toàn",
-      receiverPhone: "0123456789",
-      receiverAddress: {
-        province: "Cần Thơ",
-        district: "Quận Ninh Kiều",
-        ward: "Phường Xuân Khánh",
-        details: "Nguyễn Văn Cừ",
-      },
-      note: "",
-      orderDate: "2024-10-21T16:37:08.057Z",
-      deliverDate: null,
-      shippingFee: 15500,
-      orderTotal: 204500,
-      createdAt: "2024-10-21T16:37:09.341Z",
-      updatedAt: "2024-10-21T16:37:09.341Z",
-      orderStatus: "Chờ xác nhận",
-      coupon: 6000,
-      couponType: false,
-      paymentMethod: "Chuyển khoản qua VNPay",
-      paymentStatus: true,
-    },
-    {
-      _id: "67168335bd30f9ba5b3245e4",
-      receiverName: "Trường Toàn",
-      receiverPhone: "0123456789",
-      receiverAddress: {
-        province: "Cần Thơ",
-        district: "Quận Ninh Kiều",
-        ward: "Phường Xuân Khánh",
-        details: "Nguyễn Văn Cừ",
-      },
-      note: "",
-      orderDate: "2024-10-21T16:37:08.057Z",
-      deliverDate: null,
-      shippingFee: 15500,
-      orderTotal: 204500,
-      createdAt: "2024-10-21T16:37:09.341Z",
-      updatedAt: "2024-10-21T16:37:09.341Z",
-      orderStatus: "Chờ xác nhận",
-      coupon: 6000,
-      couponType: false,
-      paymentMethod: "Chuyển khoản qua VNPay",
-      paymentStatus: true,
-    },
-  ];
+
+  const { data } = useSelector((state) => state.dashboard.order);
+
   return (
     <div className="mb-6 p-2">
       <div className="mb-5 ml-3 text-xl font-semibold text-black/85">

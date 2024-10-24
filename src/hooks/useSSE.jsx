@@ -2,15 +2,26 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { changedPendingReservation } from "../redux/reducer/reservationSlice";
 import { toast } from "react-toastify";
-import { getReservationsByStatus } from "../services/reservationService";
+import {
+  getNewAndRecentReservation,
+  getReservationsByStatus,
+} from "../services/reservationService";
 import StatusCodes from "../utils/StatusCodes";
 import { changedPendingContact } from "../redux/reducer/contactSlice";
 import { getAllContactsPending } from "../services/contactService";
 import {
+  changedIncome,
+  changedOrder,
   changedReservation,
   newCustomer,
 } from "../redux/reducer/dashboardSlice";
 import { countNewCustomerToday } from "../services/accountService";
+import {
+  calculateIncomesToday,
+  getNewAndRecentOrders,
+  getOrdersWIthFilter,
+} from "../services/orderService";
+import { changedPendingOrder } from "../redux/reducer/orderSlice";
 
 const useSSE = () => {
   const dispatch = useDispatch();
@@ -23,12 +34,6 @@ const useSSE = () => {
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
         dispatch(
           changedPendingReservation({
-            total: res.DT.length,
-            data: res.DT,
-          }),
-        );
-        dispatch(
-          changedReservation({
             total: res.DT.length,
             data: res.DT,
           }),
@@ -49,6 +54,24 @@ const useSSE = () => {
       }
     };
 
+    const getInitialOrder = async () => {
+      const res = await getOrdersWIthFilter({
+        status: "pending",
+        page: 1,
+        limit: 6,
+      });
+
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        dispatch(
+          changedPendingOrder({
+            total: res.DT.totalData,
+            data: res.DT.data,
+            totalPages: res.DT.totalPages,
+          }),
+        );
+      }
+    };
+
     const getInitialNewCustomer = async () => {
       const res = await countNewCustomerToday();
 
@@ -57,9 +80,39 @@ const useSSE = () => {
       }
     };
 
+    const getInitialNewOrder = async () => {
+      const res = await getNewAndRecentOrders(6);
+
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        dispatch(changedOrder({ count: res.DT.count, data: res.DT.data }));
+      }
+    };
+
+    const getInitialNewReservation = async () => {
+      const res = await getNewAndRecentReservation(6);
+
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        dispatch(
+          changedReservation({ count: res.DT.count, data: res.DT.data }),
+        );
+      }
+    };
+
+    const getInitialIncomes = async () => {
+      const res = await calculateIncomesToday();
+
+      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
+        dispatch(changedIncome({ income: res.DT.incomes }));
+      }
+    };
+
     getInitialReservation();
     getInitialContact();
+    getInitialOrder();
     getInitialNewCustomer();
+    getInitialNewOrder();
+    getInitialNewReservation();
+    getInitialIncomes();
   }, []);
 
   // Lắng nghe SSE events
@@ -74,9 +127,18 @@ const useSSE = () => {
       const { isNew, totalItems, data } = payload;
 
       dispatch(changedPendingReservation({ total: totalItems, data }));
-      dispatch(changedReservation({ total: totalItems, data }));
       if (isNew === true) {
         toast.info("New reservation");
+      }
+    });
+
+    eventSource.addEventListener("changed-pending-order", (event) => {
+      const payload = JSON.parse(event.data);
+      const { isNew, data, totalPages, totalData } = payload;
+
+      dispatch(changedPendingOrder({ total: totalData, data, totalPages }));
+      if (isNew === true) {
+        toast.info("New order");
       }
     });
 
@@ -95,6 +157,27 @@ const useSSE = () => {
       const { count } = payload;
 
       dispatch(newCustomer({ count }));
+    });
+
+    eventSource.addEventListener("new-order", (event) => {
+      const payload = JSON.parse(event.data);
+      const { count, data } = payload;
+
+      dispatch(changedOrder({ count, data }));
+    });
+
+    eventSource.addEventListener("new-reservation", (event) => {
+      const payload = JSON.parse(event.data);
+      const { count, data } = payload;
+
+      dispatch(changedReservation({ count, data }));
+    });
+
+    eventSource.addEventListener("calculate-incomes", (event) => {
+      const payload = JSON.parse(event.data);
+      const { incomes } = payload;
+
+      dispatch(changedIncome({ income: incomes }));
     });
   }, []);
 };

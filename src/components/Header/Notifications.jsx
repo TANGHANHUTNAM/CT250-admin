@@ -8,117 +8,54 @@ import { useTranslation } from "react-i18next";
 
 const Notifications = () => {
   const { t } = useTranslation();
+
+  const order = useSelector((state) => state.order);
   const notificationsMenu = (
-    <div className="w-64 rounded-lg bg-white p-3 shadow-lg">
-      {/* Header */}
-      <div className="rounded-t-lg bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-600">
-        {t("Notifications.content1")}
-      </div>
-
-      {/* Notifications List */}
-      <ul className="py-2">
-        <li className="flex items-center px-4 py-2 hover:bg-gray-100">
-          <svg
-            className="mr-2 h-5 w-5 text-green-500"
-            fill="currentColor"
-            viewBox="0 0 512 512"
-          >
-            {/* SVG path */}
-          </svg>
-          <span className="text-gray-700">{t("Notifications.content2")}</span>
-        </li>
-        <li className="flex items-center px-4 py-2 hover:bg-gray-100">
-          <svg
-            className="mr-2 h-5 w-5 text-red-500"
-            fill="currentColor"
-            viewBox="0 0 512 512"
-          >
-            {/* SVG path */}
-          </svg>
-          <span className="text-gray-700">{t("Notifications.content3")}</span>
-        </li>
-        <li className="flex items-center px-4 py-2 hover:bg-gray-100">
-          <svg
-            className="mr-2 h-5 w-5 text-blue-500"
-            fill="currentColor"
-            viewBox="0 0 512 512"
-          >
-            {/* SVG path */}
-          </svg>
-          <span className="text-gray-700">{t("Notifications.content4")}</span>
-        </li>
-        <li className="flex items-center px-4 py-2 hover:bg-gray-100">
-          <svg
-            className="mr-2 h-5 w-5 text-purple-500"
-            fill="currentColor"
-            viewBox="0 0 512 512"
-          >
-            {/* SVG path */}
-          </svg>
-          <span className="text-gray-700">{t("Notifications.content5")}</span>
-        </li>
-        <li className="flex items-center px-4 py-2 hover:bg-gray-100">
-          <svg
-            className="mr-2 h-5 w-5 text-yellow-500"
-            fill="currentColor"
-            viewBox="0 0 512 512"
-          >
-            {/* SVG path */}
-          </svg>
-          <span className="text-gray-700">{t("Notifications.content6")}</span>
-        </li>
+    <div className="dropdown-menu show w-80 rounded-lg bg-white p-0 shadow-lg">
+      <h6 className="dropdown-header rounded-t-lg bg-yellow-500 p-2 pl-4 font-semibold text-white">
+        {t("Notifications.order.new", { total: order?.total })}
+      </h6>
+      <ul className="w-full divide-y divide-gray-200">
+        {order?.data?.slice(0, 3)?.map((item) => {
+          return (
+            <li key={item?._id} className="flex w-full px-4 py-2">
+              <div className="w-full">
+                <div className="flex items-center justify-between text-sm font-medium text-gray-500">
+                  <span className="truncate">{item?.receiverPhone}</span>
+                  <span className="text-xs">
+                    {new Date(item?.orderDate).toLocaleString("vi-VN", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                    })}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-sm font-medium text-gray-500">
+                  <div className="text-gray-500">{item?.receiverName}</div>
+                  <div className="font-xs text-yellow-400">
+                    x{item?.dishes?.length}
+                  </div>
+                </div>
+              </div>
+            </li>
+          );
+        })}
       </ul>
-
-      {/* Divider */}
-      <div className="my-2 border-t border-gray-200"></div>
-
-      {/* Server Info */}
-      <div className="px-4 py-2 text-sm font-semibold text-gray-600">
-        Server
+      <div className="border-t border-gray-200 py-2 text-center">
+        <Link
+          to={"/dishes-order"}
+          className="font-semibold text-yellow-500 hover:text-yellow-600"
+        >
+          {t("Notifications.order.seeAllOrder")}
+        </Link>
       </div>
-      <ul className="py-2">
-        <li className="px-4 py-2">
-          <div className="mb-1 text-xs font-semibold uppercase text-gray-600">
-            CPU Usage
-          </div>
-          <div className="relative h-2 rounded-full bg-gray-200">
-            <div
-              className="absolute left-0 top-0 h-2 bg-blue-500"
-              style={{ width: "25%" }}
-            ></div>
-          </div>
-          <div className="text-xs text-gray-500">348 processes. 1/4 cores</div>
-        </li>
-        <li className="px-4 py-2">
-          <div className="mb-1 text-xs font-semibold uppercase text-gray-600">
-            Memory Usage
-          </div>
-          <div className="relative h-2 rounded-full bg-gray-200">
-            <div
-              className="absolute left-0 top-0 h-2 bg-yellow-500"
-              style={{ width: "70%" }}
-            ></div>
-          </div>
-          <div className="text-xs text-gray-500">11444GB/16384MB</div>
-        </li>
-        <li className="px-4 py-2">
-          <div className="mb-1 text-xs font-semibold uppercase text-gray-600">
-            SSD Usage
-          </div>
-          <div className="relative h-2 rounded-full bg-gray-200">
-            <div
-              className="absolute left-0 top-0 h-2 bg-red-500"
-              style={{ width: "90%" }}
-            ></div>
-          </div>
-          <div className="text-xs text-gray-500">243GB/256GB</div>
-        </li>
-      </ul>
     </div>
   );
 
   const reservation = useSelector((state) => state.reservation);
-
   const orderTableMenu = (
     <div className="dropdown-menu show w-80 rounded-lg bg-white p-0 shadow-lg">
       <h6 className="dropdown-header rounded-t-lg bg-red-500 p-2 pl-4 font-semibold text-white">
@@ -218,7 +155,7 @@ const Notifications = () => {
         >
           <TiShoppingCart className="opacity-75" />
           <div className="absolute -right-3 -top-3 flex h-5 w-5 items-center justify-center rounded-full bg-yellow-500 text-xs text-white">
-            0
+            {order?.total ?? 0}
           </div>
         </Link>
       </Dropdown>
