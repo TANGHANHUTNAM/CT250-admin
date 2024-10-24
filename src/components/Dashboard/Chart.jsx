@@ -7,19 +7,22 @@ import {
   CategoryScale,
   LinearScale,
   Tooltip,
+  BarElement,
 } from "chart.js";
 
 // Đăng ký các thành phần cần thiết cho biểu đồ
 ChartJS.register(
   LineElement,
+  BarElement,
   PointElement,
   CategoryScale,
   LinearScale,
-  Tooltip
+  Tooltip,
 );
 
 export const LineChart1 = () => {
   const data = {
+    type: "line",
     labels: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"],
     datasets: [
       {
@@ -70,6 +73,7 @@ export const LineChart1 = () => {
 
 export const LineChart2 = () => {
   const data = {
+    type: "line",
     labels: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"],
     datasets: [
       {
@@ -120,6 +124,7 @@ export const LineChart2 = () => {
 
 export const LineChart3 = () => {
   const data = {
+    type: "line",
     labels: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"],
     datasets: [
       {
@@ -170,6 +175,7 @@ export const LineChart3 = () => {
 
 export const BarChart1 = () => {
   const data = {
+    type: "bar",
     labels: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"],
     datasets: [
       {
