@@ -1,8 +1,14 @@
-import { Table } from "antd";
+import { Table, Tag } from "antd";
 import { useTranslation } from "react-i18next";
 import { formatCurrency } from "../../utils/format";
 import { useSelector } from "react-redux";
-
+const ORDER_STATUS = {
+  pending: "Chờ xác nhận",
+  preparing: "Đang chuẩn bị",
+  delivering: "Đang vận chuyển",
+  completed: "Hoàn thành",
+  canceled: "Đã hủy",
+};
 const OrderPending = () => {
   const { t } = useTranslation();
 
@@ -24,9 +30,8 @@ const OrderPending = () => {
     {
       title: "Tổng thanh toán",
       dataIndex: "orderTotal",
-
       render: (orderTotal) => {
-        return <span>{formatCurrency(orderTotal)}</span>;
+        return <Tag color={"red"}>{formatCurrency(orderTotal)}</Tag>;
       },
     },
     {
@@ -40,19 +45,35 @@ const OrderPending = () => {
     {
       title: "Trạng thái thanh toán",
       dataIndex: "paymentStatus",
-
       render: (paymentStatus) => {
         return (
-          <span>{paymentStatus ? "Đã thanh toán" : "Chưa thanh toán"}</span>
+          <Tag color={paymentStatus ? "success" : "red"}>
+            {paymentStatus ? "Đã thanh toán" : "Chưa thanh toán"}
+          </Tag>
         );
       },
     },
     {
       title: "Trạng thái đơn hàng",
       dataIndex: "orderStatus",
-
       render: (orderStatus) => {
-        return <span>{orderStatus}</span>;
+        return (
+          <Tag
+            color={
+              orderStatus === ORDER_STATUS.pending
+                ? "blue"
+                : orderStatus === ORDER_STATUS.preparing
+                  ? "orange"
+                  : orderStatus === ORDER_STATUS.delivering
+                    ? "gold"
+                    : orderStatus === ORDER_STATUS.completed
+                      ? "success"
+                      : "red"
+            }
+          >
+            {orderStatus}
+          </Tag>
+        );
       },
     },
     {
@@ -79,8 +100,8 @@ const OrderPending = () => {
 
   return (
     <div className="mb-6 p-2">
-      <div className="mb-5 ml-3 text-xl font-semibold text-black/85">
-        {t("OrderPending.currentOrder")}
+      <div className="mb-5 ml-2 text-xl font-semibold text-blue-500">
+        ĐƠN HÀNG GẦN ĐÂY
       </div>
       <Table
         size="small"
