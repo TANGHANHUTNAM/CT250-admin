@@ -15,8 +15,10 @@ import { CiEdit } from "react-icons/ci";
 import ModalViewCategoryLevel2 from "./ModalViewCategoryLevel2";
 import ModalEditCategory from "./ModalEditCategory";
 import ModalCreateCategory from "./ModalCreateCategory";
+import useDynamicTitle from "../../hooks/useDynamicTitle";
 
 const Category = () => {
+  useDynamicTitle("Quản lý danh mục");
   const [openModalEditCategory, setOpenModalEditCategory] = useState(false);
   const [openModalViewCategoryLevel2, setOpenModalViewCategoryLevel2] =
     useState(false);

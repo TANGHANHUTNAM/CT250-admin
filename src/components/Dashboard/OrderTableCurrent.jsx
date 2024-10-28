@@ -1,6 +1,11 @@
 import { Table, Tag } from "antd";
 import { useSelector } from "react-redux";
-
+const RESERVATION_STATUS = {
+  pending: "Chờ xác nhận",
+  confirmed: "Đã xác nhận",
+  completed: "Hoàn thành",
+  canceled: "Đã hủy",
+};
 const OrderTablePending = () => {
   const columns = [
     {
@@ -37,9 +42,22 @@ const OrderTablePending = () => {
     {
       title: "Trạng thái đơn",
       dataIndex: "status",
-
       render: (status) => {
-        return <Tag color={"blue"}>{status}</Tag>;
+        return (
+          <Tag
+            color={
+              status === RESERVATION_STATUS.pending
+                ? "blue"
+                : status === RESERVATION_STATUS.confirmed
+                  ? "yellow"
+                  : status === RESERVATION_STATUS.completed
+                    ? "green"
+                    : "red"
+            }
+          >
+            {status}
+          </Tag>
+        );
       },
     },
     {
@@ -66,8 +84,8 @@ const OrderTablePending = () => {
 
   return (
     <div className="p-2">
-      <div className="mb-5 ml-3 text-xl font-semibold text-black/85">
-        Đơn đặt bàn gần đây
+      <div className="mb-5 ml-3 text-xl font-semibold text-blue-500">
+        ĐƠN ĐẶT BÀN GẦN ĐÂY
       </div>
       <Table
         bordered

@@ -28,9 +28,11 @@ import StatusCodes from "../../utils/StatusCodes";
 import ModalCreateDiscount from "./ModalCreateDiscount";
 import ModalEditDiscount from "./ModalEditDiscount";
 import SearchFilterInput from "./SearchFilterInput";
+import useDynamicTitle from "../../hooks/useDynamicTitle";
 
 const ManageDiscount = () => {
-  const LIMIT = 5;
+  useDynamicTitle("Quản lý coupon");
+  const LIMIT = 7;
   // Modal
   const [openModalCreateCoupon, setOpenModalCreateCoupon] = useState(false);
   const [openModalEditCoupon, setOpenModalEditCoupon] = useState(false);

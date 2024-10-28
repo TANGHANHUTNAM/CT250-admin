@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useCountUp } from "react-countup";
 
 export const useCountup = (end) => {
@@ -7,8 +7,11 @@ export const useCountup = (end) => {
     ref: countUpRef,
     start: 0,
     end,
-    duration: 3,
+    duration: 2,
   });
+  useEffect(() => {
+    if (countUpRef.current) update(end);
+  }, [end, update]);
   return { countUpRef, update };
 };
 
@@ -17,6 +20,7 @@ export const useVNDCountup = (end) => {
 
   const { update } = useCountUp({
     ref: countUpRef,
+    start: 0,
     end,
     formattingFn: (value) => {
       return new Intl.NumberFormat("vi-VN", {
@@ -25,6 +29,8 @@ export const useVNDCountup = (end) => {
       }).format(value);
     },
   });
-
+  useEffect(() => {
+    if (countUpRef.current) update(end);
+  }, [end, update]);
   return { countUpRef, update };
 };

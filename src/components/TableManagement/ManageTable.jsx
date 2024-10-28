@@ -38,8 +38,10 @@ import ModalCreateTypeTable from "./ModalCreateTypeTable";
 import ModalEditTable from "./ModalEditTable";
 import ModalViewTypeTable from "./ModalViewTypeTable";
 import SearchFilterInput from "./SearchFilterInput";
+import useDynamicTitle from "../../hooks/useDynamicTitle";
 
 const ManageTable = () => {
+  useDynamicTitle("Quản lý bàn");
   const LIMIT = 6;
   // Modal
   const [openModalCreateTable, setOpenModalCreateTable] = useState(false);

@@ -18,7 +18,9 @@ import FilterSort from "./FilterSort";
 import { debounce } from "lodash";
 import { getAllCagegory } from "../../services/categoryService";
 import ModalViewDeletedDish from "./ModalViewDeletedDish";
+import useDynamicTitle from "../../hooks/useDynamicTitle";
 const ManageDishes = () => {
+  useDynamicTitle("Quản lý món ăn");
   const LIMIT = 10;
   const [openModalCreateDish, setOpenModalCreateDish] = useState(false);
   const [openModalViewDish, setOpenModalViewDish] = useState(false);

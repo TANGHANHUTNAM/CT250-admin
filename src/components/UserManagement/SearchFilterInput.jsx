@@ -67,7 +67,7 @@ const SearchFilterInput = ({
             setSearch(e.target.value);
           }}
           className="h-full w-60 rounded-md border border-blue-500 p-1.5 pl-2 pr-10 outline-none"
-          placeholder="username, tên, email"
+          placeholder="Tìm kiếm"
           value={search}
         />
         <div

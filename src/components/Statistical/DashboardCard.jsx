@@ -8,38 +8,47 @@ const DashboardCard = ({
   change,
   isPositive,
   background = "bg-white",
+  selected,
+  setSelected,
 }) => {
   const items = [
     {
-      label: <a href="https://www.antgroup.com">1st menu item</a>,
-      key: "0",
+      label: "Hôm nay",
+      key: "today",
     },
     {
-      label: <a href="https://www.aliyun.com">2nd menu item</a>,
-      key: "1",
+      label: "Tháng",
+      key: "thisMonth",
     },
     {
-      type: "divider",
+      label: "Năm",
+      key: "thisYear",
     },
     {
-      label: "3rd menu item",
-      key: "3",
+      label: "Tất cả",
+      key: "allTime",
     },
   ];
   return (
-    <div className={`rounded-lg ${background} p-6 text-gray-900 shadow-lg`}>
+    <div className={`rounded-lg ${background} p-5 text-gray-900 shadow-md`}>
       <div className="flex items-center justify-between text-2xl font-semibold">
-        <span>{value}</span>
+        <span className="text-xl">{value}</span>
         <div className="text-sm">
           <Dropdown
             menu={{
               items,
+              onClick: ({ key }) => {
+                setSelected({
+                  key,
+                  value: items.find((item) => item.key === key).label,
+                });
+              },
             }}
-            trigger={["click"]}
+            trigger={["hover"]}
           >
             <a onClick={(e) => e.preventDefault()}>
               <Space>
-                Click me
+                {selected?.value}
                 <DownOutlined />
               </Space>
             </a>
