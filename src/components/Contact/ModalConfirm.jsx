@@ -37,7 +37,7 @@ const ModalConfirm = ({
           }),
         );
       }
-      toast.success(res.EM);
+      toast.success("Xóa liên hệ thành công!");
       setIsLoading(false);
       if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
         toast.error(res.EM);

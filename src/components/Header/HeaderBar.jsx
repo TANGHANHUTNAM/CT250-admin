@@ -30,7 +30,7 @@ const HeaderBar = ({ collapsed, setCollapsed }) => {
     const res = await logout({ id: id, email: email });
 
     if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-      toast.success(res.EM);
+      toast.success("Đăng xuất thành công!");
       dispatch(logoutSuccess());
       navigate("/login");
     }

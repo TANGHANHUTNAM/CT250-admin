@@ -57,7 +57,7 @@ const ReservationLayout = () => {
     console.log(res);
 
     if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-      toast.success(res.EM);
+      toast.success("Hoàn thành đặt bàn thành công!");
       getReservations();
       setSelectedReservation(null);
     }

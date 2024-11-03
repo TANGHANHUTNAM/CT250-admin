@@ -70,7 +70,7 @@ const ModalContactPending = ({
               limit: limitCompleted,
             }),
           );
-          toast.success(res.EM);
+          toast.success("Phản hồi thành công!");
           setIsLoading(false);
         }
         if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {

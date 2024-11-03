@@ -75,7 +75,7 @@ const UserInfo = () => {
         values.avatar,
       );
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-        toast.success(res.EM);
+        toast.success("Cập nhật thông tin thành công!");
         dispatch(updateInformation({ ...res.DT, avatar: res.DT?.avatar?.url }));
         setFileList([]); // Clear the uploaded file
         setUploadStatus(""); // Clear the upload status after success
