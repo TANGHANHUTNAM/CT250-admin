@@ -8,7 +8,7 @@ import OrderLayout from "../layouts/OrderLayout";
 import Statistical from "../components/Statistical/Statistical";
 import ManageDiscount from "../components/Discount/ManageDiscount";
 import Contact from "../components/Contact/Contact";
-import News from "../components/News/News";
+import ManageNews from "../components/News/ManageNews";
 import { PrivateRoute, RoleRoute } from "./privateRoute";
 import NotFound from "../components/NotFound/NotFound";
 import NotPermitted from "../components/Permission/NotPermitted";
@@ -18,6 +18,7 @@ import ManageDishes from "../components/Dishes/ManageDishes";
 import Setting from "../components/Setting/Setting";
 import ManageOrder from "../components/OrderManagement/ManageOrder";
 import ManageUser from "../components/UserManagement/ManageUser";
+import CreateNews from "../components/News/CreateNews";
 
 const routes = [
   {
@@ -90,7 +91,11 @@ const routes = [
       },
       {
         path: "manage-news",
-        element: <News />,
+        element: <ManageNews />,
+      },
+      {
+        path: "create-news",
+        element: <CreateNews />,
       },
       {
         path: "not-permitted",

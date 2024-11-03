@@ -56,7 +56,7 @@ const HandleReservationModal = ({
       });
 
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-        toast.success(res.EM);
+        toast.success("Chấp nhận đặt bàn thành công!");
         handleCancel();
         getReservations();
         setSelectedReservation(null);
@@ -65,7 +65,7 @@ const HandleReservationModal = ({
       }
 
       if (res && res.EC === StatusCodes.ERROR_DEFAULT) {
-        toast.success(res.EM);
+        toast.error(res.EM);
       }
 
       setLoading(false);
@@ -77,7 +77,7 @@ const HandleReservationModal = ({
     const res = await rejectReservation(data?._id);
 
     if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-      toast.success(res.EM);
+      toast.success("Từ chối đặt bàn thành công!");
       handleCancel();
       getReservations();
       setSelectedReservation(null);
@@ -86,7 +86,7 @@ const HandleReservationModal = ({
     }
 
     if (res && res.EC === StatusCodes.ERROR_DEFAULT) {
-      toast.success(res.EM);
+      toast.error(res.EM);
     }
 
     setLoading(false);

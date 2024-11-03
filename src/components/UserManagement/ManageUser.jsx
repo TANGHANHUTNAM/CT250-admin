@@ -38,7 +38,7 @@ import * as xlsx from "xlsx";
 import useDynamicTitle from "../../hooks/useDynamicTitle";
 const ManageUser = () => {
   useDynamicTitle("Quản lý người dùng");
-  const LIMIT = 6;
+  const LIMIT = 7;
   // Modal
   const [openModalCreateEmployee, setOpenModalCreateEmployee] = useState(false);
   const [openModalViewUser, setOpenModalViewUser] = useState(false);

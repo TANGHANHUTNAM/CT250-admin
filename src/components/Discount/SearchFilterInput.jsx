@@ -1,7 +1,6 @@
 import { Dropdown } from "antd";
 import { MdFilterListAlt } from "react-icons/md";
 import { IoMdSearch } from "react-icons/io";
-import { useEffect, useState } from "react";
 
 const SearchFilterInput = ({
   search,

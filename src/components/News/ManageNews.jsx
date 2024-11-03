@@ -2,6 +2,7 @@ import {
   Checkbox,
   Col,
   Dropdown,
+  Image,
   Menu,
   Row,
   Space,
@@ -16,81 +17,70 @@ import { CiEdit } from "react-icons/ci";
 import { GrPowerReset } from "react-icons/gr";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoSettingsSharp } from "react-icons/io5";
+import { IoEyeOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
-import {
-  addCoupon,
-  changeStatusCoupon,
-  getAllCouponWithFilter,
-  updateCoupon,
-} from "../../services/couponService";
-import { formatCurrency } from "../../utils/format";
 import StatusCodes from "../../utils/StatusCodes";
-import ModalCreateDiscount from "./ModalCreateDiscount";
-import ModalEditDiscount from "./ModalEditDiscount";
 import SearchFilterInput from "./SearchFilterInput";
 import useDynamicTitle from "../../hooks/useDynamicTitle";
+import {
+  changeStatusNewsService,
+  getAllNewsService,
+} from "../../services/newsService";
+import Avatar from "../avatar/Avatar";
+import ModalViewContentNews from "./ModalViewContentNews";
+import { Link } from "react-router-dom";
+import ModalEditNews from "./ModalEditNews";
 
-const ManageDiscount = () => {
-  useDynamicTitle("Quản lý coupon");
-  const LIMIT = 7;
+const ManageNews = () => {
+  useDynamicTitle("Quản lý tin tức");
+  const LIMIT = 4;
   // Modal
-  const [openModalCreateCoupon, setOpenModalCreateCoupon] = useState(false);
-  const [openModalEditCoupon, setOpenModalEditCoupon] = useState(false);
+  const [isOpenModalViewNews, setIsOpenModalViewNews] = useState(false);
+  const [isOpenModalEditNews, setIsOpenModalEditNews] = useState(false);
 
   // Table
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(LIMIT);
   const [total, setTotal] = useState(0);
 
-  const [listCoupon, setListCoupon] = useState([]);
+  const [listNews, setListNews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [sortBy, setSortBy] = useState({
     key: "",
     value: "Chọn sắp xếp",
   });
-  const [filterTypeCoupon, setFilterTypeCoupon] = useState({
-    key: "",
-    value: "Chọn loại giảm giá",
-  });
-  const [filterStatusCoupon, setFilterStatusCoupon] = useState({
+  const [filterStatusNews, setFilterStatusNews] = useState({
     key: "",
     value: "Chọn trạng thái",
   });
   const [search, setSearch] = useState("");
-  const [detailCoupon, setDetailCoupon] = useState(null);
 
-  const debouncedFetchCoupon = useCallback(
+  const [detailContent, setDetailContent] = useState("");
+
+  const debouncedFetchNews = useCallback(
     debounce(() => {
-      fetchCoupon();
+      fetchNews();
     }, 300),
-    [
-      currentPage,
-      pageSize,
-      search,
-      sortBy,
-      filterTypeCoupon,
-      filterStatusCoupon,
-    ],
+    [currentPage, pageSize, search, sortBy, filterStatusNews],
   );
 
   useEffect(() => {
-    debouncedFetchCoupon();
+    debouncedFetchNews();
     return () => {
-      debouncedFetchCoupon.cancel();
+      debouncedFetchNews.cancel();
     };
-  }, [debouncedFetchCoupon]);
+  }, [debouncedFetchNews]);
 
-  const fetchCoupon = async () => {
+  const fetchNews = async () => {
     setIsLoading(true);
     let query = `page=${currentPage}&limit=${pageSize}`;
     if (search) query += `&search=${search}`;
-    if (filterTypeCoupon.key) query += `&type=${filterTypeCoupon.key}`;
-    if (filterStatusCoupon.key) query += `&active=${filterStatusCoupon.key}`;
+    if (filterStatusNews.key) query += `&published=${filterStatusNews.key}`;
     if (sortBy.key) query += `&sortBy=${sortBy.key}`;
     try {
-      const res = await getAllCouponWithFilter(query);
+      const res = await getAllNewsService(query);
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-        setListCoupon(res.DT.data);
+        setListNews(res.DT.data);
         setTotal(res.DT.totalData);
       }
       if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
@@ -124,11 +114,7 @@ const ManageDiscount = () => {
       key: "",
       value: "Chọn sắp xếp",
     });
-    setFilterTypeCoupon({
-      key: "",
-      value: "Chọn loại giảm giá",
-    });
-    setFilterStatusCoupon({
+    setFilterStatusNews({
       key: "",
       value: "Chọn trạng thái",
     });
@@ -136,49 +122,13 @@ const ManageDiscount = () => {
     setCheckedList(defaultCheckedList);
   };
 
-  const handleCreateCoupon = async (data) => {
+  const handleActiveNews = async (id, data) => {
     setIsLoading(true);
     try {
-      const res = await addCoupon(data);
+      const res = await changeStatusNewsService(id, data);
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-        toast.success("Thêm coupon thành công");
-        fetchCoupon();
-        setOpenModalCreateCoupon(false);
-      }
-      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
-        toast.error(res.EM);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
-
-  const handleEditCoupon = async (id, data) => {
-    setIsLoading(true);
-    try {
-      const res = await updateCoupon(id, data);
-      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-        toast.success("Cập nhật coupon thành công");
-        fetchCoupon();
-        setOpenModalEditCoupon(false);
-      }
-      if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
-        toast.error(res.EM);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
-
-  const handleActiveCoupon = async (id, data) => {
-    setIsLoading(true);
-    try {
-      const res = await changeStatusCoupon(id, data);
-      if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-        toast.success("Thay đổi trạng thái coupon thành công");
-        fetchCoupon();
+        toast.success("Thay đổi trạng thái tin tức thành công");
+        fetchNews();
       }
       if (res && res.EC !== StatusCodes.SUCCESS_DAFAULT) {
         toast.error(res.EM);
@@ -202,88 +152,74 @@ const ManageDiscount = () => {
       ),
     },
     {
-      title: "Mã code",
-      dataIndex: "code",
-      key: "code",
+      title: "Tác giả",
+      dataIndex: "authorName",
+      key: "author",
       align: "center",
-      width: 150,
-      render: (code) => {
-        return <span className="font-medium">{code}</span>;
-      },
-    },
-    {
-      title: "Loại",
-      dataIndex: "type",
-      key: "type",
-      align: "center",
-      render: (type) => {
+      render: (_, record) => {
         return (
-          <span>{type ? "Giảm giá theo %" : "Giảm giá theo giá VNĐ"}</span>
+          <Space size="middle">
+            <Avatar size={32} src={record?.authorAvatar} />
+            <span>{record?.authorFullName}</span>
+          </Space>
         );
       },
     },
     {
-      title: "Giá trị",
-      dataIndex: "value",
-      key: "value",
+      title: "Tiêu đề tin tức",
+      dataIndex: "title",
+      key: "title",
       align: "center",
-      render: (value, record) => {
+      render: (title) => {
+        return <span className="font-medium">{title}</span>;
+      },
+    },
+    {
+      title: "Ảnh mô tả",
+      dataIndex: "image",
+      key: "image",
+      align: "center",
+      render: (image) => {
+        return <Image src={image} width={150} height={100} alt="image" />;
+      },
+    },
+    {
+      title: "Slug",
+      dataIndex: "slug",
+      key: "slug",
+      align: "center",
+      render: (slug) => {
+        return <span>{slug}</span>;
+      },
+    },
+    {
+      title: "Ngày đăng",
+      dataIndex: "publishedAt",
+      key: "publishedAt",
+      align: "center",
+      render: (publishedAt) => {
         return (
-          <>
-            {record.type ? (
-              <Tag color={"green"}>{value}%</Tag>
-            ) : (
-              <Tag color={"red"}>{formatCurrency(value)}</Tag>
-            )}
-          </>
+          <span>
+            {publishedAt
+              ? new Date(publishedAt).toLocaleDateString("vi-VN", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                })
+              : "--"}
+          </span>
         );
-      },
-    },
-    {
-      title: "Số lượng",
-      dataIndex: "quantity",
-      key: "quantity",
-      align: "center",
-      render: (quantity) => {
-        return <span>{quantity}</span>;
-      },
-    },
-    {
-      title: "Giá thấp nhất để áp dụng",
-      dataIndex: "minimumPriceToUse",
-      key: "minimumPriceToUse",
-      align: "center",
-      render: (minimumPriceToUse) => {
-        return <span>{formatCurrency(minimumPriceToUse)}</span>;
-      },
-    },
-    {
-      title: "Ngày áp dụng",
-      dataIndex: "startDate",
-      key: "startDate",
-      align: "center",
-      render: (startDate) => {
-        return <span>{startDate}</span>;
-      },
-    },
-    {
-      title: "Ngày hết hạn",
-      dataIndex: "endDate",
-      key: "endDate",
-      align: "center",
-      render: (endDate) => {
-        return <span>{endDate}</span>;
       },
     },
     {
       title: "Trạng thái",
-      dataIndex: "active",
-      key: "active",
+      dataIndex: "isPublished",
+      key: "isPublished",
       align: "center",
-      render: (active) => {
+      render: (isPublished) => {
         return (
-          <Tag color={active ? "green" : "red"}>
-            {active ? "Active".toUpperCase() : "Inactive".toUpperCase()}
+          <Tag color={isPublished ? "green" : "red"}>
+            {isPublished ? "Đã đăng".toUpperCase() : "Chưa đăng".toUpperCase()}
           </Tag>
         );
       },
@@ -294,7 +230,15 @@ const ManageDiscount = () => {
       key: "createdAt",
       align: "center",
       render: (createdAt) => {
-        return <span>{new Date(createdAt).toLocaleDateString("vi-VN")}</span>;
+        return (
+          <span>
+            {new Date(createdAt).toLocaleDateString("vi-VN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}
+          </span>
+        );
       },
     },
     {
@@ -303,7 +247,15 @@ const ManageDiscount = () => {
       key: "updatedAt",
       align: "center",
       render: (updatedAt) => {
-        return <span>{new Date(updatedAt).toLocaleDateString("vi-VN")}</span>;
+        return (
+          <span>
+            {new Date(updatedAt).toLocaleDateString("vi-VN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}
+          </span>
+        );
       },
     },
     {
@@ -314,24 +266,38 @@ const ManageDiscount = () => {
       render: (_, record) => {
         return (
           <Space size="middle" className="text-xl">
+            {/* Xem nội dung */}
+            <Tooltip title="Xem nội dung">
+              <button
+                onClick={() => {
+                  setDetailContent(record);
+                  setIsOpenModalViewNews(true);
+                }}
+                className="text-blue-500"
+              >
+                <IoEyeOutline />
+              </button>
+            </Tooltip>
             {/* Chỉnh sửa coupon */}
-            <button
-              onClick={() => {
-                setDetailCoupon(record);
-                setOpenModalEditCoupon(true);
-              }}
-              className="text-yellow-500"
-            >
-              <CiEdit />
-            </button>
-            <Tooltip title={record?.active ? "Tắt kích hoạt" : "Kích hoạt"}>
+            <Tooltip title="Chỉnh sửa tin tức">
+              <button
+                onClick={() => {
+                  setDetailContent(record);
+                  setIsOpenModalEditNews(true);
+                }}
+                className="text-yellow-500"
+              >
+                <CiEdit />
+              </button>
+            </Tooltip>
+            <Tooltip title={record?.isPublished ? "Không đăng" : "Đăng"}>
               <Switch
                 className="mb-2"
                 size="small"
-                checked={record?.active}
-                defaultChecked={record?.active}
+                checked={record?.isPublished}
+                defaultChecked={record?.isPublished}
                 onChange={(e) => {
-                  handleActiveCoupon(record?._id, { active: e });
+                  handleActiveNews(record?._id, { isPublished: e });
                 }}
               />
             </Tooltip>
@@ -390,10 +356,8 @@ const ManageDiscount = () => {
             search={search}
             setSearch={setSearch}
             handleSearch={handleSearch}
-            filterTypeCoupon={filterTypeCoupon}
-            setFilterTypeCoupon={setFilterTypeCoupon}
-            filterStatusCoupon={filterStatusCoupon}
-            setFilterStatusCoupon={setFilterStatusCoupon}
+            filterStatusNews={filterStatusNews}
+            setFilterStatusNews={setFilterStatusNews}
             sortBy={sortBy}
             setSortBy={setSortBy}
             setCurrentPage={setCurrentPage}
@@ -401,13 +365,13 @@ const ManageDiscount = () => {
         </div>
         {/* Button */}
         <div className="flex space-x-1.5">
-          <button
-            onClick={() => setOpenModalCreateCoupon(true)}
-            className="flex w-fit items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-1.5 text-primary hover:bg-blue-500/80"
+          <Link
+            to="/create-news"
+            className="flex w-fit items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-1.5 text-primary hover:bg-blue-500/90 hover:text-primary"
           >
             <IoMdAddCircleOutline />
-            <span>Thêm coupon</span>
-          </button>
+            <span>Thêm tin tức mới</span>
+          </Link>
         </div>
       </div>
     );
@@ -418,7 +382,7 @@ const ManageDiscount = () => {
       <Row gutter={[0, 10]}>
         <Col span={12}>
           <div className="ml-2 py-1 text-3xl font-semibold uppercase text-blue-500">
-            Quản lý coupon
+            Quản lý tin tức
           </div>
         </Col>
         <Col span={12}>
@@ -438,7 +402,7 @@ const ManageDiscount = () => {
             title={renderHeader}
             bordered
             columns={newColumns}
-            dataSource={listCoupon}
+            dataSource={listNews}
             rowKey={(record) => record._id}
             onChange={handleChangeTable}
             loading={isLoading}
@@ -451,21 +415,22 @@ const ManageDiscount = () => {
           />
         </Col>
       </Row>
-      <ModalCreateDiscount
-        openModalCreateCoupon={openModalCreateCoupon}
-        setOpenModalCreateCoupon={setOpenModalCreateCoupon}
-        isLoading={isLoading}
-        handleCreateCoupon={handleCreateCoupon}
+      <ModalViewContentNews
+        detailContent={detailContent}
+        setIsOpenModalViewNews={setIsOpenModalViewNews}
+        isOpenModalViewNews={isOpenModalViewNews}
       />
-      <ModalEditDiscount
-        detailCoupon={detailCoupon}
-        handleEditCoupon={handleEditCoupon}
+      <ModalEditNews
+        fetchNews={fetchNews}
         isLoading={isLoading}
-        openModalEditCoupon={openModalEditCoupon}
-        setOpenModalEditCoupon={setOpenModalEditCoupon}
+        setIsLoading={setIsLoading}
+        detailContent={detailContent}
+        setDetailContent={setDetailContent}
+        isOpenModalEditNews={isOpenModalEditNews}
+        setIsOpenModalEditNews={setIsOpenModalEditNews}
       />
     </div>
   );
 };
 
-export default ManageDiscount;
+export default ManageNews;

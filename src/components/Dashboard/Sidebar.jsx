@@ -34,7 +34,7 @@ const Sidebar = ({ collapsed }) => {
     const res = await logout({ id: id, email: email });
 
     if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-      toast.success(res.EM);
+      toast.success("Đăng xuất thành công!");
       dispatch(logoutSuccess());
       navigate("/login");
     }
@@ -74,6 +74,15 @@ const Sidebar = ({ collapsed }) => {
       ),
     },
     {
+      key: "/dishes-order",
+      icon: <TiShoppingCart className="h-4 w-4" />,
+      label: (
+        <Link to="/dishes-order" className="text-sm">
+          Đơn đặt hàng
+        </Link>
+      ),
+    },
+    {
       key: "Đơn bàn",
       icon: <MdTableRestaurant className="h-4 w-4" />,
       label: <div className="text-sm">Đơn bàn</div>,
@@ -91,29 +100,6 @@ const Sidebar = ({ collapsed }) => {
           label: (
             <Link to="/manage-table" className="text-sm">
               Quản lý bàn
-            </Link>
-          ),
-        },
-      ],
-    },
-    {
-      key: "Đơn hàng",
-      icon: <TiShoppingCart className="h-4 w-4" />,
-      label: <div className="text-sm">Đơn hàng</div>,
-      children: [
-        {
-          key: "/dishes-order",
-          label: (
-            <Link to="/dishes-order" className="text-sm">
-              Đơn đặt hàng
-            </Link>
-          ),
-        },
-        {
-          key: "/manage-order",
-          label: (
-            <Link to="/manage-order" className="text-sm">
-              Quản lý đơn hàng
             </Link>
           ),
         },
@@ -143,6 +129,29 @@ const Sidebar = ({ collapsed }) => {
       ],
     },
     {
+      key: "news",
+      icon: <IoNewspaper className="h-4 w-4" />,
+      label: <div className="text-sm">{t("Sidebar.manageNews")}</div>,
+      children: [
+        {
+          key: "/create-news",
+          label: (
+            <Link to="/create-news" className="text-sm">
+              Tạo tin tức
+            </Link>
+          ),
+        },
+        {
+          key: "/manage-news",
+          label: (
+            <Link to="/manage-news" className="text-sm">
+              Quản lý tin tức
+            </Link>
+          ),
+        },
+      ],
+    },
+    {
       key: "/manage-discount",
       icon: <MdDiscount className="h-4 w-4" />,
       label: (
@@ -157,15 +166,6 @@ const Sidebar = ({ collapsed }) => {
       label: (
         <Link to="/manage-contact" className="text-sm">
           {t("Sidebar.manageContact")}
-        </Link>
-      ),
-    },
-    {
-      key: "/manage-news",
-      icon: <IoNewspaper className="h-4 w-4" />,
-      label: (
-        <Link to="/manage-news" className="text-sm">
-          {t("Sidebar.manageNews")}
         </Link>
       ),
     },
@@ -185,7 +185,9 @@ const Sidebar = ({ collapsed }) => {
       role === "staff" &&
       (item.key === "/manage-statistical" ||
         item.key === "/manage-user" ||
-        item.key === "/manage-customer")
+        item.key === "/manage-customer" ||
+        item.key === "news" ||
+        item.key === "/manage-discount")
     ) {
       return false;
     }

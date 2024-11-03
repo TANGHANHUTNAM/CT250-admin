@@ -43,7 +43,7 @@ const LoginForm = () => {
     const res = await login(data);
 
     if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-      toast.success(res.EM);
+      toast.success("Đăng nhập thành công!");
       dispatch(loginSuccess({ ...res.DT, avatar: res.DT?.avatar?.url }));
       navigate("/");
     }

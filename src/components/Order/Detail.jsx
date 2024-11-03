@@ -66,7 +66,7 @@ const Detail = ({
       const res = await cancelOrder(order?._id);
 
       if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-        toast.success(res.EM);
+        toast.success("Hủy đơn hàng thành công!");
         refetchOrder();
         setSelectedOrder(null);
       }
@@ -119,7 +119,7 @@ const Detail = ({
     const res = await completeOrder(order?._id);
 
     if (res && res.EC === StatusCodes.SUCCESS_DAFAULT) {
-      toast.success(res.EM);
+      toast.success("Đơn hàng đã được giao thành công!");
       refetchOrder();
       setSelectedOrder(null);
     }

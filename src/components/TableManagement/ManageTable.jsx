@@ -42,7 +42,7 @@ import useDynamicTitle from "../../hooks/useDynamicTitle";
 
 const ManageTable = () => {
   useDynamicTitle("Quản lý bàn");
-  const LIMIT = 6;
+  const LIMIT = 7;
   // Modal
   const [openModalCreateTable, setOpenModalCreateTable] = useState(false);
   const [openModalEditTable, setOpenModalEditTable] = useState(false);
