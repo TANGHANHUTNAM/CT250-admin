@@ -83,7 +83,11 @@ const routes = [
       },
       {
         path: "manage-discount",
-        element: <ManageDiscount />,
+        element: (
+          <RoleRoute>
+            <ManageDiscount />
+          </RoleRoute>
+        ),
       },
       {
         path: "manage-contact",
@@ -91,11 +95,19 @@ const routes = [
       },
       {
         path: "manage-news",
-        element: <ManageNews />,
+        element: (
+          <RoleRoute>
+            <ManageNews />
+          </RoleRoute>
+        ),
       },
       {
         path: "create-news",
-        element: <CreateNews />,
+        element: (
+          <RoleRoute>
+            <CreateNews />
+          </RoleRoute>
+        ),
       },
       {
         path: "not-permitted",

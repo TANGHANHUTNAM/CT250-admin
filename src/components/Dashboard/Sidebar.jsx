@@ -187,6 +187,8 @@ const Sidebar = ({ collapsed }) => {
         item.key === "/manage-user" ||
         item.key === "/manage-customer" ||
         item.key === "news" ||
+        item.key === "/manage-news" ||
+        item.key === "/create-news" ||
         item.key === "/manage-discount")
     ) {
       return false;
