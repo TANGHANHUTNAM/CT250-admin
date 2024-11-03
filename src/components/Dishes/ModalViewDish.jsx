@@ -60,7 +60,7 @@ const ModalViewDish = ({
         style={{ top: 20 }}
       >
         {dishDetail && (
-          <div className="rounded-lg bg-white p-6 shadow-lg">
+          <div className="rounded-lg bg-white p-6">
             <div className="flex flex-col items-center justify-center md:flex-row">
               <div className="mb-4 md:mb-0 md:w-1/3">
                 <img
