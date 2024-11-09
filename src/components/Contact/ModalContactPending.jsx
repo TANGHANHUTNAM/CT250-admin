@@ -95,7 +95,7 @@ const ModalContactPending = ({
   return (
     <>
       <Modal
-        title={t("ModalContactPending.Customer")}
+        title={"Thông tin liên hệ"}
         open={isModalOpen}
         onOk={handleOk}
         okText={t("ModalContactPending.sendFeedback")}
