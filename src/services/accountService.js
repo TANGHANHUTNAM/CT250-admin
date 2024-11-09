@@ -27,3 +27,7 @@ export const countNewCustomerToday = async () => {
 export const createMultipleUserRoleStaff = async (data) => {
   return axios.post("/api/v1/account/add/multiples", data);
 };
+
+export const changePassword = async (id, data) => {
+  return axios.put(`/api/v1/account/update/password/${id}`, data);
+};
