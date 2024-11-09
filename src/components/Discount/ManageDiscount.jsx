@@ -231,9 +231,9 @@ const ManageDiscount = () => {
         return (
           <>
             {record.type ? (
-              <Tag color={"green"}>{value}%</Tag>
+              <Tag color={"green"}>-{value}%</Tag>
             ) : (
-              <Tag color={"red"}>{formatCurrency(value)}</Tag>
+              <Tag color={"red"}>-{formatCurrency(value)}</Tag>
             )}
           </>
         );
@@ -294,7 +294,15 @@ const ManageDiscount = () => {
       key: "createdAt",
       align: "center",
       render: (createdAt) => {
-        return <span>{new Date(createdAt).toLocaleDateString("vi-VN")}</span>;
+        return (
+          <span>
+            {new Date(createdAt).toLocaleDateString("vi-VN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}
+          </span>
+        );
       },
     },
     {
@@ -303,7 +311,15 @@ const ManageDiscount = () => {
       key: "updatedAt",
       align: "center",
       render: (updatedAt) => {
-        return <span>{new Date(updatedAt).toLocaleDateString("vi-VN")}</span>;
+        return (
+          <span>
+            {new Date(updatedAt).toLocaleDateString("vi-VN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}
+          </span>
+        );
       },
     },
     {

@@ -346,10 +346,11 @@ const ManageTable = () => {
       dataIndex: "deleted",
       key: "deleted",
       align: "center",
+      width: "10%",
       render: (deleted) => {
         return (
           <Tag color={deleted ? "red" : "green"}>
-            <span className="">{deleted ? "Đã xóa" : "Hoạt động"}</span>
+            <span className="">{deleted ? "Đã bỏ" : "Còn sử dụng"}</span>
           </Tag>
         );
       },
