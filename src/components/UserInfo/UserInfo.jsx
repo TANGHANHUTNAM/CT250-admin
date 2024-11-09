@@ -157,7 +157,7 @@ const UserInfo = () => {
         </div>
       </div>
 
-      <Tabs defaultActiveKey="1" className="w-full ml-8">
+      <Tabs defaultActiveKey="1" className="w-full">
         <Tabs.TabPane tab="Tài khoản" key="1">
           <Form
             form={form}
