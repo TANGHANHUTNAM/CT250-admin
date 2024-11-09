@@ -89,7 +89,7 @@ const DishItem = ({
               <span className="rating flex items-center justify-center bg-transparent text-yellow-600">
                 <FaStar />
                 <span className="ml-1 text-xs font-bold">
-                  {dish?.averageRating ?? 0}
+                  {dish.averageRating.toFixed(1) ?? 0}
                 </span>
               </span>
               <span className="sold text-[10px] font-medium text-black sm:text-xs">
